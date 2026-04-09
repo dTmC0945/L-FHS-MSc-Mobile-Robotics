@@ -1,5 +1,5 @@
 # Created 2026-04-09 Thu 10:10
-#+title: LS FHS MSc Mobile Robotics
+#+title: MSc Mobile Robotics
 #+author: Daniel McGuiness
 
 * Table of Contents                                                   :TOC_2:
