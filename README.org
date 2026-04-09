@@ -18,42 +18,42 @@
   localisation, a perfect fit for use in mobile robotics.
 
 #+name: WORKBOOK
-| INDEX | DESCRIPTION        | VALUE                               | STATUS |
-|-------+--------------------+-------------------------------------+--------|
-|     1 | Official Name      | Mobile Robotik                      |        |
-|-------+--------------------+-------------------------------------+--------|
-|     2 | Lecture Code       | Mobile Robotik                      | A      |
-|     3 | Module Code        | Mobile Robotik                      | A      |
-|     4 | Degree             | M.Sc                                | A      |
-|     5 | Program Name       | Industrial Informatics and Robotics | A      |
-|     6 | Lecture Name       | Mobile Robotics                     |        |
-|     7 | Semester           | 4                                   | A      |
-|     8 | Season             | SS                                  | A      |
-|     9 | Room Type          | Lecture Room                        |        |
-|    10 | Assignments        | Personal Assignment A               | A      |
-|    11 | Lecturer           | Daniel T. McGuiness, Ph.D           |        |
-|    12 | Module Responsible | -                                   | A      |
-|-------+--------------------+-------------------------------------+--------|
-|    13 | Software           | Linux, ROS, Python                  |        |
-|    14 | Hardware           | -                                   |        |
-|-------+--------------------+-------------------------------------+--------|
-|    15 | SWS Total          | 2                                   | A      |
-|    16 | SWS Teaching       | 2                                   |        |
-|    17 | SWS Tutorial       | 0                                   |        |
-|    18 | SWS Laboratory     | 0                                   |        |
-|    19 | SWS Project Work   | 0                                   |        |
-|-------+--------------------+-------------------------------------+--------|
-|    20 | UE Total           | 30                                  | A      |
-|    21 | UE Teaching        | 30                                  | A      |
-|    22 | UE Tutorial        | 0                                   | A      |
-|    23 | UE Laboratory      | 0                                   | A      |
-|    24 | Assessment Units   | 0                                   | A      |
-|    25 | Planned Units      | 30                                  | A      |
-|-------+--------------------+-------------------------------------+--------|
-|    26 | ECTS               | 3                                   | A      |
-|    27 | Lecture Type       | ILV                                 | A      |
-|    28 | Work Language      | English                             |        |
-|-------+--------------------+-------------------------------------+--------|
+| INDEX | DESCRIPTION        | VALUE                               |
+|-------+--------------------+-------------------------------------|
+|     1 | Official Name      | Mobile Robotik                      |
+|-------+--------------------+-------------------------------------|
+|     2 | Lecture Code       | Mobile Robotik                      |
+|     3 | Module Code        | Mobile Robotik                      |
+|     4 | Degree             | M.Sc                                |
+|     5 | Program Name       | Industrial Informatics and Robotics |
+|     6 | Lecture Name       | Mobile Robotics                     |
+|     7 | Semester           | 4                                   |
+|     8 | Season             | SS                                  |
+|     9 | Room Type          | Lecture Room                        |
+|    10 | Assignments        | Personal Assignment A               |
+|    11 | Lecturer           | Daniel T. McGuiness, Ph.D           |
+|    12 | Module Responsible | -                                   |
+|-------+--------------------+-------------------------------------|
+|    13 | Software           | Linux, ROS, Python                  |
+|    14 | Hardware           | -                                   |
+|-------+--------------------+-------------------------------------|
+|    15 | SWS Total          | 2                                   |
+|    16 | SWS Teaching       | 2                                   |
+|    17 | SWS Tutorial       | 0                                   |
+|    18 | SWS Laboratory     | 0                                   |
+|    19 | SWS Project Work   | 0                                   |
+|-------+--------------------+-------------------------------------|
+|    20 | UE Total           | 30                                  |
+|    21 | UE Teaching        | 30                                  |
+|    22 | UE Tutorial        | 0                                   |
+|    23 | UE Laboratory      | 0                                   |
+|    24 | Assessment Units   | 0                                   |
+|    25 | Planned Units      | 30                                  |
+|-------+--------------------+-------------------------------------|
+|    26 | ECTS               | 3                                   |
+|    27 | Lecture Type       | ILV                                 |
+|    28 | Work Language      | English                             |
+|-------+--------------------+-------------------------------------|
 
 * Requirements and the Learning Outcomes
 
