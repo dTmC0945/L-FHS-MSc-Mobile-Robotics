@@ -1,0 +1,185 @@
+# Created 2026-04-09 Thu 10:10
+#+title: LS FHS MSc Mobile Robotics
+#+author: Daniel McGuiness
+
+* Table of Contents                                                   :TOC_2:
+- [[#lecture-information][Lecture Information]]
+- [[#requirements-and-the-learning-outcomes][Requirements and the Learning Outcomes]]
+- [[#grading-of-the-lecture][Grading of the Lecture]]
+- [[#lecture-sources][Lecture Sources]]
+- [[#content-and-unit-distribution][Content and Unit Distribution]]
+- [[#lecture-table-of-contents][Lecture Table of Contents]]
+
+* Lecture Information
+
+- The goal of this lecture is to give you a better view of how mobile robotics works, the
+  different challenges it faces and methods to overcome them.
+- This lecture you will use ROS, a versatile software capable of doing pathfinding and
+  localisation, a perfect fit for use in mobile robotics.
+
+#+name: WORKBOOK
+| INDEX | DESCRIPTION        | VALUE                               | STATUS |
+|-------+--------------------+-------------------------------------+--------|
+|     1 | Official Name      | Mobile Robotik                      |        |
+|-------+--------------------+-------------------------------------+--------|
+|     2 | Lecture Code       | Mobile Robotik                      | A      |
+|     3 | Module Code        | Mobile Robotik                      | A      |
+|     4 | Degree             | M.Sc                                | A      |
+|     5 | Program Name       | Industrial Informatics and Robotics | A      |
+|     6 | Lecture Name       | Mobile Robotics                     |        |
+|     7 | Semester           | 4                                   | A      |
+|     8 | Season             | SS                                  | A      |
+|     9 | Room Type          | Lecture Room                        |        |
+|    10 | Assignments        | Personal Assignment A               | A      |
+|    11 | Lecturer           | Daniel T. McGuiness, Ph.D           |        |
+|    12 | Module Responsible | -                                   | A      |
+|-------+--------------------+-------------------------------------+--------|
+|    13 | Software           | Linux, ROS, Python                  |        |
+|    14 | Hardware           | -                                   |        |
+|-------+--------------------+-------------------------------------+--------|
+|    15 | SWS Total          | 2                                   | A      |
+|    16 | SWS Teaching       | 2                                   |        |
+|    17 | SWS Tutorial       | 0                                   |        |
+|    18 | SWS Laboratory     | 0                                   |        |
+|    19 | SWS Project Work   | 0                                   |        |
+|-------+--------------------+-------------------------------------+--------|
+|    20 | UE Total           | 30                                  | A      |
+|    21 | UE Teaching        | 30                                  | A      |
+|    22 | UE Tutorial        | 0                                   | A      |
+|    23 | UE Laboratory      | 0                                   | A      |
+|    24 | Assessment Units   | 0                                   | A      |
+|    25 | Planned Units      | 30                                  | A      |
+|-------+--------------------+-------------------------------------+--------|
+|    26 | ECTS               | 3                                   | A      |
+|    27 | Lecture Type       | ILV                                 | A      |
+|    28 | Work Language      | English                             |        |
+|-------+--------------------+-------------------------------------+--------|
+
+* Requirements and the Learning Outcomes
+
+- The student should be comfortable with working with either Python
+  and/or C++ and should have an beginner level knowledge of the Linux
+  environment and the command line interface
+  
+* Grading of the Lecture
+
+- The lecture will have one personal assignment which will be based on concepts related to
+  Mobile robotics, ROS and programming applications related to it. More details will be given
+  in the assignment documentation.
+
+| ASSIGNMENT TYPE     | VALUE | QUANTITY |
+|---------------------+-------+----------|
+| Personal Assignment |   100 |        1 |
+|---------------------+-------+----------|
+| SUM                 |   100 |        1 |
+
+* Lecture Sources
+
+The following is a reference material table with useful resources which
+complement well with the lecture.
+
+| INDEX | AUTHOR              | TITLE                                                 | PUBLISHER             |
+|-------+---------------------+-------------------------------------------------------+-----------------------|
+|     1 | M. M. Bassa         | A very informal journey through ROS 2                 | Self-Published        |
+|     2 | F. M. Rico          | A Concise Introduction to Robot Programming with ROS2 | Taylor Francis (2022) |
+|     3 | B. Stroustrup       | Programming Principles and Practice using C++         | Addison Wesley (2014) |
+|     4 | R. Siegwart, et. al | Introduction to Autonomous Mobile Robots              | MIT Press (2011)      |
+|-------+---------------------+-------------------------------------------------------+-----------------------|
+
+
+* Content and Unit Distribution
+
+- The content and unit distribution of the lecture is as follows where a unit
+  is defined as 45 min lecture.
+
+  
+| ORDER | TOPIC                          | UNITS | SELF STUDY |
+|-------+--------------------------------+-------+------------|
+|     1 | Locomotion                     |     2 |          8 |
+|     2 | Mobile Robot Kinematics        |     2 |          8 |
+|     3 | Perception                     |     4 |          8 |
+|     4 | Mobile Robot Localisation      |     4 |          8 |
+|     5 | Welcome to Linux               |     2 |          8 |
+|     6 | Command Line Fundamentals      |     2 |          8 |
+|     7 | Working with Files and Folders |     2 |          8 |
+|     8 | ROS Concepts                   |     2 |          8 |
+|     9 | Command Line Tools             |     2 |          8 |
+|    10 | Client Libraries               |     4 |          8 |
+|    11 | Transform Library              |     4 |          8 |
+|-------+--------------------------------+-------+------------|
+|    12 | SUM                            |    30 |         60 |
+
+
+* Lecture Table of Contents
+
+The structure of the lecture is as follows:
+
+PART: MECHANICS OF MOBILE ROBOTICS
+- Locomotion
+  - Introduction
+  - Legged Mobile Robots
+  - Wheeled Mobile Robots
+- Mobile Robot Kinematics
+  - Kinematic Models and Constraints
+  - Mobile Robot Maneuverability
+  - Mobile Robot Workspace
+  - Beyond Basic Kinematics
+- Perception
+  - Sensors for Mobile Robotics
+  - Vision Based Sensors
+  - Representing Uncertainty
+  - Feature Extraction
+PART: LOCALISATION AND MAPPING
+- Mobile Robot Localisation
+  - The Problems of Noise and Aliasing
+  - Localisation v. Hard-Coded Navigation
+  - Representing Belief
+  - Representing Maps
+  - Probabilistic Map-Based Localisation
+  - Other Examples of Localisation Methods
+  - Building Maps
+PART: GNU/LINUX OPERATING SYSTEM
+- Welcome to Linux
+  - Learning the Linux Command Line
+  - Installation
+  - Docker
+- Command Line Fundamentals
+  - To Command a Computer
+  - When We Need Help with Commands
+- Working with Files and Folders
+  - Files and Folders
+  - Permissions and Links
+  - Common Command-Line Tools and Tasks
+PART: ROBOT OPERATING SYSTEM
+- Installation
+  - ROS 2 Humble Hawksbill
+  - Auto-Install Script
+- ROS Concepts
+  - Publisher and Subscriber Architecture
+  - Building Blocks
+  - Advanced Concepts
+- Command Line Tools
+  - Setting the Environment
+  - Turtles and Graphs
+  - A Deeper Look into Nodes
+  - Working with Topics
+  - Working with Services
+  - Working with Parameters
+  - A Practical Look into Actions
+  - Launching Nodes
+- Client Libraries
+  - Getting Started with Colcon
+  - Writing a Simple Publisher and Subscriber
+  - Writing a Simple Service and Client
+  - Creating Custom msg and srv Files
+  - Using Parameters in a Class
+  - Managing Dependencies
+  - Creating an Action
+  - Writing an Action Server and Client
+  - Writing a Launch File
+- Transform Library
+  - A Gentle Introduction
+  - Writing a Static Broadcaster
+  - Writing a Listener
+  - Adding a Frame
+  - Writing a Broadcaster
