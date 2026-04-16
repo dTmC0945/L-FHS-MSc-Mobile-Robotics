@@ -1,0 +1,1239 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>Adding a Frame</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 428--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Transform Library</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+                                                                                
+                                                                                
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="WritingaBroadcaster.html#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <a 
+href="WritingaBroadcaster.html" ><span class="nav-next">NEXT</span></a><a 
+href="WritingaListener.html" ><span class="nav-prev">PREV</span></a><a 
+href="WritingaListener.html#tailWritingaListener.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailAddingaFrame.html"><span class="nav-tail">TAIL</span></a><a 
+href="TransformLibrary.html#AddingaFrame.html" ><span class="nav-up">UP</span></a></nav> 
+<div class="section-header"><h3><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#section.10.4"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">10.4</span> <span class="title"><a 
+ id="x58-36600010.4"></a>Adding a Frame</span></h3></div>
+<!--l. 430--><p class="noindent" >Previously, we’ve recreated the turtle demo by writing a tf2 broadcaster and a tf2 listener. This tutorial
+will teach you how to add extra fixed and dynamic frames to the transformation tree. In fact, adding a
+frame in tf2 is very similar to creating the tf2 broadcaster, but this example will show you some
+additional features of tf2.
+<!--l. 435--><p class="noindent" >For many tasks related to transformations, it is easier to think inside a local frame. For example, it is
+easiest to reason about laser scan measurements in a frame at the center of the laser scanner. tf2 allows
+you to define a local frame for each sensor, link, or joint in your system. When transforming from one
+frame to another, tf2 will take care of all the hidden intermediate frame transformations that are
+introduced.
+
+<a 
+ id="paragraph*.196"></a>
+<!--l. 441--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-367000"></a>Viewing the Tree</span>
+tf2 builds up a tree structure of frames and, thus, does not allow a closed loop in the frame structure.
+This means that a frame only has one single parent, but it can have multiple children.
+Currently, our tf2 tree contains three frames: world, turtle1 and turtle2. The two turtle
+frames are children of the world frame. If we want to add a new frame to tf2, one of the
+three existing frames needs to be the parent frame, and the new one will become its child
+frame.
+
+<a 
+ id="paragraph*.197"></a>
+<!--l. 450--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-368000"></a>Writing the Fixed Frame Broadcaster</span>
+In our turtle example, we’ll add a new frame carrot1, which will be the child of the turtle1. This frame
+                                                                                
+                                                                                
+will serve as the goal for the second turtle.
+<!--l. 455--><p class="noindent" >Let’s first create the source files. Go to the <code class="verb">learning_tf2_py</code> package we created in the previous
+tutorials. Inside the <code class="verb">src/learning_tf2_py/learning_tf2_py</code> directory download the fixed frame
+broadcaster code by entering the following command:
+<!--l. 459--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb446"><a 
+ id="x58-368002r951"></a><span 
+class="ec-lmtt-10">wget https://raw.githubusercontent.com/ros/geometry_tutorials/humble/turtle_tf2_py/turtle_tf2_py/fixed_frame_tf2_broadcaster.py</span></pre>
+</div><p>
+<!--l. 461--><p class="noindent" >Now open the file called <code class="verb">fixed_frame_tf2_broadcaster.py</code>.
+<!--l. 463--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb447"><a 
+ id="x58-368004r957"></a><span id="textcolor2246"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2247"><span 
+class="ec-lmtt-10">geometry_msgs</span></span><span id="textcolor2248"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2249"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor2250"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformStamped</span> 
+<a 
+ id="x58-368006r958"></a> 
+<a 
+ id="x58-368008r959"></a><span id="textcolor2251"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2252"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x58-368010r960"></a><span id="textcolor2253"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2254"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor2255"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2256"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor2257"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x58-368012r961"></a> 
+<a 
+ id="x58-368014r962"></a><span id="textcolor2258"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2259"><span 
+class="ec-lmtt-10">tf2_ros</span></span> <span id="textcolor2260"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformBroadcaster</span> 
+<a 
+ id="x58-368016r963"></a> 
+<a 
+ id="x58-368018r964"></a> 
+<a 
+ id="x58-368020r965"></a><span id="textcolor2261"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor2262"><span 
+class="ec-lmtt-10">FixedFrameBroadcaster</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x58-368022r966"></a> 
+<a 
+ id="x58-368024r967"></a>   <span id="textcolor2263"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2264"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2265"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x58-368026r968"></a>       <span id="textcolor2266"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor2267"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2268"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2269"><span 
+class="ec-lmtt-10">fixed_frame_tf2_broadcaster</span></span><span id="textcolor2270"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x58-368028r969"></a>       <span id="textcolor2271"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster = TransformBroadcaster(</span><span id="textcolor2272"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x58-368030r970"></a>       <span id="textcolor2273"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.timer = </span><span id="textcolor2274"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_timer(</span><span id="textcolor2275"><span 
+class="ec-lmtt-10">0.1</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2276"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.broadcast_timer_callback)</span> 
+<a 
+ id="x58-368032r971"></a> 
+<a 
+ id="x58-368034r972"></a>   <span id="textcolor2277"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2278"><span 
+class="ec-lmtt-10">broadcast_timer_callback</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2279"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x58-368036r973"></a>       <span 
+class="ec-lmtt-10">t = TransformStamped()</span> 
+<a 
+ id="x58-368038r974"></a> 
+<a 
+ id="x58-368040r975"></a>       <span 
+class="ec-lmtt-10">t.header.stamp = </span><span id="textcolor2280"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().to_msg()</span> 
+<a 
+ id="x58-368042r976"></a>       <span 
+class="ec-lmtt-10">t.header.frame_id = </span><span id="textcolor2281"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2282"><span 
+class="ec-lmtt-10">turtle1</span></span><span id="textcolor2283"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-368044r977"></a>       <span 
+class="ec-lmtt-10">t.child_frame_id = </span><span id="textcolor2284"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2285"><span 
+class="ec-lmtt-10">carrot1</span></span><span id="textcolor2286"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-368046r978"></a>       <span 
+class="ec-lmtt-10">t.transform.translation.x = </span><span id="textcolor2287"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-368048r979"></a>       <span 
+class="ec-lmtt-10">t.transform.translation.y = </span><span id="textcolor2288"><span 
+class="ec-lmtt-10">2.0</span></span> 
+<a 
+ id="x58-368050r980"></a>       <span 
+class="ec-lmtt-10">t.transform.translation.z = </span><span id="textcolor2289"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-368052r981"></a>       <span 
+class="ec-lmtt-10">t.transform.rotation.x = </span><span id="textcolor2290"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-368054r982"></a>       <span 
+class="ec-lmtt-10">t.transform.rotation.y = </span><span id="textcolor2291"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-368056r983"></a>       <span 
+class="ec-lmtt-10">t.transform.rotation.z = </span><span id="textcolor2292"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-368058r984"></a>       <span 
+class="ec-lmtt-10">t.transform.rotation.w = </span><span id="textcolor2293"><span 
+class="ec-lmtt-10">1.0</span></span> 
+<a 
+ id="x58-368060r985"></a> 
+<a 
+ id="x58-368062r986"></a>       <span id="textcolor2294"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster.sendTransform(t)</span> 
+<a 
+ id="x58-368064r987"></a> 
+<a 
+ id="x58-368066r988"></a> 
+<a 
+ id="x58-368068r989"></a><span id="textcolor2295"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2296"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x58-368070r990"></a>    <span 
+class="ec-lmtt-10">rclpy.init()</span> 
+<a 
+ id="x58-368072r991"></a>    <span 
+class="ec-lmtt-10">node = FixedFrameBroadcaster()</span> 
+<a 
+ id="x58-368074r992"></a>    <span id="textcolor2297"><span 
+class="ec-lmtt-10">try</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x58-368076r993"></a>        <span 
+class="ec-lmtt-10">rclpy.spin(node)</span> 
+<a 
+ id="x58-368078r994"></a>    <span id="textcolor2298"><span 
+class="ec-lmtt-10">except</span></span> <span id="textcolor2299"><span 
+class="ec-lmtt-10">KeyboardInterrupt</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x58-368080r995"></a>        <span id="textcolor2300"><span 
+class="ec-lmtt-10">pass</span></span> 
+<a 
+ id="x58-368082r996"></a> 
+<a 
+ id="x58-368084r997"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span></pre>
+</div><p>
+<!--l. 465--><p class="noindent" >The code is very similar to the tf2 broadcaster tutorial example and the only difference is that the
+transform here does not change over time.
+
+<a 
+ id="paragraph*.198"></a>
+<!--l. 468--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-369000"></a>Examining the Code</span>
+Let’s take a look at the key lines in this piece of code. Here we create a new transform, from the parent
+turtle1 to the new child carrot1. The carrot1 frame is 2 meters offset in y axis in terms of the turtle1
+frame.
+<!--l. 474--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb448"><a 
+ id="x58-369002r1002"></a><span 
+class="ec-lmtt-10">t = TransformStamped()</span> 
+<a 
+ id="x58-369004r1003"></a> 
+<a 
+ id="x58-369006r1004"></a><span 
+class="ec-lmtt-10">t.header.stamp = </span><span id="textcolor2301"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().to_msg()</span> 
+<a 
+ id="x58-369008r1005"></a><span 
+class="ec-lmtt-10">t.header.frame_id = </span><span id="textcolor2302"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2303"><span 
+class="ec-lmtt-10">turtle1</span></span><span id="textcolor2304"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-369010r1006"></a><span 
+class="ec-lmtt-10">t.child_frame_id = </span><span id="textcolor2305"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2306"><span 
+class="ec-lmtt-10">carrot1</span></span><span id="textcolor2307"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-369012r1007"></a><span 
+class="ec-lmtt-10">t.transform.translation.x = </span><span id="textcolor2308"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-369014r1008"></a><span 
+class="ec-lmtt-10">t.transform.translation.y = </span><span id="textcolor2309"><span 
+class="ec-lmtt-10">2.0</span></span> 
+<a 
+ id="x58-369016r1009"></a><span 
+class="ec-lmtt-10">t.transform.translation.z = </span><span id="textcolor2310"><span 
+class="ec-lmtt-10">0.0</span></span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.199"></a>
+<!--l. 476--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-370000"></a>Adding an Entry Point</span>
+To allow the ros2 run command to run your node, you must add the entry point to setup.py (located in
+the <code class="verb">src/learning_tf2_py directory</code>).
+<!--l. 481--><p class="noindent" >Add the following line between the <code class="verb">&#x0027;console_scripts&#x0027;:</code> brackets:
+<!--l. 483--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb449"><a 
+ id="x58-370002r1014"></a><span id="textcolor2311"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2312"><span 
+class="ec-lmtt-10">fixed_frame_tf2_broadcaster = learning_tf2_py.fixed_frame_tf2_broadcaster:main</span></span><span id="textcolor2313"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.200"></a>
+<!--l. 485--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-371000"></a>Writing the Launch File</span>
+Now let’s create a launch file for this example. With your text editor, create a new file called
+<code class="verb">turtle_tf2_fixed_frame_demo.launch.py</code> in the <span class="code-directory"><code class="verb">src/learning\_tf2\_py/launch</code></span> directory, and
+add the following lines:
+<!--l. 491--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
+<pre class="fancyvrb" id="fancyvrb450"><a 
+ id="x58-371002r1020"></a><span id="textcolor2314"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2315"><span 
+class="ec-lmtt-10">launch</span></span> <span id="textcolor2316"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">LaunchDescription</span> 
+<a 
+ id="x58-371004r1021"></a><span id="textcolor2317"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2318"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2319"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2320"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2321"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">IncludeLaunchDescription</span> 
+<a 
+ id="x58-371006r1022"></a><span id="textcolor2322"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2323"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2324"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2325"><span 
+class="ec-lmtt-10">substitutions</span></span> <span id="textcolor2326"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">PathJoinSubstitution</span> 
+<a 
+ id="x58-371008r1023"></a><span id="textcolor2327"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2328"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2329"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2330"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2331"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x58-371010r1024"></a><span id="textcolor2332"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2333"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2334"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2335"><span 
+class="ec-lmtt-10">substitutions</span></span> <span id="textcolor2336"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">FindPackageShare</span> 
+<a 
+ id="x58-371012r1025"></a> 
+<a 
+ id="x58-371014r1026"></a> 
+<a 
+ id="x58-371016r1027"></a><span id="textcolor2337"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2338"><span 
+class="ec-lmtt-10">generate_launch_description</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x58-371018r1028"></a>    <span id="textcolor2339"><span 
+class="ec-lmtt-10">return</span></span> <span 
+class="ec-lmtt-10">LaunchDescription([</span> 
+<a 
+ id="x58-371020r1029"></a>        <span 
+class="ec-lmtt-10">IncludeLaunchDescription(</span> 
+<a 
+ id="x58-371022r1030"></a>            <span 
+class="ec-lmtt-10">PathJoinSubstitution([</span> 
+<a 
+ id="x58-371024r1031"></a>                <span 
+class="ec-lmtt-10">FindPackageShare(</span><span id="textcolor2340"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2341"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2342"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">), </span><span id="textcolor2343"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2344"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2345"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2346"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2347"><span 
+class="ec-lmtt-10">turtle_tf2_demo.launch.py</span></span><span id="textcolor2348"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">])</span> 
+<a 
+ id="x58-371026r1032"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x58-371028r1033"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x58-371030r1034"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2349"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2350"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2351"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371032r1035"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2352"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2353"><span 
+class="ec-lmtt-10">fixed_frame_tf2_broadcaster</span></span><span id="textcolor2354"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371034r1036"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2355"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2356"><span 
+class="ec-lmtt-10">fixed_broadcaster</span></span><span id="textcolor2357"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371036r1037"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x58-371038r1038"></a>    <span 
+class="ec-lmtt-10">])</span></pre>
+</div><p>
+<!--l. 493--><p class="noindent" >This launch file imports the required packages and then creates a <code class="verb">demo_nodes</code> variable that will store
+nodes that we created in the previous tutorial’s launch file.
+<!--l. 496--><p class="noindent" >The last part of the code will add our fixed carrot1 frame to the turtlesim world using our
+<code class="verb">fixed_frame_tf2_broadcaster</code> node.
+<!--l. 499--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb451"><a 
+ id="x58-371040r1043"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x58-371042r1044"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2358"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2359"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2360"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371044r1045"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2361"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2362"><span 
+class="ec-lmtt-10">fixed_frame_tf2_broadcaster</span></span><span id="textcolor2363"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371046r1046"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2364"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2365"><span 
+class="ec-lmtt-10">fixed_broadcaster</span></span><span id="textcolor2366"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-371048r1047"></a>        <span 
+class="ec-lmtt-10">),</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.201"></a>
+<!--l. 501--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-372000"></a>Build</span>
+Run rosdep in the root of your workspace to check for missing dependencies.
+<!--l. 505--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb452"><a 
+ id="x58-372002r1054"></a><span 
+class="ec-lmtt-10">rosdep install</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">i</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">from</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">path src</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">rosdistro humble</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">y</span></pre>
+</div><p>
+<!--l. 507--><p class="noindent" >Still in the root of your workspace, build your package:
+<!--l. 509--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb453"><a 
+ id="x58-372004r1059"></a><span 
+class="ec-lmtt-10">colcon build</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">packages</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">select learning_tf2_py</span></pre>
+</div><p>
+<!--l. 511--><p class="noindent" >Open a new terminal, navigate to the root of your workspace, and source the setup files:
+<!--l. 513--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb454"><a 
+ id="x58-372006r1064"></a><span 
+class="ec-lmtt-10">. install/setup.bash</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.202"></a>
+<!--l. 515--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-373000"></a>Run</span>
+Now you can start the turtle broadcaster demo:
+<!--l. 519--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb455"><a 
+ id="x58-373002r1071"></a><span 
+class="ec-lmtt-10">ros2 launch learning_tf2_py turtle_tf2_fixed_frame_demo.launch.py</span></pre>
+</div><p>
+<!--l. 521--><p class="noindent" >You should notice that the new carrot1 frame appeared in the transformation tree.
+<!--l. 523--><p class="noindent" >If you drive the first turtle around, you should notice that the behavior didn’t change from
+the previous tutorial, even though we added a new frame. That’s because adding an extra
+frame does not affect the other frames and our listener is still using the previously defined
+frames.
+                                                                                
+                                                                                
+<!--l. 527--><p class="noindent" >Therefore if we want our second turtle to follow the carrot instead of the first turtle, we need to change
+value of the <code class="verb">target_frame</code>. This can be done two ways. One way is to pass the <code class="verb">target_frame</code>
+argument to the launch file directly from the console:
+<!--l. 531--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb456"><a 
+ id="x58-373004r1076"></a><span 
+class="ec-lmtt-10">ros2 launch learning_tf2_py </span><span id="textcolor2367"><span 
+class="ec-lmtt-10">\</span></span> 
+<a 
+ id="x58-373006r1077"></a>     <span 
+class="ec-lmtt-10">turtle_tf2_fixed_frame_demo.launch.py </span><span id="textcolor2368"><span 
+class="ec-lmtt-10">\</span></span> 
+<a 
+ id="x58-373008r1078"></a>     <span 
+class="ec-lmtt-10">target_frame:=carrot1</span></pre>
+</div><p>
+<!--l. 533--><p class="noindent" >The second way is to update the launch file. To do so, open the <code class="verb">turtle_tf2_fixed_frame_demo.launch.py</code>
+file, and add the <code class="verb">&#x0027;target_frame&#x0027;: &#x0027;carrot1&#x0027;</code> parameter via <code class="verb">launch_arguments</code>argument.
+<!--l. 537--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb457"><a 
+ id="x58-373010r1083"></a><span id="textcolor2369"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2370"><span 
+class="ec-lmtt-10">generate_launch_description</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x58-373012r1084"></a>    <span 
+class="ec-lmtt-10">demo_nodes = IncludeLaunchDescription(</span> 
+<a 
+ id="x58-373014r1085"></a>        <span 
+class="ec-lmtt-10">...,</span> 
+<a 
+ id="x58-373016r1086"></a>        <span 
+class="ec-lmtt-10">launch_arguments={</span><span id="textcolor2371"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2372"><span 
+class="ec-lmtt-10">target_frame</span></span><span id="textcolor2373"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">: </span><span id="textcolor2374"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2375"><span 
+class="ec-lmtt-10">carrot1</span></span><span id="textcolor2376"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">}.items(),</span> 
+<a 
+ id="x58-373018r1087"></a>        <span 
+class="ec-lmtt-10">)</span></pre>
+</div><p>
+<!--l. 539--><p class="noindent" >Now rebuild the package, restart the <code class="verb">turtle_tf2_fixed_frame_demo.launch.py</code>, and you’ll see the
+second turtle following the carrot instead of the first turtle!
+
+<h5 class="likesubsubsectionHead"><a 
+ id="x58-374000"></a>Writing the Dynamic Frame Broadcaster</h5>
+<!--l. 544--><p class="noindent" >The extra frame we published in this tutorial is a fixed frame that doesn’t change over time in relation
+to the parent frame. However, if you want to publish a moving frame you can code the broadcaster to
+change the frame over time. Let’s change our carrot1 frame so that it changes relative to turtle1 frame
+over time. Go to the <code class="verb">learning_tf2_py</code> package we created in the previous tutorial. Inside the
+<span class="code-directory"><code class="verb">src/learning\_tf2\_py/learning\_tf2\_py</code></span> directory download the dynamic frame broadcaster code
+by entering the following command:
+<!--l. 551--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb458"><a 
+ id="x58-374002r1094"></a><span 
+class="ec-lmtt-10">wget https://raw.githubusercontent.com/ros/geometry_tutorials/humble/turtle_tf2_py/turtle_tf2_py/dynamic_frame_tf2_broadcaster.py</span></pre>
+</div><p>
+<!--l. 553--><p class="noindent" >Now open the file called <code class="verb">dynamic_frame_tf2_broadcaster.py</code>:
+<!--l. 555--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb459"><a 
+ id="x58-374004r1099"></a><span id="textcolor2377"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2378"><span 
+class="ec-lmtt-10">math</span></span> 
+<a 
+ id="x58-374006r1100"></a> 
+<a 
+ id="x58-374008r1101"></a><span id="textcolor2379"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2380"><span 
+class="ec-lmtt-10">geometry_msgs</span></span><span id="textcolor2381"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2382"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor2383"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformStamped</span> 
+<a 
+ id="x58-374010r1102"></a> 
+<a 
+ id="x58-374012r1103"></a><span id="textcolor2384"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2385"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x58-374014r1104"></a><span id="textcolor2386"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2387"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor2388"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2389"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor2390"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x58-374016r1105"></a> 
+<a 
+ id="x58-374018r1106"></a><span id="textcolor2391"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2392"><span 
+class="ec-lmtt-10">tf2_ros</span></span> <span id="textcolor2393"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformBroadcaster</span> 
+<a 
+ id="x58-374020r1107"></a> 
+<a 
+ id="x58-374022r1108"></a> 
+<a 
+ id="x58-374024r1109"></a><span id="textcolor2394"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor2395"><span 
+class="ec-lmtt-10">DynamicFrameBroadcaster</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x58-374026r1110"></a> 
+<a 
+ id="x58-374028r1111"></a>    <span id="textcolor2396"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2397"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2398"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x58-374030r1112"></a>        <span id="textcolor2399"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor2400"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2401"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2402"><span 
+class="ec-lmtt-10">dynamic_frame_tf2_broadcaster</span></span><span id="textcolor2403"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x58-374032r1113"></a>        <span id="textcolor2404"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster = TransformBroadcaster(</span><span id="textcolor2405"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x58-374034r1114"></a>        <span id="textcolor2406"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.timer = </span><span id="textcolor2407"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_timer(</span><span id="textcolor2408"><span 
+class="ec-lmtt-10">0.1</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2409"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.broadcast_timer_callback)</span> 
+<a 
+ id="x58-374036r1115"></a> 
+<a 
+ id="x58-374038r1116"></a>    <span id="textcolor2410"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2411"><span 
+class="ec-lmtt-10">broadcast_timer_callback</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2412"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x58-374040r1117"></a>        <span 
+class="ec-lmtt-10">seconds, _ = </span><span id="textcolor2413"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().seconds_nanoseconds()</span> 
+<a 
+ id="x58-374042r1118"></a>        <span 
+class="ec-lmtt-10">x = seconds * math.pi</span> 
+<a 
+ id="x58-374044r1119"></a> 
+<a 
+ id="x58-374046r1120"></a>        <span 
+class="ec-lmtt-10">t = TransformStamped()</span> 
+<a 
+ id="x58-374048r1121"></a>        <span 
+class="ec-lmtt-10">t.header.stamp = </span><span id="textcolor2414"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().to_msg()</span> 
+<a 
+ id="x58-374050r1122"></a>        <span 
+class="ec-lmtt-10">t.header.frame_id = </span><span id="textcolor2415"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2416"><span 
+class="ec-lmtt-10">turtle1</span></span><span id="textcolor2417"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-374052r1123"></a>        <span 
+class="ec-lmtt-10">t.child_frame_id = </span><span id="textcolor2418"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2419"><span 
+class="ec-lmtt-10">carrot1</span></span><span id="textcolor2420"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x58-374054r1124"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.x = </span><span id="textcolor2421"><span 
+class="ec-lmtt-10">10</span></span> <span 
+class="ec-lmtt-10">* math.sin(x)</span> 
+<a 
+ id="x58-374056r1125"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.y = </span><span id="textcolor2422"><span 
+class="ec-lmtt-10">10</span></span> <span 
+class="ec-lmtt-10">* math.cos(x)</span> 
+<a 
+ id="x58-374058r1126"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.z = </span><span id="textcolor2423"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-374060r1127"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.x = </span><span id="textcolor2424"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-374062r1128"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.y = </span><span id="textcolor2425"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-374064r1129"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.z = </span><span id="textcolor2426"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x58-374066r1130"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.w = </span><span id="textcolor2427"><span 
+class="ec-lmtt-10">1.0</span></span> 
+<a 
+ id="x58-374068r1131"></a> 
+<a 
+ id="x58-374070r1132"></a>        <span id="textcolor2428"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster.sendTransform(t)</span> 
+<a 
+ id="x58-374072r1133"></a> 
+<a 
+ id="x58-374074r1134"></a> 
+<a 
+ id="x58-374076r1135"></a><span id="textcolor2429"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2430"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x58-374078r1136"></a>    <span 
+class="ec-lmtt-10">rclpy.init()</span> 
+<a 
+ id="x58-374080r1137"></a>    <span 
+class="ec-lmtt-10">node = DynamicFrameBroadcaster()</span> 
+<a 
+ id="x58-374082r1138"></a>    <span id="textcolor2431"><span 
+class="ec-lmtt-10">try</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x58-374084r1139"></a>        <span 
+class="ec-lmtt-10">rclpy.spin(node)</span> 
+<a 
+ id="x58-374086r1140"></a>    <span id="textcolor2432"><span 
+class="ec-lmtt-10">except</span></span> <span id="textcolor2433"><span 
+class="ec-lmtt-10">KeyboardInterrupt</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x58-374088r1141"></a>        <span id="textcolor2434"><span 
+class="ec-lmtt-10">pass</span></span> 
+<a 
+ id="x58-374090r1142"></a> 
+<a 
+ id="x58-374092r1143"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.203"></a>
+<!--l. 557--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-375000"></a>Examining the Code</span>
+Instead of a fixed definition of our x and y offsets, we are using the sin() and cos() functions on the
+current time so that the offset of carrot1 is constantly changing.
+<!--l. 562--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb460"><a 
+ id="x58-375002r1150"></a><span 
+class="ec-lmtt-10">seconds, </span><span id="textcolor2435"><span 
+class="ec-lmtt-10">_</span></span> <span 
+class="ec-lmtt-10">= self.get_clock().now().seconds_nanoseconds()</span> 
+<a 
+ id="x58-375004r1151"></a><span id="textcolor2436"><span 
+class="ec-lmtt-10">x</span></span> <span 
+class="ec-lmtt-10">= seconds * math.pi</span> 
+<a 
+ id="x58-375006r1152"></a><span 
+class="ec-lmtt-10">...</span> 
+<a 
+ id="x58-375008r1153"></a><span 
+class="ec-lmtt-10">t.transform.translation.x = </span><span id="textcolor2437"><span 
+class="ec-lmtt-10">10</span></span> <span 
+class="ec-lmtt-10">* math.sin(x)</span> 
+<a 
+ id="x58-375010r1154"></a><span 
+class="ec-lmtt-10">t.transform.translation.y = </span><span id="textcolor2438"><span 
+class="ec-lmtt-10">10</span></span> <span 
+class="ec-lmtt-10">* math.cos(x)</span></pre>
+</div><p>
+
+                                                                                
+                                                                                
+<a 
+ id="paragraph*.204"></a>
+<!--l. 564--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-376000"></a>Adding an Entry Point</span>
+To allow the ros2 run command to run your node, you must add the entry point to setup.py (located in
+the <span class="code-directory"><code class="verb">src/learning\_tf2\_py</code></span> directory).
+<!--l. 569--><p class="noindent" >Add the following line between the <code class="verb">&#x0027;console_scripts&#x0027;:</code> brackets:
+<!--l. 571--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb461"><a 
+ id="x58-376002r1161"></a><span id="textcolor2439"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2440"><span 
+class="ec-lmtt-10">dynamic_frame_tf2_broadcaster = learning_tf2_py.dynamic_frame_tf2_broadcaster:main</span></span><span id="textcolor2441"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.205"></a>
+<!--l. 573--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-377000"></a>Writing the Launch File</span>
+To test this code, create a new launch file <code class="verb">turtle_tf2_dynamic_frame_demo.launch.py</code> in the
+<span class="code-directory"><code class="verb">src/learning\_tf2\_py/launch</code></span> directory and paste the following code:
+<!--l. 578--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb462"><a 
+ id="x58-377002r1168"></a><span id="textcolor2442"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2443"><span 
+class="ec-lmtt-10">launch</span></span> <span id="textcolor2444"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">LaunchDescription</span> 
+<a 
+ id="x58-377004r1169"></a><span id="textcolor2445"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2446"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2447"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2448"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2449"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">IncludeLaunchDescription</span> 
+<a 
+ id="x58-377006r1170"></a><span id="textcolor2450"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2451"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2452"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2453"><span 
+class="ec-lmtt-10">substitutions</span></span> <span id="textcolor2454"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">PathJoinSubstitution</span> 
+<a 
+ id="x58-377008r1171"></a><span id="textcolor2455"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2456"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2457"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2458"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2459"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x58-377010r1172"></a><span id="textcolor2460"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2461"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2462"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2463"><span 
+class="ec-lmtt-10">substitutions</span></span> <span id="textcolor2464"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">FindPackageShare</span> 
+<a 
+ id="x58-377012r1173"></a> 
+<a 
+ id="x58-377014r1174"></a> 
+<a 
+ id="x58-377016r1175"></a><span id="textcolor2465"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2466"><span 
+class="ec-lmtt-10">generate_launch_description</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x58-377018r1176"></a>    <span id="textcolor2467"><span 
+class="ec-lmtt-10">return</span></span> <span 
+class="ec-lmtt-10">LaunchDescription([</span> 
+<a 
+ id="x58-377020r1177"></a>        <span 
+class="ec-lmtt-10">IncludeLaunchDescription(</span> 
+<a 
+ id="x58-377022r1178"></a>            <span 
+class="ec-lmtt-10">PathJoinSubstitution([</span> 
+<a 
+ id="x58-377024r1179"></a>                <span 
+class="ec-lmtt-10">FindPackageShare(</span><span id="textcolor2468"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2469"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2470"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">), </span><span id="textcolor2471"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2472"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2473"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2474"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2475"><span 
+class="ec-lmtt-10">turtle_tf2_demo.launch.py</span></span><span id="textcolor2476"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">]),</span> 
+<a 
+ id="x58-377026r1180"></a>            <span 
+class="ec-lmtt-10">launch_arguments={</span><span id="textcolor2477"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2478"><span 
+class="ec-lmtt-10">target_frame</span></span><span id="textcolor2479"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">: </span><span id="textcolor2480"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2481"><span 
+class="ec-lmtt-10">carrot1</span></span><span id="textcolor2482"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">}.items(),</span> 
+<a 
+ id="x58-377028r1181"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x58-377030r1182"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x58-377032r1183"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2483"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2484"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2485"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-377034r1184"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2486"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2487"><span 
+class="ec-lmtt-10">dynamic_frame_tf2_broadcaster</span></span><span id="textcolor2488"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-377036r1185"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2489"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2490"><span 
+class="ec-lmtt-10">dynamic_broadcaster</span></span><span id="textcolor2491"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x58-377038r1186"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x58-377040r1187"></a>    <span 
+class="ec-lmtt-10">])</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.206"></a>
+<!--l. 580--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-378000"></a>Buld</span>
+Run rosdep in the root of your workspace to check for missing dependencies.
+<!--l. 584--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb463"><a 
+ id="x58-378002r1194"></a><span 
+class="ec-lmtt-10">rosdep install</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">i</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">from</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">path src</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">rosdistro humble</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">y</span></pre>
+</div><p>
+<!--l. 586--><p class="noindent" >Still in the root of your workspace, build your package:
+<!--l. 588--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb464"><a 
+ id="x58-378004r1199"></a><span 
+class="ec-lmtt-10">colcon build</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">packages</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">select learning_tf2_py</span></pre>
+</div><p>
+<!--l. 590--><p class="noindent" >Open a new terminal, navigate to the root of your workspace, and source the setup files:
+<!--l. 592--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb465"><a 
+ id="x58-378006r1204"></a><span 
+class="ec-lmtt-10">. install/setup.bash</span></pre>
+</div><p>
+
+                                                                                
+                                                                                
+<a 
+ id="paragraph*.207"></a>
+<!--l. 594--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x58-379000"></a>Run</span>
+Now you can start the dynamic frame demo:
+<!--l. 598--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb466"><a 
+ id="x58-379002r1211"></a><span 
+class="ec-lmtt-10">ros2 launch learning_tf2_py turtle_tf2_dynamic_frame_demo.launch.py</span></pre>
+</div><p>
+<!--l. 600--><p class="noindent" >You should see that the second turtle is following the carrot’s position that is constantly
+changing.
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><a 
+href="WritingaBroadcaster.html" ><span class="nav-next">NEXT</span></a><a 
+href="WritingaListener.html" ><span class="nav-prev">PREV</span></a><a 
+href="WritingaListener.html#tailWritingaListener.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="AddingaFrame.html" ><span class="nav-front">FRONT</span></a><a 
+href="TransformLibrary.html#AddingaFrame.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailAddingaFrame.html"></a>   </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>

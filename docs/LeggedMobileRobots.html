@@ -1,0 +1,1028 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>Legged Mobile Robots</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 201--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Locomotion</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+                                                                                
+                                                                                
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="AddingaFrame.html#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="WritingaBroadcaster.html#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <a 
+href="WheeledMobileRobots.html" ><span class="nav-next">NEXT</span></a><a 
+href="Introduction.html" ><span class="nav-prev">PREV</span></a><a 
+href="Introduction.html#tailIntroduction.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailLeggedMobileRobots.html"><span class="nav-tail">TAIL</span></a><a 
+href="Locomotion.html#LeggedMobileRobots.html" ><span class="nav-up">UP</span></a></nav> 
+<div class="section-header"><h3><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#section.1.2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">1.2</span> <span class="title"><a 
+ id="x5-50001.2"></a>Legged Mobile Robots</span></h3></div>
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<a 
+ id="x5-5001r5"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.5:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Dug-beetle are a great example for legged mobile robotics</span><span 
+class="ec-lmr-7"> </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Thor, M. </span><span 
+class="ec-lmri-7">et al. </span><span 
+class="ec-lmr-7">A dung beetle-inspired robotic</span>
+<span 
+class="ec-lmr-7">model and its distributed sensor-driven control for walking and ball rolling. </span><span 
+class="ec-lmri-7">Artificial Life and Robotics </span><span id="bold" style="font-weight:bold;">23</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-7">435–443</span>
+<span 
+class="ec-lmr-7">(2018)</span></span></span> <span 
+class="ec-lmr-7">as not only they can manoeuvre in their environment using legged motion, they can also manipulate their</span>
+<span 
+class="ec-lmr-7">environment and generate rotational motion </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">R. Jones, Z.</span><span 
+class="ec-lmr-7"> P.</span><span 
+class="ec-lmr-7"> S. </span><span 
+class="ec-lmri-7">All Praise The Humble Dung Beetle </span><span 
+class="ec-lmr-7">2018</span></span></span><span 
+class="ec-lmr-7">.</span><span 
+class="ec-lmr-7"> </span>
+</span></figcaption><!--tex4ht:label?: x5-5001r5 -->
+<!--l. 209--><p class="noindent" ><img 
+src="figures/Locomotion/raster/dung-beetle.jpg" alt="PIC"  
+style="">
+                                                                                
+                                                                                
+</div>
+<!--l. 210--><p class="noindent" ></div>
+<!--l. 212--><p class="noindent" >Legged locomotion is characterised by a <span class="alert"><alert style="color: #821131;">series of point contacts between the robot and the
+ground</alert></span>. The primary advantages include adaptability and manoeuvrability in rough terrain. Because
+only a set of point contacts is required, the quality of the ground between those points does not
+matter, so long as the robot can maintain adequate ground clearance. In addition, a walking
+robot is capable of crossing a hole or chasm so long as its reach exceeds the width of the
+hole. A final advantage of legged locomotion is the potential to manipulate objects in the
+environment with great skill. <div class="quote">  The dung beetle, is capable of rolling a ball while locomotion as a
+result of its dexterous front legs shown in <span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-5001r5">1.5<!--tex4ht:ref: fig:dung-beetle --></a>.  </div><p>  The main disadvantages of legged
+locomotion include <span class="alert"><alert style="color: #821131;">power and mechanical complexity</alert></span>. The leg, which may include
+several <span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span>, must be capable of sustaining part of the
+robot’s total weight, and in many robots must be capable of lifting and lowering the robot.
+Additionally, high manoeuvrability will only be achieved if the legs have a sufficient number
+of <span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span> to impart forces in a number of different
+directions.
+
+<a 
+ id="subsubsection*.1"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x5-6000"></a>Leg Configurations and Stability</h5>
+<!--l. 233--><p class="noindent" >Because legged robots are biologically inspired, it is instructive to examine biologically successful legged
+systems. A number of different leg configurations have been successful in a variety or organisms seen in
+<span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-6007r6">1.6<!--tex4ht:ref: fig:motion-in-kingdom --></a>. <figure class="figure"> 
+<div class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="ajdustwidth" style="margin-left:0em;margin-right:-9.3894em;">
+<div class="minipage"><div class="subfigure">
+<!--l. 239--><p class="noindent" ><!--l. 241--><p class="noindent" ><img 
+src="figures/Locomotion/raster/locomotion-bipedal.jpg" alt="PIC"  
+style="width:64.8%"> <a 
+ id="x5-6001r1"></a>
+<div class="caption" ><span class="id"><span 
+class="ec-lmr-7">(a) </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Bipedal motion </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Photography, S.</span>
+<span 
+class="ec-lmri-7">Common  ostrich  (Struthio  camelus</span>
+<span 
+class="ec-lmri-7">australis)  male  running  (composite</span>
+<span 
+class="ec-lmri-7">image), Damaraland, Namibia </span><span 
+class="ec-lmr-7">2018</span></span></span><span 
+class="ec-lmr-7">.</span> </span></div></div>  <div class="subfigure">
+<!--l. 245--><p class="noindent" ><!--l. 247--><p class="noindent" ><img 
+src="figures/Locomotion/raster/locomotion-quadpedal.jpg" alt="PIC"  
+style="width:64.8%"> <a 
+ id="x5-6003r2"></a>
+<div class="caption" ><span class="id"><span 
+class="ec-lmr-7">(b) </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Quadpedal motion </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Porges. </span><span 
+class="ec-lmri-7">Zebra</span>
+<span 
+class="ec-lmri-7">in Wellington Zoo </span><span 
+class="ec-lmr-7">2025</span></span></span><span 
+class="ec-lmr-7">.</span>         </span></div></div>   <div class="subfigure">
+<!--l. 251--><p class="noindent" ><!--l. 253--><p class="noindent" ><img 
+src="figures/Locomotion/raster/locomotion-hexapedal.jpg" alt="PIC"  
+style="width:64.8%"> <a 
+ id="x5-6005r3"></a>
+<div class="caption" ><span class="id"><span 
+class="ec-lmr-7">(c) </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Hexapedal motion </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Brittanica, E.</span>
+<span 
+class="ec-lmri-7">Ant </span><span 
+class="ec-lmr-7">2025</span></span></span>                   </span></div></div> <a 
+ id="x5-6007r6"></a>
+<div class="caption" ><span class="id"><span 
+class="ec-lmr-8">Figure</span><span 
+class="ec-lmr-8"> 1.6: </span></span><span  
+class="content"><span 
+class="ec-lmr-8">Types of motions used by different animals.</span>
+</span></div>                                                                                </div></div>
+                                                                                
+                                                                                
+</div>
+<!--l. 258--><p class="noindent" ></figure>
+<!--l. 260--><p class="noindent" >Large animals such as mammals and reptiles have four (<span class="alert"><alert style="color: #821131;">4</alert></span>) legs whereas insects have six (<span class="alert"><alert style="color: #821131;">6</alert></span>) or more
+legs. In some mammals, the ability to walk on only two (<span class="alert"><alert style="color: #821131;">2</alert></span>) legs has been perfected. Especially
+in the case of humans, balance has progressed to the point that we can even jump with
+one leg <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">In child development, one of the tests used to determine if the child is acquiring
+advanced locomotion skills is the ability to jump on one leg <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6008"></a>Song, Z. <span 
+class="ec-lmri-10">et al. </span>The Impact of
+Exercise Play on the Biomechanical Characteristics of Single-Leg Jumping in 5-to 6-Year-Old
+Preschool Children. <span 
+class="ec-lmri-10">Sensors </span><span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> 422 (2025)</span></span>.</span></span>. This exceptional manoeuvrability comes at a
+price:
+<div class="warning">
+<!--l. 269--><p class="noindent" >Bipedal motion is much more complex active control to maintain balance.
+</div>
+<!--l. 271--><p class="noindent" >In contrast, a creature with three (<span class="alert"><alert style="color: #821131;">3</alert></span>) legs can exhibit a static, stable pose provided that it can ensure
+that its centre of gravity is within the tripod of ground contact. Static stability, demonstrated by a
+three-legged stool, means that balance is maintained with no need for motion. A small deviation from
+stability <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">e.g., such as gently pushing the stool</span></span> is passively corrected towards the stable
+pose when the upsetting force stops. But a robot must be able to lift its legs in order to
+walk. To achieve static walking, a robot <span id="bold" style="font-weight:bold;">must</span> have at least six (<span class="alert"><alert style="color: #821131;">6</alert></span>) legs <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6009"></a>Böttcher, S.
+<span 
+class="ec-lmri-10">Principles of robot locomotion </span>in <span 
+class="ec-lmri-10">Proceedings of human robot interaction seminar </span>(2006)</span></span>. In
+such a configuration, it is possible to design a gait <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">the pattern of steps of an animal at a
+particular speed.</span></span> in which a statically stable tripod of legs is in contact with the ground at all
+times.
+Insects <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">such as spiders, ant, beetles, …</span></span> are immediately able to walk when born. For them, the problem
+of balance during walking is relatively simple. Mammals, with four (<span class="alert"><alert style="color: #821131;">4</alert></span>) legs, cannot achieve static
+walking, but are able to stand easily on four (<span class="alert"><alert style="color: #821131;">4</alert></span>) legs. Fauns <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">a baby deer</span></span>, for example, spend several
+minutes attempting to stand before they are able to do so, then spend several more minutes
+learning to walk without falling <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6010"></a>Krzywinski, A., Niedbalska, A. &#x0026; Twardowski, L. Growth
+and development of hand reared fallow deer fawns. <span 
+class="ec-lmri-10">Acta theriologica </span><span id="bold" style="font-weight:bold;">29</span><span id="bold" style="font-weight:bold;">,</span> 349–356 (1984)</span></span>.
+Humans, with two (<span class="alert"><alert style="color: #821131;">2</alert></span>) legs, cannot even stand in one place with static stability. Infants
+require months to stand and walk, and even longer to learn to jump, run and stand on one
+leg.
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="center" 
+>
+<!--l. 291--><p class="noindent" >
+<!--l. 292--><p class="noindent" ><img 
+src="figures/Locomotion/raster/caterpillar-locomotion.png" alt="PIC"  
+style=""> <a 
+ id="x5-6011r7"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.7:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Main locomotory gaits in </span><italic>Pleurotya</italic> <span 
+class="ec-lmr-7">caterpillar </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Brackenbury, J. Caterpillar kinematics. </span><span 
+class="ec-lmri-7">Nature </span><span id="bold" style="font-weight:bold;">390</span><span id="bold" style="font-weight:bold;">,</span>
+<span 
+class="ec-lmr-7">453–453 (1997)</span></span></span><span 
+class="ec-lmr-7">.</span>                                                                     </span></figcaption><!--tex4ht:label?: x5-6011r7 -->
+</div>
+</div>
+<!--l. 297--><p class="noindent" ></div>
+There is also the potential for great variety in the complexity of each individual leg. Once again, the
+biological world provides ample examples at both extremes. For instance, in the case of the caterpillar,
+each leg is extended using hydraulic pressure by constricting the body cavity and forcing
+an increase in pressure, and each leg is retracted longitudinally by relaxing the hydraulic
+pressure, then activating a single tensile muscle that pulls the leg in towards the body, seen in
+<span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-6011r7">1.7<!--tex4ht:ref: fig:caterpillar-motion --></a>. Each leg has only a single <span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span>, which is
+oriented longitudinally along the leg. Forward locomotion depends on the hydraulic pressure in
+the body, which extends the distance between pairs of legs. The caterpillar leg is therefore
+mechanically very simple, using a minimal number of extrinsic muscles to achieve complex overall
+locomotion.
+<!--l. 310--><p class="noindent" >At the other extreme, the human leg has more than six (<span class="alert"><alert style="color: #821131;">6</alert></span>) major degrees of freedom, combined with
+further actuation at the toes, shown in <span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-6015r8">1.8<!--tex4ht:ref: fig:human-leg-dof --></a>. There are more than 50 muscles in each lower limb
+and at least half of them participate actively in the control of leg motion <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6013"></a>Winter, D. A.
+<span 
+class="ec-lmri-10">Biomechanics and motor control of human gait: normal, elderly and pathological </span>(1991), <a 
+ id="x5-6014"></a>Lacquaniti, F.,
+Ivanenko, Y. P. &#x0026; Zago, M. Patterned control of human locomotion. <span 
+class="ec-lmri-10">The Journal of physiology </span><span id="bold" style="font-weight:bold;">590</span><span id="bold" style="font-weight:bold;">,</span>
+2189–2199 (2012)</span></span>.
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="center" 
+>
+<!--l. 316--><p class="noindent" >
+<!--l. 317--><p class="noindent" ><img 
+src="figures/Locomotion/raster/human-leg-dof.jpg" alt="PIC"  
+style=""> <a 
+ id="x5-6015r8"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.8:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">The  </span><span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">DoF</span></a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">Degrees  of  Freedom</span></a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">Degrees  of  Freedom</span></a></span></span></span>  <span 
+class="ec-lmr-7">a  human  leg  has</span><span 
+class="ec-lmr-7"> </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Pons,  J.</span><span 
+class="ec-lmr-7"> L.  </span><span 
+class="ec-lmri-7">Wearable  robots:</span>
+<span 
+class="ec-lmri-7">biomechatronic exoskeletons </span><span 
+class="ec-lmr-7">(John Wiley &#x0026; Sons, 2008)</span></span></span><span 
+class="ec-lmr-7">.</span>                                         </span></figcaption><!--tex4ht:label?: x5-6015r8 -->
+<!--l. 320--><p class="noindent" ><img 
+src="figures/Locomotion/raster/leg-3-dof.png" alt="PIC"  
+style=""> <a 
+ id="x5-6017r9"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.9:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">An example of a leg possessing three (</span><span class="alert"><alert style="color: #821131;">3</alert></span><span 
+class="ec-lmr-7">)</span><span 
+class="ec-lmr-7"> </span><span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">DoF</span></a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">Degrees of Freedom</span></a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" ><span 
+class="ec-lmr-7">Degrees of Freedom</span></a></span></span></span><span 
+class="ec-lmr-7"> </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Zyhowski, W.</span><span 
+class="ec-lmr-7"> P.,</span>
+<span 
+class="ec-lmr-7">Zill, S.</span><span 
+class="ec-lmr-7"> N. &#x0026; Szczecinski, N.</span><span 
+class="ec-lmr-7"> S. Adaptive load feedback robustly signals force dynamics in robotic model of Carausius</span>
+<span 
+class="ec-lmr-7">morosus stepping. </span><span 
+class="ec-lmri-7">Frontiers in Neurorobotics </span><span id="bold" style="font-weight:bold;">17</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-7">1125171 (2023)</span></span></span><span 
+class="ec-lmr-7">.</span>                                   </span></figcaption><!--tex4ht:label?: x5-6017r9 -->
+</div>
+</div>
+<!--l. 325--><p class="noindent" ></div>
+In the case of legged mobile robots, a minimum of two (<span class="alert"><alert style="color: #821131;">2</alert></span>) <span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span>
+is generally required to move a leg forward by lifting the left and swinging it forward. More common is the
+addition of a <!--l. 330--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msup><mrow 
+><mstyle 
+class="text"><mtext  >3</mtext></mstyle></mrow><mrow 
+><mstyle 
+class="text"><mtext  >rd</mtext></mstyle></mrow></msup 
+></math>
+<span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span> for more complex manoeuvres, resulting in legs such as
+those shown in <span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-6017r9">1.9<!--tex4ht:ref: fig:leg-3-dof --></a>. Recent successes in the creation of bipedal walking robots have added a fourth
+DOF at the ankle joint <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6019"></a>Lee, H. &#x0026; Hogan, N. <span 
+class="ec-lmri-10">Investigation of human ankle mechanical impedance</span>
+<span 
+class="ec-lmri-10">during locomotion using a wearable ankle robot </span>in <span 
+class="ec-lmri-10">2013 IEEE International Conference on</span>
+<span 
+class="ec-lmri-10">Robotics and Automation </span>(2013), 2651–2656</span></span>. The ankle enables more consistent ground
+contact by actuating the pose of the sole of the foot. In general, adding <span class="acronym"><span class="acronym-short"><a 
+href="#glo:dof" class="glossary" >DoF</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:dof" class="glossary" >Degrees of
+Freedom</a></span><span class="acronym-desc"><a 
+href="#glo:dof" class="glossary" >Degrees of Freedom</a></span></span></span> to a robot leg increases the manoeuvrability of the robot, both
+augmenting the range of terrains on which it can travel and the ability of the robot to
+travel with a variety of gaits. The primary disadvantages of additional joints and actuators
+is, of course, energy, control and mass. Additional actuators require energy and control,
+and they also add to leg mass, further increasing power and load requirements on existing
+actuators.
+In the case of a multi-legged mobile robot, there is the issue of leg coordination for locomotion, or gait
+control.
+<div class="warning">
+<!--l. 345--><p class="noindent" >The number of possible gaits depends on the number of legs <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-6020"></a>Alexander, R. M. Optimization and
+gaits in the locomotion of vertebrates. <span 
+class="ec-lmri-10">Physiological reviews </span><span id="bold" style="font-weight:bold;">69</span><span id="bold" style="font-weight:bold;">,</span> 1199–1227 (1989)</span></span>.
+</div>
+<!--l. 347--><p class="noindent" >The gait is a sequence of lift and release events for the individual legs. For a mobile robot with
+<!--l. 348--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math> legs, the total number
+of possible events <!--l. 348--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>N</mi></math>
+for a walking machine is: <table class="equation"><tr><td>
+<!--l. 350--><p class="noindent" >
+                                                                                
+                                                                                
+<!--l. 350--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                  <mstyle 
+   id="x5-6021r1"  class="label" ></mstyle><!--endlabel-->
+                                  <mi 
+>N</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mn>2</mn><mi 
+>k</mi> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <mn>1</mn></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mo 
+class="MathClass-punc" stretchy="false">!</mo>
+</math></td><td class="eq-no">(1.1)</td></tr></table>
+<!--l. 352--><p class="noindent" >For a bipedal walker (<!--l. 354--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math>=2) legs
+the number of possible events <!--l. 354--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>N</mi></math>
+is: <table class="equation"><tr><td>
+<!--l. 356--><p class="noindent" >
+<!--l. 356--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                           <mstyle 
+   id="x5-6022r2"  class="label" ></mstyle><!--endlabel-->
+                           <mi 
+>N</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mn>2</mn><mi 
+>k</mi> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <mn>1</mn></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mo 
+class="MathClass-punc" stretchy="false">!</mo> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>3</mn><mo 
+class="MathClass-punc" stretchy="false">!</mo> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>3</mn> <mi 
+>·</mi> <mn>2</mn> <mi 
+>·</mi> <mn>1</mn> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>6</mn>
+</math></td><td class="eq-no">(1.2)</td></tr></table>
+<!--l. 358--><p class="noindent" >The six (<span class="alert"><alert style="color: #821131;">6</alert></span>) different events are:
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 363--><p class="noindent" >lift right leg
+</li>     
+<li class="itemize">
+<!--l. 364--><p class="noindent" >lift left leg
+</li>     
+<li class="itemize">
+<!--l. 365--><p class="noindent" >release right leg
+</li>     
+<li class="itemize">
+<!--l. 366--><p class="noindent" >release left leg
+</li>     
+<li class="itemize">
+<!--l. 367--><p class="noindent" >lift both legs together
+</li>     
+<li class="itemize">
+<!--l. 368--><p class="noindent" >release both legs together</li></ul>
+                                                                                
+                                                                                
+<!--l. 371--><p class="noindent" >As can we see, this list of possible events quickly grows quite large. For example, a robot with six
+(<span class="alert"><alert style="color: #821131;">6</alert></span>) legs has far more gaits theoretically: <table class="equation"><tr><td>
+<!--l. 374--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                            <mstyle 
+   id="x5-6023r3"  class="label" ></mstyle><!--endlabel-->
+                            <mi 
+>N</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>1</mn><mn>1</mn><mo 
+class="MathClass-punc" stretchy="false">!</mo> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>3</mn><mi 
+>,</mi><mn>9</mn><mn>9</mn><mn>1</mn><mo 
+class="MathClass-punc" stretchy="false">.</mo><mn>6</mn><mn>8</mn><mn>0</mn><mo 
+class="MathClass-punc" stretchy="false">.</mo><mn>0</mn> <mi 
+>×</mi> <mn>1</mn><msup><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>7</mn></mrow></msup 
+>
+</math></td><td class="eq-no">(1.3)</td></tr></table>
+<!--l. 376--><p class="noindent" >
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="center" 
+>
+<!--l. 380--><p class="noindent" >
+<!--l. 381--><p class="noindent" ><img 
+src="figures/Locomotion/raster/hopper.jpg" alt="PIC"  
+style=""> <a 
+ id="x5-6024r10"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.10:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">The Raibert hopper </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">MIT. </span><span 
+class="ec-lmri-7">The Raibert Hopper </span><span 
+class="ec-lmr-7">1984</span></span></span><span 
+class="ec-lmr-7">.</span>                                </span></figcaption><!--tex4ht:label?: x5-6024r10 -->
+</div>
+</div>
+<!--l. 387--><p class="noindent" ></div>
+
+<!--l. 389--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.1.2.1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">1.2.1</span> <span class="title"><a 
+ id="x5-70001.2.1"></a>Examples of Legged Robot Locomotion</span></h4></div>
+<!--l. 391--><p class="noindent" >Although there are no high-volume industrial applications to date, legged locomotion is an important
+area of long-term research. Several interesting designs are presented below, beginning with the
+one-legged robot and finishing with six-legged robots.
+
+<a 
+ id="subsubsection*.2"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x5-8000"></a>Single Leg</h5>
+<!--l. 397--><p class="noindent" >The minimum number of legs a legged robot can have is, of course, one. Minimising the number of legs
+is beneficial for several reasons.
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 402--><p class="noindent" >Body mass is particularly important to walking machines, and the single leg minimises
+cumulative leg mass.
+</li>     
+<li class="itemize">
+<!--l. 404--><p class="noindent" >Leg coordination is required when a robot has several legs, but with one leg no such
+coordination is needed.
+</li>     
+<li class="itemize">
+<!--l. 406--><p class="noindent" >The one-legged robot maximises the basic advantage of legged locomotion: legs have single points
+of contact with the ground in lieu of an entire track as with wheels. <div class="quote">  A single legged
+robot requires only a sequence of single contacts, making it useful in rough terrain.  </div><p>
+</li></ul>
+<!--l. 417--><p class="noindent" >Perhaps most importantly, a hopping robot can dynamically cross a gap that is larger than its stride by
+taking a running start, whereas a multi-legged walking robot that cannot run is limited to crossing gaps
+that are as large as its reach.
+<!--l. 421--><p class="noindent" >The major challenge of creating a single-leg robot is <span class="alert"><alert style="color: #821131;">balance</alert></span>. For a robot with one leg, static walking
+is not only impossible, but static stability when stationary is also impossible. The robot must actively
+balance itself by either changing its centre of gravity or by imparting corrective forces. Thus, the
+successful single-leg robot <span id="bold" style="font-weight:bold;">must be dynamically stable</span>.
+                                                                                
+                                                                                
+<span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-6024r10">1.10<!--tex4ht:ref: fig:hopper --></a> shows the Raibert Hopper <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-8001"></a>Murthy, S. S. &#x0026; Raibert, M. H. 3D balance in
+legged locomotion: modeling and simulation for the one-legged case. <span 
+class="ec-lmri-10">ACM SIGGRAPH</span>
+<span 
+class="ec-lmri-10">Computer Graphics </span><span id="bold" style="font-weight:bold;">18</span><span id="bold" style="font-weight:bold;">,</span> 27–27 (1984), <a 
+ id="x5-8002"></a>Raibert, M. H., Brown Jr, H. B. &#x0026; Chepponis, M.
+Experiments in balance with a 3D one-legged hopping machine. <span 
+class="ec-lmri-10">The International Journal of</span>
+<span 
+class="ec-lmri-10">Robotics Research </span><span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> 75–92 (1984)</span></span>, one of the most well-known single-leg hopping robots
+created.
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="center" 
+>
+<!--l. 431--><p class="noindent" >
+<!--l. 432--><p class="noindent" ><img 
+src="figures/Locomotion/raster/bowleg.jpg" alt="PIC"  
+style=""> <a 
+ id="x5-8003r11"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.11:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">The 2D single Bow Leg Hopper.</span>                                                </span></figcaption><!--tex4ht:label?: x5-8003r11 -->
+<!--l. 438--><p class="noindent" ><img 
+src="figures/Locomotion/raster/honda-asimo.jpg" alt="PIC"  
+style=""> <a 
+ id="x5-8004r12"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.12:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">The New ASIMO introduced in 2005 </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Citizendium. </span><span 
+class="ec-lmri-7">Asimo </span><span 
+class="ec-lmr-7">2005</span></span></span><span 
+class="ec-lmr-7">.</span>                         </span></figcaption><!--tex4ht:label?: x5-8004r12 -->
+</div>
+</div>
+<!--l. 442--><p class="noindent" ></div>
+<!--l. 444--><p class="noindent" >This robot makes continuous corrections to body attitude and to robot velocity by adjusting
+the leg angle with respect to the body. The actuation is hydraulic, including high-power
+longitudinal extension of the leg during stance to hop back into the air. Although powerful, these
+actuators require a large, off-board hydraulic pump to be connected to the robot at all times.
+<span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-8003r11">1.11<!--tex4ht:ref: fig:bowleg --></a> shows a more energy efficient design developed <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-8006"></a>Brown, B. &#x0026; Zeglin, G. <span 
+class="ec-lmri-10">The</span>
+<span 
+class="ec-lmri-10">bow leg hopping robot </span>in <span 
+class="ec-lmri-10">Proceedings. 1998 IEEE International Conference on Robotics</span>
+<span 
+class="ec-lmri-10">and Automation (Cat. No. 98CH36146) </span><span id="bold" style="font-weight:bold;">1</span> (1998), 781–786</span></span>. Instead of supplying power by
+means of an off-board hydraulic pump, the Bow Leg Hopper is designed to capture the
+kinetic energy of the robot as it lands using an efficient bow spring leg. This spring returns
+approximately 85% of the energy, meaning that stable hopping requires only the addition of 15%
+of the required energy on each hop. This robot, which is constrained along one axis by a
+boom, has demonstrated continuous hopping for 20 minutes using a single set of batteries
+carried on board the robot. As with the Raibert Hopper, the Bow Leg Hopper controls
+velocity by changing the angle of the leg to the body at the hip joint. The paper of Ringrose
+<span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x5-8007"></a>Ringrose, R. <span 
+class="ec-lmri-10">Self-stabilizing running </span>in <span 
+class="ec-lmri-10">Proceedings of International Conference on Robotics</span>
+<span 
+class="ec-lmri-10">and Automation </span><span id="bold" style="font-weight:bold;">1</span> (1997), 487–493</span></span> demonstrates the very important duality of mechanics
+and controls as applied to a single leg hopping machine. Often clever mechanical design
+can perform the same operations as complex active control circuitry. In this robot, the
+physical shape of the foot is exactly the right curve so that when the robot lands without
+being perfectly vertical, the proper corrective force is provided from the impact, making the
+robot vertical by the next landing. This robot is dynamically stable, and is furthermore
+passive.
+<div class="knowledge">
+<!--l. 469--><p class="noindent" >The correction is provided by physical interactions between the robot and its environment, with no
+computer nor any active control in the loop.
+</div>
+
+<a 
+ id="subsubsection*.3"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x5-9000"></a>Two Legs (Bipedal)</h5>
+<!--l. 473--><p class="noindent" >A variety of successful bipedal robots have been demonstrated. Two-legged robots have been shown to
+run, jump, travel up and down stairs and even do aerial tricks such as somersaults. <span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-8004r12">1.12<!--tex4ht:ref: fig:honda-asimo --></a> shows the
+Honda P2 bipedal robot, which is the product of tens of millions of research dollars and more than a
+decade of work. This biped can walk on slopes, climb and descend stairs, and push shopping carts. The
+                                                                                
+                                                                                
+crucial technology that enables this robot is Honda’s research into the fabrication of extremely high
+torque, low mass motors that serve as the robot’s joints. In the case of P2, the most significant
+obstacle that remains is energy capacity, efficiency and autonomous navigation. This robot can
+operate for only about 20 minutes with on-board power. An important feature of bipedal
+robots is their anthropomorphic shape. They can be built to have the same approximate
+dimensions as humans, and this makes them excellent vehicles for research in human-robot
+interaction.
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<!--l. 487--><p class="noindent" ><img 
+src="figures/Locomotion/raster/flamingo.jpg" alt="PIC"  
+style=""> <a 
+ id="x5-9001r13"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.13:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Spring Flamingo is a planar bipedal walking robot </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Flamingo. </span><span 
+class="ec-lmri-7">Spring Flamingo </span><span 
+class="ec-lmr-7">2000</span></span></span><span 
+class="ec-lmr-7">.</span>           </span></figcaption><!--tex4ht:label?: x5-9001r13 -->
+                                                                                
+                                                                                
+</div>
+<!--l. 490--><p class="noindent" ></div>
+<!--l. 493--><p class="noindent" >Bipedal robots can only be statically stable within some limits, and so robots such as P2 and Wabian
+generally must perform continuous balance-correcting servoing even when standing still. Furthermore,
+each leg must have sufficient capacity to support the full weight of the robot. In the case of four-legged
+robots, the balance problem is facilitated along with the load requirements of each leg. An
+elegant design of a biped robot is the Spring Flamingo of MIT seen in <span id="bold" style="font-weight:bold;">Fig.</span> <a 
+href="#x5-9001r13">1.13<!--tex4ht:ref: fig:flamingo --></a>. This robot
+inserts springs in series with the leg actuators to achieve a more elastic gait. Combined
+with &#x0022;kneecaps&#x0022; that limit knee joint angles, the Flamingo achieves surprisingly biomimetic
+motion.
+
+<a 
+ id="subsubsection*.4"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x5-10000"></a>Four Legs (Quadruped)</h5>
+<!--l. 504--><p class="noindent" >Although standing still on four legs is passively stable, walking remains challenging because to remain
+stable the robot’s center of gravity must be actively shifted during the gait. Sony recently invested
+several million dollars to develop a four-legged robot (figure 2.14). To cre- ate this robot, Sony created
+both a new robot operating system that is near real-time and invented new geared servomotors that are
+sufficiently high torque to support the robot, yet backdriveable for safety. In addition to developing
+custom motors and software, Sony incorporated a color vision system that enables Aibo to chase a
+brightly colored ball. The robot is able to function for at most one hour before requiring recharging.
+Early sales of the robot have been very strong, with more than 60,000 units sold in the first
+year. Nevertheless, the number of motors and the technology investment behind this robot
+dog have resulted in a very high price of approximately 1500. Four legged robots have the
+potential to serve as effective artifacts for research in human- robot interaction (fig. 2.15).
+Humans can treat the Sony robot, for example, as a pet and might develop an emotional
+relationship similar to that between man and dog. Furthermore, Sony has designed Aibo’s
+walking style and general behavior to emulate learning and maturation, resulting in dynamic
+behavior over time that is more interesting for the owner who can track the changing behavior.
+As the challenges of high energy storage and motor technology are solved, it is likely that
+quadruped robots much more capable than Aibo will become common throughout the human
+environment.
+
+<a 
+ id="subsubsection*.5"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x5-11000"></a>Six Legs (Hexapod)</h5>
+<!--l. 526--><p class="noindent" >Six legged configurations have been extremely popular in mobile robotics because of their static
+stability during walking, thus reducing the control complexity (figure 2.16 and 2.17). In most
+cases, each leg has 3 DOF, including hip flexion, knee flexion and hip abduction (figure
+2.6).
+<div class="sidenote"> <span class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<div class="center" 
+>
+<!--l. 532--><p class="noindent" >
+<!--l. 533--><p class="noindent" ><img 
+src="figures/Locomotion/raster/genghis.png" alt="PIC"  
+style=""><a 
+ id="x5-11001r14"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 1.14:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Genghis, one of the most famous walking robots from MIT uses hobby servomotors as its actuators.</span>   </span></figcaption><!--tex4ht:label?: x5-11001r14 -->
+</div>
+</div>
+<!--l. 539--><p class="noindent" ></div>
+<!--l. 541--><p class="noindent" >Genghis is a commercially available hobby robot that has six legs, each of which has 2 DOF provided
+by hobby servos (figure 2.18). Such a robot, which consists only of hip flexion and hip abduction, has
+less maneuverability in rough terrain but performs quite well on flat ground. Because it consists of a
+straightforward arrangement of servo motors and straight legs, such robots can be readily built by a
+robot hobbyist. Insects, which are arguably the most successful locomoting creatures on earth, excel at
+traversing all forms of terrain with six legs, even upside down. Currently, the gap between the
+capabilities of six-legged insects and artificial six-legged robots is still quite large. Interestingly,
+this is not due to a lack of sufficient numbers of degrees of freedom on the robots. Rather,
+insects combine a small number of active degrees of freedom with passive structures, such as
+microscopic barbs and textured pads, that increase the gripping strength of each leg significantly.
+Robotic research into such passive tip structures has only recently begun. For example, a
+research group is attempting to recreate the complete mechanical function of the cockroach leg
+(Roland, reference in notes (Espenschied et al.)). It is clear from all of the above examples
+that legged robots have much progress to make before they are competitive with thei24
+Autonomous Mobile Robots have been realised recently, primarily due to advances in motor design.
+Creating actuation systems that approach the efficiency of animal muscle remains far from the
+reach of robotics, as does energy storage with the energy densities found in organic life
+forms
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><a 
+href="WheeledMobileRobots.html" ><span class="nav-next">NEXT</span></a><a 
+href="Introduction.html" ><span class="nav-prev">PREV</span></a><a 
+href="Introduction.html#tailIntroduction.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="LeggedMobileRobots.html" ><span class="nav-front">FRONT</span></a><a 
+href="Locomotion.html#LeggedMobileRobots.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailLeggedMobileRobots.html"></a>   </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>

@@ -1,0 +1,946 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>10 References</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 140--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Transform Library</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+                                                                                
+                                                                                
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="AddingaFrame.html#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="WritingaBroadcaster.html#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <span class="nav-inactive"><span class="nav-next">NEXT</span></span> <a 
+href="TransformLibrary.html" ><span class="nav-prev">PREV</span></a><a 
+href="TransformLibrary.html#tailTransformLibrary.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailReferences.html"><span class="nav-tail">TAIL</span></a><a 
+href="FHSMobileRoboticsLectureBook.html#References.html" ><span class="nav-up">UP</span></a></nav> 
+<h2 class="addchapHead"><a 
+ id="x60-390000"></a>References</h2>
+<dl class="thebibliography"><dt id="X0-bulliet2016wheel" class="thebibliography"> 
+1.  
+</dt><dd 
+id="bib-571" class="thebibliography">
+<!--l. 140--><p class="noindent" >Bulliet, R. W. The wheel: inventions and reinventions (Columbia University Press, 2016).
+</dd>    
+<dt id="X0-siegwart2011introduction" class="thebibliography">
+2.  
+</dt><dd 
+id="bib-572" class="thebibliography">
+<!--l. 140--><p class="noindent" >Siegwart, R., Nourbakhsh, I. R. &#x0026; Scaramuzza, D. Introduction to autonomous mobile
+robots (MIT press, 2011).
+</dd>    
+<dt id="X0-labarbera1983wheels" class="thebibliography">
+3.  
+</dt><dd 
+id="bib-573" class="thebibliography">
+<!--l. 140--><p class="noindent" >LaBarbera, M. Why the wheels won’t go. The American Naturalist <span id="bold" style="font-weight:bold;">121</span><span id="bold" style="font-weight:bold;">,</span> 395–408 (1983).
+</dd>    
+<dt id="X0-vincent2006biomimetics" class="thebibliography">
+4.  
+</dt><dd 
+id="bib-574" class="thebibliography">
+<!--l. 140--><p class="noindent" >Vincent,  J. F.,  Bogatyreva,  O. A.,  Bogatyrev,  N. R.,  Bowyer,  A.  &#x0026;  Pahl,  A.-K.
+Biomimetics: its practice and theory. Journal of the Royal Society Interface <span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> 471–482
+(2006).
+</dd>    
+<dt id="X0-druelle2023convergence" class="thebibliography">
+5.  
+</dt><dd 
+id="bib-575" class="thebibliography">
+<!--l. 140--><p class="noindent" >Druelle, F., Abourachid, A., Vasilopoulou-Kampitsi, M. &#x0026; Aerts, P. Convergence of bipedal
+locomotion: why walk or run on only two legs in Convergent Evolution: Animal Form and
+Function 431–476 (Springer, 2023).
+</dd>    
+<dt id="X0-lyons2005rotational" class="thebibliography">
+6.  
+</dt><dd 
+id="bib-576" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Lyons, D. M. &#x0026; Pamnany, K. Rotational legged locomotion in ICAR’05. Proceedings., 12th
+International Conference on Advanced Robotics, 2005. (2005), 223–228.
+</dd>    
+<dt id="X0-schweitzer1991robotrac" class="thebibliography">
+7.  
+</dt><dd 
+id="bib-577" class="thebibliography">
+<!--l. 140--><p class="noindent" >Schweitzer, G. ROBOTRAC-a Mobile Manipulator Platform for Rough Terrain in Proc. of
+Int. Symp. on Advanced Robot Technology (1991), 411–416.
+</dd>    
+<dt id="X0-thor2018dung" class="thebibliography">
+8.  
+</dt><dd 
+id="bib-578" class="thebibliography">
+<!--l. 140--><p class="noindent" >Thor, M. et al. A dung beetle-inspired robotic model and its distributed sensor-driven
+control for walking and ball rolling. Artificial Life and Robotics <span id="bold" style="font-weight:bold;">23</span><span id="bold" style="font-weight:bold;">,</span> 435–443 (2018).
+</dd>    
+<dt id="X0-Jones2018Dung" class="thebibliography">
+9.  
+</dt><dd 
+id="bib-579" class="thebibliography">
+<!--l. 140--><p class="noindent" >R. Jones, Z. P. S. All Praise The Humble Dung Beetle 2018.
+</dd>    
+<dt id="X0-Sharp2018" class="thebibliography">
+10.  
+</dt><dd 
+id="bib-580" class="thebibliography">
+<!--l. 140--><p class="noindent" >Photography, S. Common ostrich (Struthio camelus australis) male running (composite
+image), Damaraland, Namibia 2018.
+</dd>    
+<dt id="X0-Porges2008" class="thebibliography">
+11.  
+</dt><dd 
+id="bib-581" class="thebibliography">
+<!--l. 140--><p class="noindent" >Porges. Zebra in Wellington Zoo 2025.
+</dd>    
+<dt id="X0-BrittanicaAnt2025" class="thebibliography">
+12.  
+</dt><dd 
+id="bib-582" class="thebibliography">
+<!--l. 140--><p class="noindent" >Brittanica, E. Ant 2025.
+</dd>    
+<dt id="X0-song2025impact" class="thebibliography">
+13.  
+</dt><dd 
+id="bib-583" class="thebibliography">
+<!--l. 140--><p class="noindent" >Song, Z., Hou, B., Ji, Z. &#x0026; Jiang, G. The Impact of Exercise Play on the Biomechanical
+Characteristics of Single-Leg Jumping in 5-to 6-Year-Old Preschool Children. Sensors <span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span>
+422 (2025).
+</dd>    
+<dt id="X0-bottcher2006principles" class="thebibliography">
+14.  
+</dt><dd 
+id="bib-584" class="thebibliography">
+<!--l. 140--><p class="noindent" >Böttcher, S. Principles of robot locomotion in Proceedings of human robot interaction
+seminar (2006).
+</dd>    
+<dt id="X0-krzywinski1984growth" class="thebibliography">
+15.  
+</dt><dd 
+id="bib-585" class="thebibliography">
+<!--l. 140--><p class="noindent" >Krzywinski, A., Niedbalska, A. &#x0026; Twardowski, L. Growth and development of hand reared
+fallow deer fawns. Acta theriologica <span id="bold" style="font-weight:bold;">29</span><span id="bold" style="font-weight:bold;">,</span> 349–356 (1984).
+</dd>    
+<dt id="X0-brackenbury1997caterpillar" class="thebibliography">
+16.  
+</dt><dd 
+id="bib-586" class="thebibliography">
+<!--l. 140--><p class="noindent" >Brackenbury, J. Caterpillar kinematics. Nature <span id="bold" style="font-weight:bold;">390</span><span id="bold" style="font-weight:bold;">,</span> 453–453 (1997).
+</dd>    
+<dt id="X0-winter1991biomechanics" class="thebibliography">
+17.  
+</dt><dd 
+id="bib-587" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Winter,  D. A.  Biomechanics  and  motor  control  of  human  gait:  normal,  elderly  and
+pathological (1991).
+</dd>    
+<dt id="X0-lacquaniti2012patterned" class="thebibliography">
+18.  
+</dt><dd 
+id="bib-588" class="thebibliography">
+<!--l. 140--><p class="noindent" >Lacquaniti, F., Ivanenko, Y. P. &#x0026; Zago, M. Patterned control of human locomotion. The
+Journal of physiology <span id="bold" style="font-weight:bold;">590</span><span id="bold" style="font-weight:bold;">,</span> 2189–2199 (2012).
+</dd>    
+<dt id="X0-pons2008wearable" class="thebibliography">
+19.  
+</dt><dd 
+id="bib-589" class="thebibliography">
+<!--l. 140--><p class="noindent" >Pons, J. L. Wearable robots: biomechatronic exoskeletons (John Wiley &#x0026; Sons, 2008).
+</dd>    
+<dt id="X0-zyhowski2023adaptive" class="thebibliography">
+20.  
+</dt><dd 
+id="bib-590" class="thebibliography">
+<!--l. 140--><p class="noindent" >Zyhowski, W. P., Zill, S. N. &#x0026; Szczecinski, N. S. Adaptive load feedback robustly signals
+force dynamics in robotic model of Carausius morosus stepping. Frontiers in Neurorobotics
+<span id="bold" style="font-weight:bold;">17</span><span id="bold" style="font-weight:bold;">,</span> 1125171 (2023).
+</dd>    
+<dt id="X0-lee2013investigation" class="thebibliography">
+21.  
+</dt><dd 
+id="bib-591" class="thebibliography">
+<!--l. 140--><p class="noindent" >Lee, H. &#x0026; Hogan, N. Investigation of human ankle mechanical impedance during locomotion
+using  a  wearable  ankle  robot  in  2013  IEEE  International  Conference  on  Robotics  and
+Automation (2013), 2651–2656.
+</dd>    
+<dt id="X0-alexander1989optimization" class="thebibliography">
+22.  
+</dt><dd 
+id="bib-592" class="thebibliography">
+<!--l. 140--><p class="noindent" >Alexander, R. M. Optimization and gaits in the locomotion of vertebrates. Physiological
+reviews <span id="bold" style="font-weight:bold;">69</span><span id="bold" style="font-weight:bold;">,</span> 1199–1227 (1989).
+</dd>    
+<dt id="X0-MITRaibert1984" class="thebibliography">
+23.  
+</dt><dd 
+id="bib-593" class="thebibliography">
+<!--l. 140--><p class="noindent" >MIT. The Raibert Hopper 1984.
+</dd>    
+<dt id="X0-murthy19843d" class="thebibliography">
+24.  
+</dt><dd 
+id="bib-594" class="thebibliography">
+<!--l. 140--><p class="noindent" >Murthy, S. S. &#x0026; Raibert, M. H. 3D balance in legged locomotion: modeling and simulation
+for the one-legged case. ACM SIGGRAPH Computer Graphics <span id="bold" style="font-weight:bold;">18</span><span id="bold" style="font-weight:bold;">,</span> 27–27 (1984).
+</dd>    
+<dt id="X0-raibert1984experiments" class="thebibliography">
+25.  
+</dt><dd 
+id="bib-595" class="thebibliography">
+<!--l. 140--><p class="noindent" >Raibert, M. H., Brown Jr, H. B. &#x0026; Chepponis, M. Experiments in balance with a 3D
+one-legged  hopping  machine.  The  International  Journal  of  Robotics  Research  <span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> 75–92
+(1984).
+</dd>    
+<dt id="X0-Asimo2005" class="thebibliography">
+26.  
+</dt><dd 
+id="bib-596" class="thebibliography">
+<!--l. 140--><p class="noindent" >Citizendium. Asimo 2005.
+</dd>    
+<dt id="X0-brown1998bow" class="thebibliography">
+27.  
+</dt><dd 
+id="bib-597" class="thebibliography">
+<!--l. 140--><p class="noindent" >Brown, B. &#x0026; Zeglin, G. The bow leg hopping robot in Proceedings. 1998 IEEE International
+Conference on Robotics and Automation (Cat. No. 98CH36146) <span id="bold" style="font-weight:bold;">1</span> (1998), 781–786.
+                                                                                
+                                                                                
+    
+</dd>
+<dt id="X0-ringrose1997self" class="thebibliography">
+28.  
+</dt><dd 
+id="bib-598" class="thebibliography">
+<!--l. 140--><p class="noindent" >Ringrose, R. Self-stabilizing running in Proceedings of International Conference on Robotics
+and Automation <span id="bold" style="font-weight:bold;">1</span> (1997), 487–493.
+</dd>    
+<dt id="X0-Flamingo2000" class="thebibliography">
+29.  
+</dt><dd 
+id="bib-599" class="thebibliography">
+<!--l. 140--><p class="noindent" >Flamingo. Spring Flamingo 2000.
+</dd>    
+<dt id="X0-erland1974rad" class="thebibliography">
+30.  
+</dt><dd 
+id="bib-600" class="thebibliography">
+<!--l. 140--><p class="noindent" >Erland,  I. B.  Rad  fuer  ein  laufstabiles,  selbstfahrendes  fahrzeug.  German  Patent  No.
+DE2354404A1 (1974).
+</dd>    
+<dt id="X0-dowling1990navlab" class="thebibliography">
+31.  
+</dt><dd 
+id="bib-601" class="thebibliography">
+<!--l. 140--><p class="noindent" >Dowling, K. et al. NAVLAB An Autonomous Navigation Testbed in Vision and Navigation:
+The Carnegie Mellon Navlab 259–282 (Springer, 1990).
+</dd>    
+<dt id="X0-ackerman2025" class="thebibliography">
+32.  
+</dt><dd 
+id="bib-602" class="thebibliography">
+<!--l. 140--><p class="noindent" >ackerman. Ackerman Steering Mechanism 2025.
+</dd>    
+<dt id="X0-Farnell2025" class="thebibliography">
+33.  
+</dt><dd 
+id="bib-603" class="thebibliography">
+<!--l. 140--><p class="noindent" >Farnell.  Rotary  Encoder,  Module,  Optical,  Incremental,  500  PPR,  0  Detents,  Vertical,
+Without Push Switch 2025.
+</dd>    
+<dt id="X0-flyrobo2025" class="thebibliography">
+34.  
+</dt><dd 
+id="bib-604" class="thebibliography">
+<!--l. 140--><p class="noindent" >Flyrobo. GY-26 Digital Electronic Compass Sensor Module 2025.
+</dd>    
+<dt id="X0-findlight2025" class="thebibliography">
+35.  
+</dt><dd 
+id="bib-605" class="thebibliography">
+<!--l. 140--><p class="noindent" >FindLight. Optical Gyroscopes: Measuring Rotational Changes With Sagnac Effect 2025.
+</dd>    
+<dt id="X0-speakes1983statement" class="thebibliography">
+36.  
+</dt><dd 
+id="bib-606" class="thebibliography">
+<!--l. 140--><p class="noindent" >Speakes, L. M. Statement by Deputy Press Secretary Speakes on the Soviet Attack on a
+Korean Civilian Airliner. Ronald Reagan Presidential Library, September <span id="bold" style="font-weight:bold;">16</span> (1983).
+</dd>    
+<dt id="X0-PiHut2025" class="thebibliography">
+37.  
+</dt><dd 
+id="bib-607" class="thebibliography">
+<!--l. 140--><p class="noindent" >PiHut. HC-SR04 Ultrasonic Range Sensor on the Raspberry Pi 2025.
+</dd>    
+<dt id="X0-Reinhold2014" class="thebibliography">
+38.  
+</dt><dd 
+id="bib-608" class="thebibliography">
+<!--l. 140--><p class="noindent" >Reinhold. Structured light sources on display at the 2014 Machine Vision Show in Boston.
+2014.
+</dd>    
+<dt id="X0-CCDchip2014" class="thebibliography">
+39.  
+</dt><dd 
+id="bib-609" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Andrzej. CCD image sensor SONY ICX493AQA 10,14 (Gross 10,75) M pixels APS-C 1.8&#x0022;
+28.328mm (23.4 x 15.6 mm) from module IS-026 from digital camera SONY DSLR-A200
+or DSLR-A300 sensor side 2014.
+</dd>    
+<dt id="X0-TeledyneCCD2020" class="thebibliography">
+40.  
+</dt><dd 
+id="bib-610" class="thebibliography">
+<!--l. 140--><p class="noindent" >TeledyneCCD. How a Charge Coupled Device (CCD) Image Sensor Works 2020.
+</dd>    
+<dt id="X0-1530559" class="thebibliography">
+41.  
+</dt><dd 
+id="bib-611" class="thebibliography">
+<!--l. 140--><p class="noindent" >Hirakawa,  K.  &#x0026;  Parks,  T.  Chromatic  adaptation  and  white-balance  problem  in  IEEE
+International Conference on Image Processing 2005 <span id="bold" style="font-weight:bold;">3</span> (2005), III–984.
+</dd>    
+<dt id="X0-Fstoppers2022" class="thebibliography">
+42.  
+</dt><dd 
+id="bib-612" class="thebibliography">
+<!--l. 140--><p class="noindent" >Fstoppers. Is There a Difference Between Color Temperature and White Balance? 2022.
+</dd>    
+<dt id="X0-ilie2005ensuring" class="thebibliography">
+43.  
+</dt><dd 
+id="bib-613" class="thebibliography">
+<!--l. 140--><p class="noindent" >Ilie, A. &#x0026; Welch, G. Ensuring color consistency across multiple cameras in Tenth IEEE
+International Conference on Computer Vision (ICCV’05) Volume 1 <span id="bold" style="font-weight:bold;">2</span> (2005), 1268–1275.
+</dd>    
+<dt id="X0-TeledyneSat2025" class="thebibliography">
+44.  
+</dt><dd 
+id="bib-614" class="thebibliography">
+<!--l. 140--><p class="noindent" >Teledyne. Saturation and Blooming 2025.
+</dd>    
+<dt id="X0-zhang2013analysis" class="thebibliography">
+45.  
+</dt><dd 
+id="bib-615" class="thebibliography">
+<!--l. 140--><p class="noindent" >Zhang, Z. et al. Analysis and simulation to excessive saturation effect of CCD in  2nd
+International Symposium on Laser Interaction with Matter (LIMIS 2012) <span id="bold" style="font-weight:bold;">8796</span> (2013),
+96–102.
+</dd>    
+<dt id="X0-Baumer2025" class="thebibliography">
+46.  
+</dt><dd 
+id="bib-616" class="thebibliography">
+<!--l. 140--><p class="noindent" >Baumer. Operating principle and features of CMOS sensors 2025.
+</dd>    
+<dt id="X0-Econ2025" class="thebibliography">
+47.  
+</dt><dd 
+id="bib-617" class="thebibliography">
+<!--l. 140--><p class="noindent" >Econ Systems. CMOS camera module 2025.
+</dd>    
+<dt id="X0-holst2007cmos" class="thebibliography">
+48.  
+</dt><dd 
+id="bib-618" class="thebibliography">
+<!--l. 140--><p class="noindent" >Holst, T. &#x0026; Lomheim, G. CMOS/CCD Sensors (JCD publishing, 2007).
+</dd>    
+<dt id="X0-Mdf2010" class="thebibliography">
+49.  
+</dt><dd 
+id="bib-619" class="thebibliography">
+<!--l. 140--><p class="noindent" >Mdf. A photon noise simulation 2010.
+</dd>    
+<dt id="X0-Mark-j2018" class="thebibliography">
+50.  
+</dt><dd 
+id="bib-620" class="thebibliography">
+<!--l. 140--><p class="noindent" >Mark-j. Open Camera Blog 2018.
+</dd>    
+<dt id="X0-nourbakhsh1997mobile" class="thebibliography">
+51.  
+</dt><dd 
+id="bib-621" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Nourbakhsh, I. R., Andre, D., Tomasi, C. &#x0026; Genesereth, M. R. Mobile robot obstacle
+avoidance via depth from focus. Robotics and Autonomous Systems <span id="bold" style="font-weight:bold;">22</span><span id="bold" style="font-weight:bold;">,</span> 151–158 (1997).
+</dd>    
+<dt id="X0-deselaers2008features" class="thebibliography">
+52.  
+</dt><dd 
+id="bib-622" class="thebibliography">
+<!--l. 140--><p class="noindent" >Deselaers,  T.,  Keysers,  D.  &#x0026;  Ney,  H.  Features  for  image  retrieval:  an  experimental
+comparison. Information retrieval <span id="bold" style="font-weight:bold;">11</span><span id="bold" style="font-weight:bold;">,</span> 77–107 (2008).
+</dd>    
+<dt id="X0-boros2012targeting" class="thebibliography">
+53.  
+</dt><dd 
+id="bib-623" class="thebibliography">
+<!--l. 140--><p class="noindent" >Boros,  E.  Targeting  a  Practical  Approach  for  Robot  Vision  with  Ensembles  of  Visual
+Features in 2012 Imperial College Computing Student Workshop (2012), 22–28.
+</dd>    
+<dt id="X0-UoW2023" class="thebibliography">
+54.  
+</dt><dd 
+id="bib-624" class="thebibliography">
+<!--l. 140--><p class="noindent" >UoW. How Mars rovers use artificial intelligence 2023.
+</dd>    
+<dt id="X0-bailey2002mobile" class="thebibliography">
+55.  
+</dt><dd 
+id="bib-625" class="thebibliography">
+<!--l. 140--><p class="noindent" >Bailey, T. Mobile robot localisation and mapping in extensive outdoor environments PhD
+thesis (Citeseer, 2002).
+</dd>    
+<dt id="X0-campbell2020localization" class="thebibliography">
+56.  
+</dt><dd 
+id="bib-626" class="thebibliography">
+<!--l. 140--><p class="noindent" >Campbell, S. et al. Where am I? Localization techniques for mobile robots a review in 2020
+6th International Conference on Mechatronics and Robotics Engineering (ICMRE) (2020),
+43–47.
+</dd>    
+<dt id="X0-hodge2023sensors" class="thebibliography">
+57.  
+</dt><dd 
+id="bib-627" class="thebibliography">
+<!--l. 140--><p class="noindent" >Hodge, V. J. Sensors and data in mobile robotics for localisation. Encyclopedia of Data
+Science and Machine Learning, 2223–2238 (2023).
+</dd>    
+<dt id="X0-jaradat2017challenges" class="thebibliography">
+58.  
+</dt><dd 
+id="bib-628" class="thebibliography">
+<!--l. 140--><p class="noindent" >Jaradat, O., Sljivo, I., Habli, I. &#x0026; Hawkins, R. Challenges of safety assurance for industry
+4.0 in 2017 13th European Dependable Computing Conference (EDCC) (2017), 103–106.
+</dd>    
+<dt id="X0-filliat2003map" class="thebibliography">
+59.  
+</dt><dd 
+id="bib-629" class="thebibliography">
+<!--l. 140--><p class="noindent" >Filliat, D. &#x0026; Meyer, J.-A. Map-based navigation in mobile robots:: I. a review of localization
+strategies. Cognitive systems research <span id="bold" style="font-weight:bold;">4</span><span id="bold" style="font-weight:bold;">,</span> 243–282 (2003).
+</dd>    
+<dt id="X0-leonard2012directed" class="thebibliography">
+60.  
+</dt><dd 
+id="bib-630" class="thebibliography">
+<!--l. 140--><p class="noindent" >Leonard, J. J. &#x0026; Durrant-Whyte, H. F. Directed sonar sensing for mobile robot navigation
+(Springer Science &#x0026; Business Media, 2012).
+</dd>    
+<dt id="X0-wing2005consumer" class="thebibliography">
+61.  
+</dt><dd 
+id="bib-631" class="thebibliography">
+<!--l. 140--><p class="noindent" >Wing,  M. G.,  Eklund,  A.  &#x0026;  Kellogg,  L. D.  Consumer-grade  global  positioning  system
+(GPS) accuracy and reliability. Journal of forestry <span id="bold" style="font-weight:bold;">103</span><span id="bold" style="font-weight:bold;">,</span> 169–173 (2005).
+                                                                                
+                                                                                
+    
+</dd>
+<dt id="X0-bellotto2007people" class="thebibliography">
+62.  
+</dt><dd 
+id="bib-632" class="thebibliography">
+<!--l. 140--><p class="noindent" >Bellotto,  N.  &#x0026;  Hu,  H.  People  tracking  and  identification  with  a  mobile  robot  in  2007
+International Conference on Mechatronics and Automation (2007), 3565–3570.
+</dd>    
+<dt id="X0-sridharan2009color" class="thebibliography">
+63.  
+</dt><dd 
+id="bib-633" class="thebibliography">
+<!--l. 140--><p class="noindent" >Sridharan, M. &#x0026; Stone, P. Color learning and illumination invariance on mobile robots: A
+survey. Robotics and Autonomous Systems <span id="bold" style="font-weight:bold;">57</span><span id="bold" style="font-weight:bold;">,</span> 629–644 (2009).
+</dd>    
+<dt id="X0-GALAR20171" class="thebibliography">
+64.  
+</dt><dd 
+id="bib-634" class="thebibliography">
+<!--l. 140--><p class="noindent" >Galar, D. &#x0026; Kumar, U. Chapter 1 - Sensors and Data Acquisition in eMaintenance (eds
+Galar, D. &#x0026; Kumar, U.) 1–72 (Academic Press, 2017).
+</dd>    
+<dt id="X0-williams1985aliasing" class="thebibliography">
+65.  
+</dt><dd 
+id="bib-635" class="thebibliography">
+<!--l. 140--><p class="noindent" >Williams, D. R. Aliasing in human foveal vision. Vision research <span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> 195–205 (1985).
+</dd>    
+<dt id="X0-maksim2006" class="thebibliography">
+66.  
+</dt><dd 
+id="bib-636" class="thebibliography">
+<!--l. 140--><p class="noindent" >maksim. An example of a poorly sampled brick pattern 2006.
+</dd>    
+<dt id="X0-blumrosen2014noncontact" class="thebibliography">
+67.  
+</dt><dd 
+id="bib-637" class="thebibliography">
+<!--l. 140--><p class="noindent" >Blumrosen, G., Fishman, B. &#x0026; Yovel, Y. Noncontact wideband sonar for human activity
+detection and classification. IEEE Sensors Journal <span id="bold" style="font-weight:bold;">14</span><span id="bold" style="font-weight:bold;">,</span> 4043–4054 (2014).
+</dd>    
+<dt id="X0-sabatini1998method" class="thebibliography">
+68.  
+</dt><dd 
+id="bib-638" class="thebibliography">
+<!--l. 140--><p class="noindent" >Sabatini, A. M. &#x0026; Colla, V. A method for sonar based recognition of walking people.
+Robotics and Autonomous Systems <span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> 117–126 (1998).
+</dd>    
+<dt id="X0-batavia2000path" class="thebibliography">
+69.  
+</dt><dd 
+id="bib-639" class="thebibliography">
+<!--l. 140--><p class="noindent" >Batavia, P. H. &#x0026; Nourbakhsh, I. Path planning for the Cye personal robot in Proceedings.
+2000  IEEE/RSJ  International  Conference  on  Intelligent  Robots  and  Systems  (IROS
+2000)(Cat. No. 00CH37113) <span id="bold" style="font-weight:bold;">1</span> (2000), 15–20.
+</dd>    
+<dt id="X0-xkcd2025" class="thebibliography">
+70.  
+</dt><dd 
+id="bib-640" class="thebibliography">
+<!--l. 140--><p class="noindent" >xkcd. xkcd-Spirit 2025.
+</dd>    
+<dt id="X0-reuter1999scan" class="thebibliography">
+71.  
+</dt><dd 
+id="bib-641" class="thebibliography">
+<!--l. 140--><p class="noindent" >Reuter, J. Scan-and featurebased multiple hypothesis tracking for mobile robot localization:
+a data fusion approach in IEEE SMC’99 Conference Proceedings. 1999 IEEE International
+Conference on Systems, Man, and Cybernetics (Cat. No. 99CH37028) <span id="bold" style="font-weight:bold;">4</span> (1999), 714–719.
+</dd>    
+<dt id="X0-fankhauser2018probabilistic" class="thebibliography">
+72.  
+</dt><dd 
+id="bib-642" class="thebibliography">
+<!--l. 140--><p class="noindent" >Fankhauser, P., Bloesch, M. &#x0026; Hutter, M. Probabilistic terrain mapping for mobile robots
+with uncertain localization. IEEE Robotics and Automation Letters <span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> 3019–3026 (2018).
+                                                                                
+                                                                                
+    
+</dd>
+<dt id="X0-yonhap2018" class="thebibliography">
+73.  
+</dt><dd 
+id="bib-643" class="thebibliography">
+<!--l. 140--><p class="noindent" >Agency., Y. N. Museum guide robot 2018.
+</dd>    
+<dt id="X0-brock1999high" class="thebibliography">
+74.  
+</dt><dd 
+id="bib-644" class="thebibliography">
+<!--l. 140--><p class="noindent" >Brock, O. &#x0026; Khatib, O. High-speed navigation using the global dynamic window approach
+in Proceedings 1999 ieee international conference on robotics and automation (Cat. No.
+99CH36288C) <span id="bold" style="font-weight:bold;">1</span> (1999), 341–346.
+</dd>    
+<dt id="X0-borensteinfast" class="thebibliography">
+75.  
+</dt><dd 
+id="bib-645" class="thebibliography">
+<!--l. 140--><p class="noindent" >Borenstein, J &#x0026; Koren, Y. Fast obstacle avoidance for mobile robots. IEEE Trans Rob
+Autom. v7, 278–287.
+</dd>    
+<dt id="X0-brooks1986robust" class="thebibliography">
+76.  
+</dt><dd 
+id="bib-646" class="thebibliography">
+<!--l. 140--><p class="noindent" >Brooks, R. A robust layered control system for a mobile robot. IEEE journal on robotics
+and automation <span id="bold" style="font-weight:bold;">2</span><span id="bold" style="font-weight:bold;">,</span> 14–23 (1986).
+</dd>    
+<dt id="X0-nourbakhsh1995dervish" class="thebibliography">
+77.  
+</dt><dd 
+id="bib-647" class="thebibliography">
+<!--l. 140--><p class="noindent" >Nourbakhsh,  I.,  Powers,  R.  &#x0026;  Birchfield,  S.  DERVISH  an  office-navigating  robot.  AI
+magazine <span id="bold" style="font-weight:bold;">16</span><span id="bold" style="font-weight:bold;">,</span> 53–53 (1995).
+</dd>    
+<dt id="X0-wang2022object" class="thebibliography">
+78.  
+</dt><dd 
+id="bib-648" class="thebibliography">
+<!--l. 140--><p class="noindent" >Wang, F. et al. Object-based reliable visual navigation for mobile robot. Sensors <span id="bold" style="font-weight:bold;">22</span><span id="bold" style="font-weight:bold;">,</span> 2387
+(2022).
+</dd>    
+<dt id="X0-AaaravG2018" class="thebibliography">
+79.  
+</dt><dd 
+id="bib-649" class="thebibliography">
+<!--l. 140--><p class="noindent" >AaaravG. How to Make Line Follower Robot Using Arduino 2018.
+</dd>    
+<dt id="X0-mcnamara1989subjective" class="thebibliography">
+80.  
+</dt><dd 
+id="bib-650" class="thebibliography">
+<!--l. 140--><p class="noindent" >McNamara, T. P., Hardy, J. K. &#x0026; Hirtle, S. C. Subjective hierarchies in spatial memory.
+Journal of Experimental Psychology: Learning, Memory, and Cognition <span id="bold" style="font-weight:bold;">15</span><span id="bold" style="font-weight:bold;">,</span> 211 (1989).
+</dd>    
+<dt id="X0-chun1998contextual" class="thebibliography">
+81.  
+</dt><dd 
+id="bib-651" class="thebibliography">
+<!--l. 140--><p class="noindent" >Chun, M. M. &#x0026; Jiang, Y. Contextual cueing: Implicit learning and memory of visual context
+guides spatial attention. Cognitive psychology <span id="bold" style="font-weight:bold;">36</span><span id="bold" style="font-weight:bold;">,</span> 28–71 (1998).
+</dd>    
+<dt id="X0-huang2023visual" class="thebibliography">
+82.  
+</dt><dd 
+id="bib-652" class="thebibliography">
+<!--l. 140--><p class="noindent" >Huang, C., Mees, O., Zeng, A. &#x0026; Burgard, W. Visual language maps for robot navigation
+in  2023  IEEE  International  Conference  on  Robotics  and  Automation  (ICRA)  (2023),
+10608–10615.
+</dd>    
+<dt id="X0-meyer2011using" class="thebibliography">
+83.  
+</dt><dd 
+id="bib-653" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Meyer-Delius, D., Beinhofer, M., Kleiner, A. &#x0026; Burgard, W. Using artificial landmarks to
+reduce the ambiguity in the environment of a mobile robot in 2011 IEEE International
+Conference on Robotics and Automation (2011), 5173–5178.
+</dd>    
+<dt id="X0-hazik2022fleet" class="thebibliography">
+84.  
+</dt><dd 
+id="bib-654" class="thebibliography">
+<!--l. 140--><p class="noindent" >Hazik, J., Dekan, M., Beno, P. &#x0026; Duchon, F. Fleet management system for an industry
+environment. Journal of Robotics and Control (JRC) <span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> 779–789 (2022).
+</dd>    
+<dt id="X0-xidias2022intelligent" class="thebibliography">
+85.  
+</dt><dd 
+id="bib-655" class="thebibliography">
+<!--l. 140--><p class="noindent" >Xidias, E., Zacharia, P. &#x0026; Nearchou, A. Intelligent fleet management of autonomous vehicles
+for city logistics. Applied Intelligence <span id="bold" style="font-weight:bold;">52</span><span id="bold" style="font-weight:bold;">,</span> 18030–18048 (2022).
+</dd>    
+<dt id="X0-Kivaan2007" class="thebibliography">
+86.  
+</dt><dd 
+id="bib-656" class="thebibliography">
+<!--l. 140--><p class="noindent" >Kivaan. An official DARPA photograph of Stanley at the 2005 DARPA Grand Challenge.
+2007.
+</dd>    
+<dt id="X0-hashimoto2002humanoid" class="thebibliography">
+87.  
+</dt><dd 
+id="bib-657" class="thebibliography">
+<!--l. 140--><p class="noindent" >Hashimoto,  S.  et  al.  Humanoid  robots  in  waseda  university–hadaly-2  and  wabian.
+Autonomous Robots <span id="bold" style="font-weight:bold;">12</span><span id="bold" style="font-weight:bold;">,</span> 25–38 (2002).
+</dd>    
+<dt id="X0-carroll2017transformation" class="thebibliography">
+88.  
+</dt><dd 
+id="bib-658" class="thebibliography">
+<!--l. 140--><p class="noindent" >Carroll, R. J. &#x0026; Ruppert, D. Transformation and weighting in regression (Chapman and
+Hall/CRC, 2017).
+</dd>    
+<dt id="X0-bruce2000fast" class="thebibliography">
+89.  
+</dt><dd 
+id="bib-659" class="thebibliography">
+<!--l. 140--><p class="noindent" >Bruce,  J.,  Balch,  T.  &#x0026;  Veloso,  M.  Fast  and  inexpensive  color  image  segmentation  for
+interactive robots in Proceedings. 2000 IEEE/RSJ International Conference on Intelligent
+Robots and Systems (IROS 2000)(Cat. No. 00CH37113) <span id="bold" style="font-weight:bold;">3</span> (2000), 2061–2066.
+</dd>    
+<dt id="X0-Manske2009" class="thebibliography">
+90.  
+</dt><dd 
+id="bib-660" class="thebibliography">
+<!--l. 140--><p class="noindent" >Manske.  Hughes  Letter-Printing  Telegraph  Set  built  by  Siemens  and  Halske  in  Saint
+Petersburg, Russia, ca.1900 2009.
+</dd>    
+<dt id="X0-koren2006study" class="thebibliography">
+91.  
+</dt><dd 
+id="bib-661" class="thebibliography">
+<!--l. 140--><p class="noindent" >Koren, O. A study of the Linux kernel evolution. ACM SIGOPS Operating Systems Review
+<span id="bold" style="font-weight:bold;">40</span><span id="bold" style="font-weight:bold;">,</span> 110–112 (2006).
+</dd>    
+<dt id="X0-bach1986design" class="thebibliography">
+92.  
+</dt><dd 
+id="bib-662" class="thebibliography">
+<!--l. 140--><p class="noindent" >Bach, M. J. The Design of the UNIX. RTM. Operating system Prentice Hall, 312–329
+(1986).
+</dd>    
+<dt id="X0-johnson1978unix" class="thebibliography">
+93.  
+</dt><dd 
+id="bib-663" class="thebibliography">
+                                                                                
+                                                                                
+    
+<!--l. 140--><p class="noindent" >Johnson, S. C. &#x0026; Ritchie, D. M. UNIX time-sharing system: Portability of C programs and
+the UNIX system. The Bell System Technical Journal <span id="bold" style="font-weight:bold;">57</span><span id="bold" style="font-weight:bold;">,</span> 2021–2048 (1978).
+</dd>    
+<dt id="X0-Debianpackageros2025" class="thebibliography">
+94.  
+</dt><dd 
+id="bib-664" class="thebibliography">
+<!--l. 140--><p class="noindent" >Debian. python3-colcon-ros 2025.
+</dd>    
+<dt id="X0-ros2iron2025" class="thebibliography">
+95.  
+</dt><dd 
+id="bib-665" class="thebibliography">
+<!--l. 140--><p class="noindent" >Robotics., O. ROS 2 Iron Documentation 2025.</dd></dl>
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><span class="nav-inactive"><span class="nav-next">NEXT</span></span> <a 
+href="TransformLibrary.html" ><span class="nav-prev">PREV</span></a><a 
+href="TransformLibrary.html#tailTransformLibrary.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="References.html" ><span class="nav-front">FRONT</span></a><a 
+href="FHSMobileRoboticsLectureBook.html#References.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailReferences.html"></a></div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>

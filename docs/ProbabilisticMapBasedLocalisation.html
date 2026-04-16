@@ -1,0 +1,2538 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>Probabilistic Map-Based Localisation</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 1181--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Mobile Robot Localisation</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+                                                                                
+                                                                                
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="AddingaFrame.html#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="WritingaBroadcaster.html#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <a 
+href="OtherExamplesofLocalisationMethods.html" ><span class="nav-next">NEXT</span></a><a 
+href="RepresentingMaps.html" ><span class="nav-prev">PREV</span></a><a 
+href="RepresentingMaps.html#tailRepresentingMaps.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailProbabilisticMapBasedLocalisation.html"><span class="nav-tail">TAIL</span></a><a 
+href="MobileRobotLocalisation.html#ProbabilisticMapBasedLocalisation.html" ><span class="nav-up">UP</span></a></nav> 
+<div class="section-header"><h3><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#section.3.5"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">3.5</span> <span class="title"><a 
+ id="x17-1070003.5"></a>Probabilistic Map-Based Localisation</span></h3></div>
+<!--l. 1183--><p class="noindent" >As previously stated, multiple hypothesis position representation is advantageous as an
+<span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span> can <span class="alert"><alert style="color: #821131;">explicitly</alert></span> track its own beliefs
+regarding its possible positions in the environment. Ideally, the robot’s belief state will change, over
+time, as is consistent with its motor outputs and perceptual inputs.
+One geometric approach to multiple hypothesis representation, mentioned previously, involves
+identifying the possible positions of the robot by <span class="alert"><alert style="color: #821131;">specifying a polygon</alert></span> in the environmental
+representation [113]. However, this method does <span id="bold" style="font-weight:bold;">NOT</span> provide any indication of the relative chances
+between various possible robot positions.
+<div class="knowledge">
+<!--l. 1197--><p class="noindent" >Probabilistic techniques differ from this method as they <span class="alert"><alert style="color: #821131;">explicitly identify</alert></span> probabilities with the
+possible robot positions, and for this reason these methods have been the focus of recent
+research.
+</div>
+<!--l. 1199--><p class="noindent" >In the following sections we present two (<span class="alert"><alert style="color: #821131;">2</alert></span>) classes of probabilistic localisation.
+<dl class="description"><dt class="description">
+<span id="textcolor103"><span 
+class="ec-lmssbx-10">Markov localisation</span></span> 
+</dt><dd 
+class="description">
+<!--l. 1202--><p class="noindent" > an explicitly specified probability distribution across all possible robots positions.
+</dd>     
+<dt class="description">
+<span id="textcolor104"><span 
+class="ec-lmssbx-10">Kalman filter localisation</span></span> 
+</dt><dd 
+class="description">
+<!--l. 1204--><p class="noindent" > a Gaussian probability density representation of robot position and scan matching for
+localisation.</dd></dl>
+                                                                                
+                                                                                
+Unlike Markov localisation, Kalman filter localisation does not independently consider each possible
+pose in the robot’s configuration space. Interestingly, the Kalman filter localization process results from
+the Markov localisation axioms if the robot’s position uncertainty is assumed to have a Gaussian form
+[28 page 43-44]. Before discussing each method in detail, we present the general robot localisation
+problem and solution strategy.
+<!--l. 1214--><p class="noindent" >Consider a <span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span> moving in a known
+environment. As it starts to move, say from a precisely known location, it can keep track of its
+motion using odometry. Due to odometry uncertainty, after some movement the robot will
+become very uncertain about its position. <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">We have derived its mathematical properties in
+subsection <a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">3.1.4<!--tex4ht:ref: ssec:An-Error-Model-for-Odometric-Position-Estimation --></a>.</span></span> To keep position uncertainty from growing unbounded, the robot needs
+localise itself in relation to its environment map. To localise, the robot might use its on-board
+sensors <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">such as ultrasonic, range sensor, vision.</span></span> to make observations of its environment.
+The information provided by the robot’s odometry, plus the information provided by such
+exteroceptive observations can be combined to enable the robot to localise as well as possible with
+respect to its map. The processes of updating based on proprioceptive sensor values and
+exteroceptive sensor values are often separated logically, leading to a general two-step process
+for robot position update. Action update represents the application of some action model
+(<!--l. 1226--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi class="qopname">Act</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--></math>) to the
+<span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span>’s proprioceptive encoder measurements
+<!--l. 1227--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></math> and prior
+belief state <!--l. 1227--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>s</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+></math>
+to provide a new belief state representing the robot’s belief about its current position.
+<div class="warning">
+<!--l. 1233--><p class="noindent" >We will assume that the robot’s proprioceptive encoder measurements are used as the best possible
+measure of its actions over time.
+</div>
+<!--l. 1235--><p class="noindent" ><div class="quote"> If, for instance, a differential drive robot had motors without encoders connected to its wheels and
+employed open-loop control, then instead of encoder measurements, the robot’s highly uncertain
+estimates of wheel spin would need to be incorporated.  </div><p>  We ignore such cases and therefore have a
+simple formula: <table class="equation"><tr><td>
+<!--l. 1243--><p class="noindent" >
+<!--l. 1243--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                <mstyle 
+   id="x17-107001r4"  class="label" ></mstyle><!--endlabel-->
+                                <msubsup><mrow 
+><mi 
+>s</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><mi class="qopname"> Act</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+>
+<mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>s</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.4)</td></tr></table>
+<!--l. 1245--><p class="noindent" >Perception update represents the application of some perception model See to the <span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous
+Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span>’s exteroceptive sensor inputs i and updated
+belief state s’ to yield a refined belief tt state representing the robot’s current position:
+                                                                                
+                                                                                
+<table class="equation"><tr><td>
+<!--l. 1251--><p class="noindent" >
+<!--l. 1251--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                 <mstyle 
+   id="x17-107002r5"  class="label" ></mstyle><!--endlabel-->
+                                 <msubsup><mrow 
+><mi 
+>s</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><mi class="qopname"> See</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>i</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>s</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.5)</td></tr></table>
+<!--l. 1253--><p class="noindent" >
+<div class="warning">
+<!--l. 1259--><p class="noindent" >The perception model (<!--l. 1259--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi class="qopname">See</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--></math>) and
+sometimes the action model (<!--l. 1259--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi class="qopname">Act</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--></math>)
+are abstract functions of both the map and the robot’s physical configuration. <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">such as sensors and their
+positions, kinematics, etc.</span></span>
+</div>
+<!--l. 1261--><p class="noindent" >In general, the action update process <span class="alert"><alert style="color: #821131;">contributes uncertainty</alert></span> to the robot’s belief about position: <div class="quote">
+encoders have error and therefore motion is somewhat nondeterministic.  </div><p>  In contrast,
+perception update generally <span class="alert"><alert style="color: #821131;">refines</alert></span> the belief state. Sensor measurements, when compared
+to the robot’s environmental model, tend to provide clues regarding the robot’s possible
+position.
+In the case of Markov localisation, the robot’s belief state is usually represented as separate probability
+assignments for every possible robot pose in its map. The action update and perception update processes
+must update the probability of every cell in this case. Kalman filter localisation represents the robot’s
+belief state using a singe, well-defined Gaussian probability density function, and therefore retains just
+a <!--l. 1276--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>μ</mi></math> and
+<!--l. 1276--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>σ</mi></math>
+parameterisation of the robot’s belief about position with respect to the map. Updating the parameters
+of the Gaussian distribution is all that is required.
+<!--l. 1280--><p class="noindent" >This fundamental difference in the representation of belief state leads to the following advantages and
+disadvantages of the two (<span class="alert"><alert style="color: #821131;">2</alert></span>) methods, as presented in <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x17-107003"></a>Brock, O. &#x0026; Khatib, O. <span 
+class="ec-lmri-10">High-speed navigation</span>
+<span 
+class="ec-lmri-10">using the global dynamic window approach </span>in <span 
+class="ec-lmri-10">Proceedings 1999 ieee international conference on robotics</span>
+<span 
+class="ec-lmri-10">and automation (Cat. No. 99CH36288C) </span><span id="bold" style="font-weight:bold;">1</span> (1999), 341–346</span></span>:
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 1284--><p class="noindent" >Markov localization allows for localization starting from any unknown position and can
+thus recover from ambiguous situations because the robot can track multiple, completely
+disparate possible positions. However, to update the probability of all positions within the
+whole state space at any time requires a discrete representation of the space (grid). The
+required memory and computational power can thus limit precision and map size.
+                                                                                
+                                                                                
+     
+</li>
+<li class="itemize">     
+<!--l. 1289--><p class="noindent" >Kalman filter localization tracks the robot from an initially known position and is inherently
+both precise and efficient. In particular, Kalman filter localization can be used in continuous
+world representations. However, if the uncertainty of the robot becomes too large (e.g. due
+to a robot collision with an object) and thus not truly un- imodal, the Kalman filter can
+fail to capture the multitude of possible robot positions and can become irrevocably lost.</li></ul>
+<!--l. 1297--><p class="noindent" >Improvements are achieved or proposed by either only updating the state space of interest within the
+Markov approach <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x17-107004"></a>Borenstein, J &#x0026; Koren, Y. Fast obstacle avoidance for mobile robots. <span 
+class="ec-lmri-10">IEEE Trans</span>
+<span 
+class="ec-lmri-10">Rob Autom. v7, </span>278–287</span></span> or by combining both methods to create a hybrid localization system
+<span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x17-107005"></a>Brock, O. &#x0026; Khatib, O. <span 
+class="ec-lmri-10">High-speed navigation using the global dynamic window approach </span>in
+<span 
+class="ec-lmri-10">Proceedings 1999 ieee international conference on robotics and automation (Cat. No. 99CH36288C) </span><span id="bold" style="font-weight:bold;">1</span>
+(1999), 341–346</span></span>.
+<!--l. 1301--><p class="noindent" >We will now look at them in great detail.
+
+<!--l. 1303--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.3.5.1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">3.5.1</span> <span class="title"><a 
+ id="x17-1080003.5.1"></a>Markov Localisation</span></h4></div>
+<!--l. 1305--><p class="noindent" >Markov localization tracks the robot’s belief state using an <span class="alert"><alert style="color: #821131;">arbitrary probability density
+function</alert></span> to represent the robot’s position. In practice, all known Markov localization systems
+implement this generic belief representation by first tessellating the robot configuration space into a
+finite, discrete number of possible robot poses in the map.
+<div class="knowledge">
+<!--l. 1313--><p class="noindent" >In actual applications, the number of possible poses can range from several hundred positions to
+millions of positions.
+</div>
+<!--l. 1315--><p class="noindent" >Given such a generic conception of robot position, a powerful update mechanism is required that can
+compute the belief state that results when new information <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">e.g. encoder values and sensor values.</span></span> is
+incorporated into a prior belief state with arbitrary probability density. The solution is born out of
+probability theory, and so the next section describes the foundations of probability theory related to
+this problem, notably <span class="alert"><alert style="color: #821131;">Bayes formula</alert></span>.
+Then, two subsequent subsections provide case studies, one robot implementing a simple feature-driven
+topological representation of the environment <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail"><a 
+ id="x17-108001"></a>Brooks, R. A robust layered control system for a
+mobile robot. <span 
+class="ec-lmri-10">IEEE journal on robotics and automation </span><span id="bold" style="font-weight:bold;">2</span><span id="bold" style="font-weight:bold;">,</span> 14–23 (1986)</span></span>, and the other using a
+geometric grid-based map <span class="cite"><span class="cite-show">[<span 
+class="ts1-lmr10-">†</span>]</span><span class="cite-detail">Borenstein, J &#x0026; Koren, Y. Fast obstacle avoidance for mobile robots. <span 
+class="ec-lmri-10">IEEE</span>
+<span 
+class="ec-lmri-10">Trans Rob Autom. v7, </span>278–287</span></span>.
+
+<a 
+ id="subsubsection*.55"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x17-109000"></a>Application of Probability for Localisation</h5>
+<!--l. 1327--><p class="noindent" >Given a discrete representation of robot positions, for us to express a belief state we wish to assign to
+each possible robot position a probability the robot is indeed at that position.
+<!--l. 1330--><p class="noindent" >From theory of probability, we use the term <!--l. 1330--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+to denote the probability that <!--l. 1330--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>A</mi></math>
+                                                                                
+                                                                                
+is <span class="alert"><alert style="color: #821131;">true</alert></span>. This is also called the prior probability of
+<!--l. 1331--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>A</mi></math> because it measures
+the probability that <!--l. 1332--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>A</mi></math>
+is true independent of any additional knowledge we may have.
+<div class="knowledge">
+<!--l. 1337--><p class="noindent" >For example we can use <!--l. 1337--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>r</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+to <!--l. 1337--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>t</mi></math> denote the prior
+probability the robot <!--l. 1337--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>r</mi></math>
+is at position <!--l. 1337--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math>
+at time <!--l. 1337--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>t</mi></math>.
+</div>
+<!--l. 1339--><p class="noindent" >In practice, we would like to calculate the probability of each individual robot position
+given the encoder and sensor evidence the robot has collected. For this, we use the term
+<!--l. 1340--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi><mi 
+>|</mi><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math> to denote the <span class="alert"><alert style="color: #821131;">conditional
+probability</alert></span> of <!--l. 1341--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>A</mi></math>
+given that we know <!--l. 1341--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>B</mi></math>.
+<div class="knowledge">
+<!--l. 1346--><p class="noindent" >For example, we use <!--l. 1346--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>r</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>i</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+></math>
+to denote the probability that the robot is at position
+<!--l. 1346--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math> given that the
+robot’s sensor inputs <!--l. 1346--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>i</mi></math>.
+</div>
+<!--l. 1348--><p class="noindent" >The question we would like to answer is the following; <div class="quote">  <italic>how can a term such as
+<!--l. 1352--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>r</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>i</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+></math> be
+simplified to its constituent parts so that it can be computed?</italic>  </div><p>  The answer lies in the product rule,
+which states: <table class="equation"><tr><td>
+<!--l. 1357--><p class="noindent" >
+<!--l. 1357--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                             <mstyle 
+   id="x17-109001r6"  class="label" ></mstyle><!--endlabel-->
+                             <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi> <mi 
+>∧</mi> <mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi><mi 
+>|</mi><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.6)</td></tr></table>
+<!--l. 1359--><p class="noindent" >The equation given in <span> Eq. (<a 
+href="#x17-109001r6">3.6<!--tex4ht:ref: eq:mob-18 --></a>)</span>  is relatively straightforward, as the probability of <span class="alert"><alert style="color: #821131;">both</alert></span>
+<!--l. 1362--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>A</mi></math> and <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">To simplify notation we
+will be using the wedge (<!--l. 1363--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>∧</mi></math>) symbol
+to denote AND, and the vee (<!--l. 1363--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>∨</mi></math>)
+symbol to denote OR.</span></span> <!--l. 1363--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>B</mi></math> being
+true is being related to <!--l. 1364--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>B</mi></math>
+being true and the other being conditionally true. But you should be able to convince yourself that the
+                                                                                
+                                                                                
+alternate equation is equally correct: <table class="equation"><tr><td>
+<!--l. 1367--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                             <mstyle 
+   id="x17-109002r7"  class="label" ></mstyle><!--endlabel-->
+                             <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi> <mi 
+>∧</mi> <mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>B</mi><mi 
+>|</mi><mi 
+>A</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.7)</td></tr></table>
+<!--l. 1369--><p class="noindent" >Using both <span> Eq. (<a 
+href="#x17-109001r6">3.6<!--tex4ht:ref: eq:mob-18 --></a>)</span>  and <span> Eq. (<a 
+href="#x17-109002r7">3.7<!--tex4ht:ref: eq:mob-19 --></a>)</span>  together, we can derive <span class="alert"><alert style="color: #821131;">Bayes formula</alert></span> for computing
+<!--l. 1372--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi><mi 
+>|</mi><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>:
+<table class="equation"><tr><td>
+<!--l. 1376--><p class="noindent" >
+<!--l. 1376--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                              <mstyle 
+   id="x17-109003r8"  class="label" ></mstyle><!--endlabel-->
+                              <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi><mi 
+>|</mi><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>B</mi><mi 
+>|</mi><mi 
+>A</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>A</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></mrow> 
+<mrow 
+>
+<mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>B</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></mrow></mfrac>
+</math></td><td class="eq-no">(3.8)</td></tr></table>
+<!--l. 1376--><p class="noindent" >
+We use <italic>Bayes rule</italic> to calculate the robot’s new belief state as a function of its sensory
+inputs and its former belief state. However to do this properly, we must recall the basic
+goal of the <span class="alert"><alert style="color: #821131;">Markov localisation</alert></span> approach: <div class="quote">  a discrete set of possible robot positions
+<!--l. 1383--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>L</mi></math>
+are represented.  </div><p>  The belief state of the robot must assign a probability
+<!--l. 1386--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>r</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math> for each
+location <!--l. 1387--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math> in
+<!--l. 1387--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>L</mi></math>.
+The <!--l. 1389--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi class="qopname">See</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--></math>
+function described in <span> Eq. (<a 
+href="#x17-107002r5">3.5<!--tex4ht:ref: eq:mob-17 --></a>)</span>  expresses a mapping from a belief state and sensor input to a
+refined belief state. To do this, we must update the probability associated with each position
+<!--l. 1391--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math> in
+<!--l. 1391--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>L</mi></math>,
+and we can do this by directly applying Bayes formula to every such
+<!--l. 1392--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math>.
+                                                                                
+                                                                                
+<!--l. 1394--><p class="noindent" >In denoting this, we will stop representing the temporal index
+<!--l. 1394--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>t</mi></math> for simplicity and
+will further use <!--l. 1395--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+to mean <!--l. 1395--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>r</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>:
+<table class="equation"><tr><td>
+<!--l. 1399--><p class="noindent" >
+<!--l. 1399--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                <mstyle 
+   id="x17-109004r9"  class="label" ></mstyle><!--endlabel-->
+                                <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>l</mi><mi 
+>|</mi><mi 
+>i</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>i</mi><mi 
+>|</mi><mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></mrow> 
+<mrow 
+>
+<mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>i</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></mrow></mfrac>
+</math></td><td class="eq-no">(3.9)</td></tr></table>
+<!--l. 1399--><p class="noindent" >
+<!--l. 1401--><p class="noindent" >The value of <!--l. 1401--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>l</mi><mi 
+>|</mi><mi 
+>i</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+is key to <span> Eq. (<a 
+href="#x17-109004r9">3.9<!--tex4ht:ref: eq:mob-21 --></a>)</span> , and this probability of a sensor input at each robot position must be
+computed using some model. An obvious strategy would be to consult the robot’s map,
+identifying the probability of particular sensor readings with each possible map position, given
+knowledge about the robot’s sensor geometry and the mapped environment. The value of
+<!--l. 1405--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math> is easy to recover in this case.
+It is simply the probability <!--l. 1406--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>r</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>l</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+associated with the belief state before the perceptual update process.
+<!--l. 1408--><p class="noindent" >Finally, note that the denominator <!--l. 1408--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>i</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+></math>
+does <span id="bold" style="font-weight:bold;">NOT</span> depend upon <!--l. 1408--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math>; that is, as
+we apply <span> Eq. (<a 
+href="#x17-109004r9">3.9<!--tex4ht:ref: eq:mob-21 --></a>)</span>  to all positions <!--l. 1409--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math>
+in <!--l. 1409--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>L</mi></math>, the
+denominator never varies.
+<div class="warning">
+<!--l. 1415--><p class="noindent" >Because it is effectively constant, in practice this denominator is usually dropped and, at the end of the
+perception update step, all probabilities in the belief state are re-normalized to sum at
+1.0.
+</div>
+<!--l. 1417--><p class="noindent" >Now consider the <!--l. 1417--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi class="qopname">Act</mi><mo> ⁡<!--FUNCTION APPLICATION--> </mo><!--nolimits--></math>
+function of <span> Eq. (<a 
+href="#x17-107001r4">3.4<!--tex4ht:ref: eq:mob-16 --></a>)</span> . Act maps a former belief state and encoder measurement
+<span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">i.e. robot action.</span></span> to a new belief state. To compute the probability of position
+<!--l. 1419--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math> in the
+new belief state, one must integrate over all the possible ways in which the robot may have reached
+<!--l. 1420--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>l</mi></math>
+according to the potential positions expressed in the former belief state. This is subtle but
+fundamentally important. The same location l can be reached from multiple source locations with the
+same encoder measurement o because the encoder measurement is uncertain.
+                                                                                
+                                                                                
+<!--l. 1425--><p class="noindent" >Temporal indices are required in this update equation: <table class="equation"><tr><td>
+<!--l. 1427--><p class="noindent" >
+<!--l. 1427--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                       <mstyle 
+   id="x17-109005r10"  class="label" ></mstyle><!--endlabel-->
+                       <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><mo  
+> ∫
+ <!--nolimits--></mo><!--nolimits--><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+>
+<mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mspace width="0.17em" class="thinspace"/><mstyle 
+class="text"><mtext  >d</mtext></mstyle><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+>
+<mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+>
+</math></td><td class="eq-no">(3.10)</td></tr></table>
+<!--l. 1430--><p class="noindent" >Thus, the total probability for a specific position l is built up from the individual contribu- tions from
+every location l’ in the former belief state given encoder measurement o.
+<!--l. 1435--><p class="noindent" ><span> Eq. (<a 
+href="#x17-109004r9">3.9<!--tex4ht:ref: eq:mob-21 --></a>)</span> and <span> Eq. (<a 
+href="#x17-109005r10">3.10<!--tex4ht:ref: eq:mob-22 --></a>)</span>  form the basis of Markov localization, and they incorporate the Markov
+assumption. Formally, this means that their output is a function only of the robot’s previous state and
+its most recent actions (odometry) and perception. In a general, non- Markovian situation, the
+state of a system depends upon all of its history. After all, the value of a robot’s sensors at
+time t do not really depend only on its position at time t. They depend to some degree
+on the trajectory of the robot over time; indeed on the entire history of the robot. <div class="quote">  For
+example, the robot could have experienced a serious collision recently that has biased the
+sensor’s behavior.  </div><p>  By the same token, the position of the robot at time t does not really
+depend only on its position at time t-1 and its odometric measurements. Due to its history of
+motion, one wheel may have worn more than the other, causing a left-turning bias over
+time that affects its current position. So the Markov assumption is, of course, not a valid
+assumption. However the Markov as- sumption greatly simplifies tracking, reasoning and
+planning and so it is an approximation that continues to be extremely popular in mobile
+robotics.
+
+<a 
+ id="subsubsection*.56"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x17-110000"></a>Application: Markov Localisation using a Topological Map</h5>
+<!--l. 1457--><p class="noindent" >A straightforward application of Markov localization is possible when the robot’s environment
+representation already provides an appropriate decomposition. This is the case when the environment
+representation is purely topological.
+<!--l. 1461--><p class="noindent" >Consider a contest in which each robot is to receive a topological description of the environment. The
+description would describe only the connectivity of hallways and rooms, with no mention of geometric
+distance. In addition, this supplied map would be imperfect, containing several false arcs (e.g. a closed
+door). Such was the case for the 1994 AAAI National Robot Contest, at which each robot’s mission was
+to use the supplied map and its own sen- sors to navigate from a chosen starting position to a target
+room.
+<!--l. 1468--><p class="noindent" ><span class="margin"><span>Dervish</span><span class="sidenote"><img 
+src="figures/Mobile-Robot-Localisation/raster/dervish.png" alt="PIC"  
+style="">.</span></span>, the winner of this contest, employed probabilistic Markov localization and used just this
+multiple hypothesis belief state over a topological environmental representation. We now describe
+Dervish as an example of a robot with a topological representation and a probabilistic localization
+                                                                                
+                                                                                
+algorithm.
+<!--l. 1474--><p class="noindent" >Dervish, shown in Figure 5.20, includes a sonar arrangement custom-designed for the 1994 AAAI
+National Robot Contest. The environment in this contest consisted of a rectilinear indoor office space
+filled with real office furniture as obstacles. Traditional sonars are ar- ranged radially around the robot
+in a ring. Robots with such sensor configurations are sub- ject to both tripping over short objects
+below the ring and to decapitation by tall objects (such as ledges, shelves and tables) that
+are above the ring. Dervish’s answer to this challenge was to arrange one pair of sonars
+diagonally upward to detect ledges and other overhangs. In addition, the diagonal sonar pair
+also proved to ably detect tables, enabling the robot to avoid wandering underneath tall
+tables. The remaining sonars were clustered in sets of sonars, such that each individual
+transducer in the set would be at a slightly varied angle to minimize specularity. Finally, two
+sonars near the robot’s base were able to detect low obstacles such as paper cups on the
+floor.
+<!--l. 1487--><p class="noindent" >We have already noted that the representation provided by the contest organizers was purely
+topological, noting the connectivity of hallways and rooms in the office environment. Thus, it would be
+appropriate to design Dervish’s perceptual system to detect matching perceptual events: the detection
+and passage of connections between hallways and offices.
+<!--l. 1492--><p class="noindent" >This abstract perceptual system was implemented by viewing the trajectory of sonar strikes to the
+left and right sides of Dervish over time. Interestingly, this perceptual system would use
+time alone and no concept of encoder value in order to trigger perceptual events. Thus, for
+instance, when the robot detects a 7 to 17 cm indentation in the width of the hallway for
+more than one second continuously, a closed door sensory event is triggered. If the sonar
+strikes jump well beyond 17 cm for more than one second, an open door sensory event trig-
+gers.
+<!--l. 1499--><p class="noindent" >Sonars have a notoriously problematic error mode known as specular reflection: when the sonar unit
+strikes a flat surface at a shallow angle, the sound may reflect coherently away from the
+transducer, resulting in a large overestimate of range. Dervish was able to filter such potential
+noise by tracking its approximate angle in the hallway and completely sup- pressing sensor
+events when its angle to the hallway parallel exceeded 9 degrees. Interest- ingly, this would
+result in a conservative perceptual system that would easily miss features because of this
+suppression mechanism, particularly when the hallway is crowded with ob- stacles that
+Dervish must negotiate. Once again, the conservative nature of the perceptual system, and
+in particular its tendency to issue false negatives, would point to a probabilistic solution
+to the localization problem so that a complete trajectory of perceptual inputs could be
+considered.
+<!--l. 1511--><p class="noindent" >Dervish’s environment representation was a classical topological map, identical in abstrac- tion and
+information to the map provided by the contest organizers. Figure 5.21 depicts a geometric
+representation of a typical office environment and the topological map for the same office environment.
+One can place nodes at each intersection and in each room, re- sulting in the case of figure 5.21 with
+four nodes total.
+<!--l. 1517--><p class="noindent" >Once again, though, it is crucial that one maximize the information content of the represen- tation
+based on the available percepts. This means reformulating the standard topological graph
+shown in Figure 5.21 so that transitions into and out of intersections may both be used
+for position updates. Figure 5.22 shows a modification of the topological map in which
+just this step has been taken. In this case, note that there are 7 nodes in contrast to 4. In
+                                                                                
+                                                                                
+order to represent a specific belief state, Dervish associated with each topological node n a
+probability that the robot is at a physical position within the boundaries of n: p(r = n) . t
+As will become clear below, the probabilistic update used by Dervish was approximate,
+therefore technically one should refer to the resulting values as likelihoods rather than prob-
+abilities.
+<!--l. 1528--><p class="noindent" >The perception update process for Dervish functions precisely as in Equation (5.21). Per- ceptual
+events are generated asynchronously, each time the feature extractor is able to rec- ognize a
+large-scale feature (e.g. doorway, intersection) based on recent ultrasonic values. Each perceptual
+event consists of a percept-pair (a feature on one side of the robot or two features on both
+sides).
+                                                                                
+                                                                                
+<!--l. 1534--><p class="noindent" ><figure class="float" 
+>
+                                                                                
+                                                                                
+<div class="tabular"> <table id="TBL-15" class="tabular" 
+ 
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1"><col 
+id="TBL-15-2"><col 
+id="TBL-15-3"><col 
+id="TBL-15-4"><col 
+id="TBL-15-5"><col 
+id="TBL-15-6"><col 
+id="TBL-15-7"><col 
+id="TBL-15-8"><col 
+id="TBL-15-9"><col 
+id="TBL-15-10"><col 
+id="TBL-15-11"><col 
+id="TBL-15-12"><col 
+id="TBL-15-13"><col 
+id="TBL-15-14"><col 
+id="TBL-15-15"><col 
+id="TBL-15-16"><col 
+id="TBL-15-17"><col 
+id="TBL-15-18"><col 
+id="TBL-15-19"><col 
+id="TBL-15-20"><col 
+id="TBL-15-21"><col 
+id="TBL-15-22"><col 
+id="TBL-15-23"><col 
+id="TBL-15-24"><col 
+id="TBL-15-25"><col 
+id="TBL-15-26"><col 
+id="TBL-15-27"><col 
+id="TBL-15-28"><col 
+id="TBL-15-29"><col 
+id="TBL-15-30"><col 
+id="TBL-15-31"><col 
+id="TBL-15-32"><col 
+id="TBL-15-33"><col 
+id="TBL-15-34"><col 
+id="TBL-15-35"><col 
+id="TBL-15-36"><col 
+id="TBL-15-37"><col 
+id="TBL-15-38"><col 
+id="TBL-15-39"><col 
+id="TBL-15-40"><col 
+id="TBL-15-41"><col 
+id="TBL-15-42"><col 
+id="TBL-15-43"><col 
+id="TBL-15-44"><col 
+id="TBL-15-45"><col 
+id="TBL-15-46"><col 
+id="TBL-15-47"><col 
+id="TBL-15-48"><col 
+id="TBL-15-49"><col 
+id="TBL-15-50"><col 
+id="TBL-15-51"><col 
+id="TBL-15-52"><col 
+id="TBL-15-53"><col 
+id="TBL-15-54"><col 
+id="TBL-15-55"><col 
+id="TBL-15-56"><col 
+id="TBL-15-57"><col 
+id="TBL-15-58"><col 
+id="TBL-15-59"><col 
+id="TBL-15-60"><col 
+id="TBL-15-61"><col 
+id="TBL-15-62"><col 
+id="TBL-15-63"><col 
+id="TBL-15-64"><col 
+id="TBL-15-65"><col 
+id="TBL-15-66"><col 
+id="TBL-15-67"><col 
+id="TBL-15-68"><col 
+id="TBL-15-69"><col 
+id="TBL-15-70"><col 
+id="TBL-15-71"><col 
+id="TBL-15-72"><col 
+id="TBL-15-73"><col 
+id="TBL-15-74"><col 
+id="TBL-15-75"><col 
+id="TBL-15-76"><col 
+id="TBL-15-77"><col 
+id="TBL-15-78"><col 
+id="TBL-15-79"><col 
+id="TBL-15-80"><col 
+id="TBL-15-81"><col 
+id="TBL-15-82"><col 
+id="TBL-15-83"><col 
+id="TBL-15-84"><col 
+id="TBL-15-85"><col 
+id="TBL-15-86"><col 
+id="TBL-15-87"><col 
+id="TBL-15-88"><col 
+id="TBL-15-89"><col 
+id="TBL-15-90"><col 
+id="TBL-15-91"><col 
+id="TBL-15-92"><col 
+id="TBL-15-93"><col 
+id="TBL-15-94"><col 
+id="TBL-15-95"><col 
+id="TBL-15-96"><col 
+id="TBL-15-97"><col 
+id="TBL-15-98"><col 
+id="TBL-15-99"><col 
+id="TBL-15-100"><col 
+id="TBL-15-101"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-1"  
+class="td11">                      </td>
+                         <td  style="text-align:left; white-space:nowrap;" id="TBL-15-1-2"  
+class="td11"> Wall  </td>
+                                 <td  style="text-align:left; white-space:nowrap;" id="TBL-15-1-3"  
+class="td11"> Closed Door  </td>
+                                                <td  style="text-align:left; white-space:nowrap;" id="TBL-15-1-4"  
+class="td11"> Open Door  </td>
+                                                             <td  style="text-align:left; white-space:nowrap;" id="TBL-15-1-5"  
+class="td11"> Open Hallway  </td>
+                                                                             <td  style="text-align:left; white-space:nowrap;" id="TBL-15-1-6"  
+class="td11"> Foyer  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-1"  
+class="td11">       Nothing Detected  </td>
+                         <td  style="text-align:left; white-space:nowrap;" id="TBL-15-2-2"  
+class="td11"> 0.70  </td>
+                                 <td  style="text-align:left; white-space:nowrap;" id="TBL-15-2-3"  
+class="td11"> 0.40             </td>
+                                                <td  style="text-align:left; white-space:nowrap;" id="TBL-15-2-4"  
+class="td11"> 0.05           </td>
+                                                             <td  style="text-align:left; white-space:nowrap;" id="TBL-15-2-5"  
+class="td11"> 0.001              </td>
+                                                                             <td  style="text-align:left; white-space:nowrap;" id="TBL-15-2-6"  
+class="td11"> 0.30    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-1"  
+class="td11">    Closed Door Detected  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-3-2"  
+class="td11"> 0.30  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-3-3"  
+class="td11"> 0.60             </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-3-4"  
+class="td11"> 0               </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-3-5"  
+class="td11"> 0                   </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-3-6"  
+class="td11"> 0.05    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-1"  
+class="td11">     Open Door Detected  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-4-2"  
+class="td11"> 0      </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-4-3"  
+class="td11"> 0                 </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-4-4"  
+class="td11"> 0.90           </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-4-5"  
+class="td11"> 0.10               </td><td  style="text-align:left; white-space:nowrap;" id="TBL-15-4-6"  
+class="td11"> 0.15    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-1"  
+class="td11"> Closed Hallway Detected  </td>
+<td  style="text-align:left; white-space:nowrap;" id="TBL-15-5-2"  
+class="td11"> 0      </td>
+<td  style="text-align:left; white-space:nowrap;" id="TBL-15-5-3"  
+class="td11"> 0                 </td>
+<td  style="text-align:left; white-space:nowrap;" id="TBL-15-5-4"  
+class="td11"> 0.001          </td>
+<td  style="text-align:left; white-space:nowrap;" id="TBL-15-5-5"  
+class="td11"> 0.90               </td>
+<td  style="text-align:left; white-space:nowrap;" id="TBL-15-5-6"  
+class="td11"> 0.5     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-1"  
+class="td11">                       </td></tr></table>                                                             </div>
+<a 
+ id="x17-110001r1"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Table</span><span 
+class="ec-lmbx-7"> 3.1:</span><span 
+class="ec-lmbx-7"> </span>
+         </span><span  
+class="content"><span 
+class="ec-lmr-7">The  certainty  matrix  for  the  robot  </span><span class="cite"><span class="cite-show"><span 
+class="ec-lmr-7">[</span><span 
+class="ts1-lmr7-">†</span><span 
+class="ec-lmr-7">]</span></span><span class="cite-detail"><span 
+class="ec-lmr-7">Nourbakhsh,  I.,  Powers,  R.  &#x0026;  Birchfield,  S.  DERVISH  an</span>
+         <span 
+class="ec-lmr-7">office-navigating robot. </span><span 
+class="ec-lmri-7">AI magazine </span><span id="bold" style="font-weight:bold;">16</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-7">53–53 (1995)</span></span></span><span 
+class="ec-lmr-7">.</span>
+</span></figcaption><!--tex4ht:label?: x17-110001r1 -->
+                                                                                
+                                                                                
+</figure>
+<!--l. 1547--><p class="noindent" >Given a specific percept pair i, Equation (5.21) enables the likelihood of each possible po- sition n to be
+updated using the formula: <table class="equation"><tr><td>
+<!--l. 1550--><p class="noindent" >
+<!--l. 1550--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                  <mstyle 
+   id="x17-110003r11"  class="label" ></mstyle><!--endlabel-->
+                                  <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>n</mi><mi 
+>|</mi><mi 
+>i</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mi 
+>i</mi><mi 
+>|</mi></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.11)</td></tr></table>
+<!--l. 1552--><p class="noindent" >The value of p(n) is already available from the current belief state of Dervish, and so the challenge lies
+in computing p(i|n). The key simplification for Dervish is based upon the re- alization that, because the
+feature extraction system only extracts 4 total features and be- cause a node contains (on a single side)
+one of 5 total features, every possible combination of node type and extracted feature can be
+represented in a 4 x 5 table.
+<!--l. 1560--><p class="noindent" >Dervish’s certainty matrix (show in Table 5.1) is just this lookup table. Dervish makes the simplifying
+assumption that the performance of the feature detector (i.e. the probability that it is correct) is only a
+function of the feature extracted and the actual feature in the node. With this assumption in hand, we
+can populate the certainty matrix with confidence estimates for each possible pairing of perception and
+node type. For each of the five world fea- tures that the robot can encounter (wall, closed door,
+open door, open hallway and foyer) this matrix assigns a likelihood for each of the three
+one-sided percepts that the sensory sys- tem can issue. In addition, this matrix assigns a
+likelihood that the sensory system will fail to issue a perceptual event altogether (nothing
+detected).
+<!--l. 1571--><p class="noindent" >For example, using the specific values in Table 5.1, if Dervish is next to an open hallway, the likelihood
+of mistakenly recognizing it as an open door is 0.10. This means that for any node n that is of type
+Open Hallway and for the sensor value i=Open door, p(i|n) = 0.10. Together with a specific topological
+map, the certainty matrix enables straightforward com- putation of p(i|n) during the perception update
+process.
+<!--l. 1577--><p class="noindent" >For Dervish’s particular sensory suite and for any specific environment it intends to navi- gate, humans
+generate a specific certainty matrix that loosely represents its perceptual con- fidence, along with a
+global measure for the probability that any given door will be closed versus opened in the real
+world.
+<!--l. 1582--><p class="noindent" >Recall that Dervish has no encoders and that perceptual events are triggered asynchronously by the
+feature extraction processes. Therefore, Dervish has no action update step as depicted by Equation
+(5.22). When the robot does detect a perceptual event, multiple perception up- date steps will need to
+be performed in order to update the likelihood of every possible robot position given Dervish’s former
+belief state. This is because there is often a chance that the robot has traveled multiple topological
+nodes since its previous perceptual event (i.e. false negative errors). Formally, the perception update
+formula for Dervish is in reality a combi- nation of the general form of action update and perception
+                                                                                
+                                                                                
+update. The likelihood of posi- tion n given perceptual event i is calculated as in Equation
+(5.22):
+<table class="equation"><tr><td>
+<!--l. 1592--><p class="noindent" >
+<!--l. 1592--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                       <mstyle 
+   id="x17-110004r12"  class="label" ></mstyle><!--endlabel-->
+                       <mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><mo  
+> ∫
+ <!--nolimits--></mo><!--nolimits--><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+><mi 
+>|</mi><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>o</mi></mrow><mrow 
+>
+<mi 
+>t</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mi 
+>P</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+><mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mspace width="0.17em" class="thinspace"/><mstyle 
+class="text"><mtext  >d</mtext></mstyle><msubsup><mrow 
+><mi 
+>l</mi></mrow><mrow 
+>
+<mi 
+>t</mi><mo 
+class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+>
+</math></td><td class="eq-no">(3.12)</td></tr></table>
+<!--l. 1596--><p class="noindent" >
+<!--l. 1598--><p class="noindent" >The value of p(n’ ) denotes the likelihood of Dervish being at position n’ as represented by Dervish’s
+former belief state. The temporal subscript t-i is used in lieu of t-1 because for each possible position n’
+the discrete topological distance from n’ to n can vary depending on the specific topological map. The
+calculation of p(n n’ , i ) is performed by multi- tt-it plying the probability of generating perceptual
+event i at position n by the probability of hav- ing failed to generate perceptual events at all nodes
+between n’ and n:
+<!--l. 1606--><p class="noindent" >For example (figure 5.23), suppose that the robot has only two nonzero nodes in its belief state, 1-2,
+2-3, with likelihoods associated with each possible position: p(1-2) = 1.0 and p(2-3) = 0.2.
+For simplicity assume the robot is facing East with certainty. Note that the likelihoods
+for nodes 1-2 and 2-3 do not sum to 1.0. These values are not formal probabil- ities, and
+so computational effort is minimized in Dervish by avoiding normalization alto- gether.
+Now suppose that a perceptual event is generated: the robot detects an open hallway on
+its left and an open door on its right simultaneously. State 2-3 will progress potentially
+to states 3, 3-4 and 4. But states 3 and 3-4 can be elimi- nated because the likelihood of
+detecting an open door when there is only wall is zero. The likelihood of reaching state 4 is the
+product of the initial likelihood for state 2-3, 0.2, the like- lihood of not detecting anything at
+node 3, (a), and the likelihood of detecting a hallway on the left and a door on the right at
+node 4, (b). Note that we assume the likelihood of detecting nothing at node 3-4 is 1.0 (a
+simplifying approximation). (a) occurs only if Dervish fails to detect the door on its left at
+node 3 (either closed or open), [(0.6)(0.4) + (1-0.6)(0.05)], and correctly detects nothing
+on its right, 0.7. (b) occurs if Dervish correctly identifies the open hallway on its left at
+node 4, 0.90, and mis- takes the right hallway for an open door, 0.10. The final formula,
+(0.2)[(0.6)(0.4)+(0.4)(0.05)](0.7)[(0.9)(0.1)], yields a likelihood of 0.003 for state 4. This is a partial
+result for p(4) following from the prior belief state node 2-3. Turning to the other node
+in Dervish’s prior belief state, 1-2 will potentially progress to states 2, 2-3, 3, 3-4 and 4.
+Again, states 2-3, 3 and 3-4 can all be eliminated since the like- lihood of detecting an
+open door when a wall is present is zero. The likelihood of state 2 is the product of the
+prior likelihood for state 1-2, (1.0), the likelihood of detecting the door on the right as an
+open door, [(0.6)(0) + (0.4)(0.9)], and the likelihood of correctly detecting an open hallway
+                                                                                
+                                                                                
+to the left, 0.9. The likelihood for being at state 2 is then (1.0)(0.4)(0.9)(0.9) = 0.3. In
+addition, 1-2 progresses to state 4 with a certainty factor of -6 4.3  10 , which is added to the
+certainty factor above to bring the total for state 4 to 0.00328. Dervish would therefore track
+the new belief state to be 2, 4, assigning a very high likelihood to position 2 and a low
+likelihood to position 4. Empirically, Dervish’s map representation and localization system have
+proven to be suffi- cient for navigation of four indoor office environments: the artificial office
+environment cre- ated explicitly for the 1994 National Conference on Artificial Intelligence; the
+psychology department, the history department and the computer science department at
+Stanford Uni- versity. All of these experiments were run while providing Dervish with no
+notion of the distance between adjacent nodes in its topological map. It is a demonstration
+of the power of probabilistic localization that, in spite of the tremendous lack of action
+and encoder infor- mation, the robot is able to navigate several real-world office buildings
+successfully.
+<!--l. 1643--><p class="noindent" >One open question remains with respect to Dervish’s localization system. Dervish was not just a
+localizer but also a navigator. As with all multiple hypothesis systems, one must ask the question, how
+does the robot decide how to move, given that it has multiple possible ro- bot positions in its
+representation? The technique employed by Dervish is a most common technique in the
+<span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span>ics field: plan the robot’s
+actions by assuming that the robot’s actual position is its most likely node in the belief
+state. Generally, the most likely position is a good measure of the robot’s actual world
+position. However, this technique has short- comings when the highest and second highest most
+likely positions have similar values. In the case of Dervish, it nonetheless goes with the
+highest likelihood position at all times, save at one critical juncture. The robot’s goal is to
+enter a target room and remain there. There- fore, from the point of view of its goal, it
+is critical that it finish navigating only when the robot has strong confidence in being at
+the correct final location. In this particular case, Der- vish’s execution module refuses to
+enter a room if the gap between the most likely position and the second likeliest position is
+below a preset threshold. In such a case, Dervish will actively plan a path that causes it
+to move further down the hallway in an attempt to collect more sensor data and thereby
+increase the relative likelihood of one position in the belief state. Although computationally
+unattractive, one can go further, imagining a planning system for robots such as Dervish for
+which one specifies a goal belief state rather than a goal position. The robot can then reason
+and plan in order to achieve a goal confidence level, thus explic- itly taking into account
+not only robot position but also the measured likelihood of each po- sition. An example of
+just such a procedure is the Sensory Uncertainty Field of Latombe [90], in which the robot
+must find a trajectory that reaches its goal while maximizing its lo- calization confidence
+enroute.
+
+<a 
+ id="subsubsection*.57"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x17-111000"></a>Case Study II: Markov Localization using a Grid Map</h5>
+<div class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<a 
+ id="x17-111001r11"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 3.11:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">The belief state representation 3D array used by Rhino.</span><span 
+class="ec-lmr-7"> </span>                               </span></figcaption><!--tex4ht:label?: x17-111001r11 -->
+<!--l. 1672--><p class="noindent" > <img 
+src="figures/Mobile-Robot-Localisation/figures-6.png" alt="PIC"  
+style="">
+                                                                                
+                                                                                
+</div>
+<!--l. 1675--><p class="noindent" >The major weakness of a purely topological decomposition of the environment is the <span class="alert"><alert style="color: #821131;">resolution
+limitation imposed by such a granular representation</alert></span>. The position of the robot is usually
+limited to the resolution of a single node in such cases, and may be undesirable for certain
+applications.
+In this case study, we examine the work of Burgard et al. [42, 43] in which far more precise navigation
+is made possible using a grid-based representation while still employing the Markov localization
+technique.
+<!--l. 1682--><p class="noindent" >The robot used by this research, Rhino, is an RWI B24 robot with 24 sonars and 2 Sick laser
+rangefinders. Clearly, at the sensory level this robot accumulates greater and more accurate range data
+than is possible with the handful of sonar sensors mounted on Dervish. In order to make
+maximal use of this fine-grained sensory data, Rhino uses a 2D geometric environ- mental
+representation of free and occupied space. This metric map is tessellated regularly into a
+fixed decomposition grid with each cell occupying 4 - 64cm in various instantiations. Like
+Dervish, Rhino uses multiple hypothesis belief representation. In line with the far im- proved
+resolution of the environment representation, the belief state representation of Rhino 3
+consists of a 15 x 15 x 15 3D array representing the probability of 15 possible robot posi-
+tions (see Figure 5.24). The resolution of the array is 15cm x 15cm x 1ř. Note that unlike
+Dervish, which assumes its orientation is approximate and known, Rhino explicitly repre-
+sents fine-grained alternative orientations, and so its belief state formally represents three
+degrees of freedom. As we have stated before, the resolution of the belief state representa-
+tion must match the environment representation in order for the overall system to function
+well.
+<!--l. 1695--><p class="noindent" >Whereas Dervish made use only perceptual events, ignoring encoder inputs and therefore
+metric distance altogether, Rhino uses the complete Markov probabilistic localization ap-
+proach summarized in Section (5.6.2.1), including both an explicit action update phase
+and
+
+<!--l. 1699--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.3.5.2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">3.5.2</span> <span class="title"><a 
+ id="x17-1120003.5.2"></a>Kalman Filter Localisation</span></h4></div>
+<div class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<a 
+ id="x17-112001r12"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 3.12:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">An exmaple of a Kalman filter application.</span>                                         </span></figcaption><!--tex4ht:label?: x17-112001r12 -->
+<!--l. 1704--><p class="noindent" > <img 
+src="figures/Mobile-Robot-Localisation/figures-3.png" alt="PIC"  
+style="">
+                                                                                
+                                                                                
+</div>
+<!--l. 1707--><p class="noindent" >The Markov localization model can represent any probability density function over robot
+<!--l. 1709--><p class="noindent" >position. This approach is very general but, due to its generality, inefficient. A successful alternative is
+to use a more compact representation of a specific class of probability densi- ties. The Kalman filter
+does just this, and is an optimal recursive data processing algorithm. It incorporates all information,
+regardless of precision, to estimate the current value of the variable of interest. A comprehensive
+introduction can be found in [46] and a more detailed treatment is presented in [28]. Figure 5.26 depicts
+the a general scheme of Kalman filter estimation, where the system has a control signal and system
+error sources as inputs. A measuring device enables measuring some system states with
+errors. The Kalman filter is a mathematical mechanism for produc- ing an optimal estimate
+of the system state based on the knowledge of the system and the measuring device, the
+description of the system noise and measurement errors and the un- certainty in the dynamics
+models. Thus the Kalman filter fuses sensor signals and system knowledge in an optimal
+way. Optimality depends on the criteria chosen to evaluate the per- formance and on the
+assumptions. Within the Kalman filter theory the system is assumed to be linear and white with
+Gaussian noise. As we have discussed earlier, the assumption of Gaussian error is invalid
+for our <span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span> applications but,
+nevertheless, the results are extremely useful. In other engineering disciplines, the Gaussian
+error assumption has in some cases been shown to be quite accurate [46]. We begin with a
+subsection that introduces Kalman filter theory, then we present an appli- cation of that
+theory to the problem of <span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span>
+localization. Finally, the third subsec- tion will present a case study of a <span class="acronym"><span class="acronym-short"><a 
+href="#glo:amr" class="glossary" >AMR</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile
+Robotics</a></span><span class="acronym-desc"><a 
+href="#glo:amr" class="glossary" >Autonomous Mobile Robotics</a></span></span></span> that navigates indoor spaces by virtue of Kalman filter
+localization.
+
+<!--l. 1731--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.3.5.3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">3.5.3</span> <span class="title"><a 
+ id="x17-1130003.5.3"></a>An Implementation of Kalman Filter</span></h4></div>
+<!--l. 1733--><p class="noindent" >Let’s make a toy example: You’ve built a little robot that can wander around in the woods, and the
+robot needs to know exactly where it is so that it can <span class="margin"><span>navigate.</span><span class="sidenote"> <img 
+src="figures/Mobile-Robot-Localisation/raster/toybot-goes.png" alt="PIC"  
+style=""> The toybot is currently observing
+its surrounding.</span></span>
+<!--l. 1738--><p class="noindent" >We’ll say our robot has a state <!--l. 1738--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">→</mo></mover></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+></math>,
+which is just a position and a velocity: <table class="equation"><tr><td>
+<!--l. 1740--><p class="noindent" >
+<!--l. 1740--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                  <mstyle 
+   id="x17-113001r13"  class="label" ></mstyle><!--endlabel--><msubsup><mrow 
+>
+                                  <mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">→</mo></mover>
+                                    </mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><mover 
+accent="true"><mrow 
+><mi 
+>p</mi></mrow><mo accent="true">→</mo></mover><mo 
+class="MathClass-punc" stretchy="false">,</mo><mover 
+accent="true"><mrow 
+><mi 
+>v</mi></mrow><mo accent="true">→</mo></mover></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.13)</td></tr></table>
+                                                                                
+                                                                                
+<!--l. 1743--><p class="noindent" >
+<!--l. 1745--><p class="noindent" >Note that the state is just a list of numbers about the underlying configuration of your system; it could
+be anything. In our example it’s position and velocity, but it could be data about the amount of fluid in
+a tank, the temperature of a car engine, the position of a user’s finger on a touchpad, or any number of
+things you need to keep track of.
+<!--l. 1750--><p class="noindent" >Our robot also has a GPS sensor, which is accurate to about 10 meters, which is good, but it needs to
+know its location more precisely than 10 meters. There are lots of gullies and cliffs in these woods, and
+if the robot is wrong by more than a few feet, it could fall off a cliff. So GPS by itself is not good
+<span class="margin"><span>enough.</span><span class="sidenote"><img 
+src="figures/Mobile-Robot-Localisation/raster/toybot-falls.png" alt="PIC"  
+style=""> The toybot has miscalculated its position.</span></span>
+
+<a 
+ id="subsubsection*.58"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x17-114000"></a>A Gentle Introduction to Kalman Filter Theory</h5>
+<!--l. 1759--><p class="noindent" >The method of <span class="alert"><alert style="color: #821131;">Kalman filter</alert></span> allows multiple measurements to be incorporated optimally into a
+<span id="bold" style="font-weight:bold;">single estimate of state</span>. Before we start definining the filter mathematically, we first need to make
+the assumption that the state does <span id="bold" style="font-weight:bold;">NOT</span> change <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">i.e., we are assuming the robot is stationary.</span></span> between
+the acquisition of the first and second measurement. Once we define the static case, we then work with
+the dynamic version.
+
+<a 
+ id="paragraph*.59"></a>
+<!--l. 1765--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x17-115000"></a>Static Estimation</span>
+Let us assume we’ve taken two (<span class="alert"><alert style="color: #821131;">2</alert></span>) measurements:
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 1770--><p class="noindent" >one with an ultrasonic range sensor at time <!--l. 1770--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math>,
+and
+</li>     
+<li class="itemize">
+<!--l. 1771--><p class="noindent" >one with a more precise laser range sensor at time <!--l. 1771--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mn>1</mn></math>.</li></ul>
+<!--l. 1774--><p class="noindent" >Based on each measurement we are able to estimate the robot’s position.
+<div class="warning">
+<!--l. 1779--><p class="noindent" >Such an estimate derived from the <!--l. 1779--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msup><mrow 
+><mstyle 
+class="text"><mtext  >1</mtext></mstyle></mrow><mrow 
+><mstyle 
+class="text"><mtext  >st</mtext></mstyle></mrow></msup 
+></math>
+sensor measurements is <!--l. 1779--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+></math> and the
+estimate of position based on the <!--l. 1779--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msup><mrow 
+><mstyle 
+class="text"><mtext  >2</mtext></mstyle></mrow><mrow 
+><mstyle 
+class="text"><mtext  >nd</mtext></mstyle></mrow></msup 
+></math>
+measurement is <!--l. 1779--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+></mrow></msubsup 
+></math>.
+</div>
+<!--l. 1781--><p class="noindent" >As we know each measurement can be inaccurate, <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">As no sensor neither perfect, or accurate.</span></span> we wish to
+<span class="alert"><alert style="color: #821131;">modulate</alert></span> these position estimates based on the <span class="alert"><alert style="color: #821131;">expected measurement error</alert></span> from each
+sensor.
+Suppose we use two (<span class="alert"><alert style="color: #821131;">2</alert></span>) variances <!--l. 1785--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+></math>
+to predict the error associated with each measurement. We will assume a unimodal error distribution <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">a
+probability distribution with a single, clear peak, indicating that errors are clustered around one central
+                                                                                
+                                                                                
+value (usually zero).</span></span> throughout the remainder of the Kálman filter approach, which gives us the two
+(<span class="alert"><alert style="color: #821131;">2</alert></span>) robot position estimates:
+<!--tex4ht:inline--><!--l. 1795--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align">
+                          <mtr><mtd 
+columnalign="right" class="align-odd"><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+><mspace width="2em" class="qquad"/><mstyle 
+class="text"><mtext  >with variance</mtext></mstyle><mspace width="2em" class="qquad"/><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo></mtd>
+                                                                          <mtd 
+class="align-even"><mspace width="2em"/></mtd>
+                                                                                                     <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-115001r14"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.14)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+                          </mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+></mrow></msubsup 
+><mspace width="2em" class="qquad"/><mstyle 
+class="text"><mtext  >with variance</mtext></mstyle><mspace width="2em" class="qquad"/><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">.</mo></mtd>
+                                                                          <mtd 
+class="align-even"><mspace width="2em"/></mtd>
+                                                                                                     <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-115002r15"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.15)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+                          </mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>
+                                                                          <mtd 
+class="align-even"><mspace width="2em"/></mtd>
+                                                                                                     <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-115003r16"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.16)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+</mtd></mtr></mtable></math>
+<!--l. 1797--><p class="noindent" >So now we have two (<span class="alert"><alert style="color: #821131;">2</alert></span>) measurements available to estimate the robots position. The question we
+now have to answer is: <div class="quote">  <italic>How do we fuse, or combine, these data to get the best estimate
+<!--l. 1802--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+></mrow><mrow 
+></mrow></msubsup 
+></math> for the
+robot position?</italic>  </div><p>  We are assuming, as we stated previously, there was <span class="alert"><alert style="color: #821131;">no robot motion</alert></span> between time
+<!--l. 1805--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math> and
+time <!--l. 1806--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mn>1</mn></math>,
+and therefore we can directly apply the same weighted least square technique:
+<table class="equation"><tr><td>
+<!--l. 1810--><p class="noindent" >
+<!--l. 1810--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                             <mstyle 
+   id="x17-115004r17"  class="label" ></mstyle><!--endlabel-->
+                             <mi 
+>S</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo><munderover accentunder="false" accent="false"><mrow  
+><mo  
+> ∑</mo>
+  </mrow><mrow 
+><mi 
+>i</mi><mo 
+class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow 
+><mi 
+>n</mi></mrow></munderover 
+><msubsup><mrow 
+><mi 
+>w</mi></mrow><mrow 
+>
+<mi 
+>i</mi></mrow><mrow 
+></mrow></msubsup 
+><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mi 
+>i</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+><mn>2</mn></mrow></msup 
+>
+</math></td><td class="eq-no">(3.17)</td></tr></table>
+<!--l. 1810--><p class="noindent" >
+where <!--l. 1812--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>w</mi></math> is the weight of measurement
+<!--l. 1812--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>i</mi></math>. To find the minimum error
+we take the derivative <!--l. 1813--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>i</mi></math> of
+<!--l. 1813--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi></math> and equate it to zero. then
+the value of <!--l. 1829--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>q</mi></math> in terms of
+two (<span class="alert"><alert style="color: #821131;">2</alert></span>) measurements (<!--l. 1829--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mspace width="0.17em" class="thinspace"/><msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+></mrow></msubsup 
+></math>)
+can be defined as follows: <table class="equation"><tr><td>
+                                                                                
+                                                                                
+<!--l. 1832--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+<mstyle 
+   id="x17-115005r18"  class="label" ></mstyle><!--endlabel--><mtable 
+class="aligned" ><mtr 
+><mtd columnalign="right" ><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo>        <mfrac><mrow 
+></mrow> 
+<mrow 
+>  <mfrac><mrow 
+>
+<mn>1</mn></mrow>
+
+<mrow 
+><msubsup><mrow 
+>
+<mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow></mfrac> 
+<mo 
+class="MathClass-bin" stretchy="false">+</mo>  <mfrac><mrow 
+><mn>1</mn></mrow> 
+<mrow 
+><msubsup><mrow 
+>
+<mi 
+>σ</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow></mfrac> </mrow></mfrac> </mtd>
+</mtr>                                                                                </mtable>
+</math></td><td class="eq-no">(3.18)</td></tr></table>
+<!--l. 1837--><p class="noindent" >
+Note that, from (5.36) we can see that the resulting variance  is less than all the variances 2  of the
+individual measurements. Thus the uncertainty of the position estimate has been i decreased by
+combining the two measurements. This demonstrates that even poor measure- ments only
+increase the precision of an estimate (fig. 5.27), a result that we expect based on Information
+Theory.
+<!--l. 1845--><p class="noindent" >Equation (5.35) can be rewritten as
+<table class="equation"><tr><td>
+<!--l. 1847--><p class="noindent" >
+<!--l. 1847--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                           <mstyle 
+   id="x17-115006r19"  class="label" ></mstyle><!--endlabel--><msubsup><mrow 
+>
+                           <mover 
+accent="true"><mrow 
+><mi 
+>q</mi></mrow><mo accent="true">^</mo></mover>
+                             </mrow><mrow 
+></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo>     <mfrac><mrow 
+><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow>
+ 
+<mrow 
+><msubsup><mrow 
+>
+<mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow></mfrac><msup><mrow 
+>  <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>2</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <msubsup><mrow 
+><mi 
+>q</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+>
+</math></td><td class="eq-no">(3.19)</td></tr></table>
+<!--l. 1850--><p class="noindent" >or, in final form which is used in Kalman filter implementation <table class="equation"><tr><td>
+<!--l. 1854--><p class="noindent" >
+<!--l. 1854--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+<mstyle 
+   id="x17-115007r20"  class="label" ></mstyle><!--endlabel--><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover>
+  </mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+><mo 
+class="MathClass-bin" stretchy="false">+</mo><msubsup><mrow 
+><mi 
+>K</mi></mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>z</mi></mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">−</mo><msubsup><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mspace width="2em" class="qquad"/><mstyle 
+class="text"><mtext  >where</mtext></mstyle><mspace width="2em" class="qquad"/><msubsup><mrow 
+><mi 
+>K</mi></mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo>     <mfrac><mrow 
+><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow>
+ 
+<mrow 
+><msubsup><mrow 
+>
+<mi 
+>σ</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>z</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mrow></mfrac><mspace width="1em" class="quad"/><mstyle 
+class="text"><mtext  >and</mtext></mstyle><mspace width="1em" class="quad"/><mtable 
+class="aligned" ><mtr 
+><mtd columnalign="right" ><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mtd>
+      <mtd columnalign="left" > <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mtd>
+                <mtd columnalign="right" ></mtd>
+</mtr><mtr 
+><mtd columnalign="right" ><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>z</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mtd><mtd columnalign="left" > <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+>
+<mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></mtd>
+</mtr>                                                                                                                                                           </mtable>
+</math></td><td class="eq-no">(3.20)</td></tr></table>
+<!--l. 1863--><p class="noindent" >
+<div class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<a 
+ id="x17-115008r13"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 3.13:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Fusing probability density of two estimates.</span><span 
+class="ec-lmr-7"> </span>                                       </span></figcaption><!--tex4ht:label?: x17-115008r13 -->
+<!--l. 1868--><p class="noindent" > <img 
+src="figures/Mobile-Robot-Localisation/figures-5.png" alt="PIC"  
+style="">
+                                                                                
+                                                                                
+</div>
+
+<a 
+ id="paragraph*.60"></a>
+<!--l. 1871--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x17-116000"></a>Dynamic Estimation</span>
+Following our previous model, we will now consider a robot which moves between
+successive sensor measurements. Suppose that the motion of the robot between times
+<!--l. 1874--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math> and
+<!--l. 1874--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mn>1</mn></math> is described by
+the velocity <!--l. 1875--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>u</mi></math>
+and the noise <!--l. 1875--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>w</mi></math>
+which represents the uncertainty of the actual velocity: <table class="equation"><tr><td>
+<!--l. 1878--><p class="noindent" >
+<!--l. 1878--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                                   <mstyle 
+   id="x17-116001r21"  class="label" ></mstyle><!--endlabel-->
+                                   <mstyle displaystyle="true"><mfrac><mrow><msup><mrow 
+><mi 
+>d</mi></mrow><mrow 
+></mrow></msup 
+><mi 
+>x</mi>
+</mrow><mrow><mi 
+>d</mi><msup><mrow 
+><mi 
+>t</mi></mrow><mrow 
+></mrow></msup 
+> </mrow></mfrac></mstyle>
+                                      <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mi 
+>u</mi> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>w</mi>
+</math></td><td class="eq-no">(3.21)</td></tr></table>
+<!--l. 1881--><p class="noindent" >If we now start at time <!--l. 1883--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>k</mi></math>,
+knowing the variance <!--l. 1883--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></math>
+of the robot position at this time and knowing the variance
+<!--l. 1884--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>σ</mi></mrow><mrow 
+><mi 
+>w</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></math> of the motion, we
+obtain for the time <!--l. 1885--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msubsup><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></math>
+just when the measurement is taken:
+<!--tex4ht:inline--><!--l. 1893--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align">
+                              <mtr><mtd 
+columnalign="right" class="align-odd"><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><msubsup><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></mrow><mrow 
+></mrow></msubsup 
+></mtd>
+                                                               <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>u</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>t</mi></mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <msubsup><mrow 
+><mi 
+>t</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mspace width="2em"/></mtd>
+                                                                                                               
+                                                                                                                                             <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-116002r22"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.22)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+                              </mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"><msubsup><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><msubsup><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow><mrow 
+><mi 
+>′</mi></mrow></msubsup 
+></mrow><mrow 
+></mrow></msubsup 
+></mtd>
+                                                               <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>x</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>u</mi><msup><mrow 
+> <mrow><mo fence="true" form="prefix">(</mo><mrow><msubsup><mrow 
+><mi 
+>t</mi></mrow><mrow 
+><mi 
+>k</mi><mo 
+class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow><mrow 
+></mrow></msubsup 
+> <mo 
+class="MathClass-bin" stretchy="false">−</mo> <msubsup><mrow 
+><mi 
+>t</mi></mrow><mrow 
+><mi 
+>k</mi></mrow><mrow 
+></mrow></msubsup 
+></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow 
+></mrow></msup 
+><mspace width="2em"/></mtd>
+                                                                                                               
+                                                                                                                                             <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-116003r23"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.23)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+                              </mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>
+                                                               <mtd 
+class="align-even"><mspace width="2em"/></mtd>
+                                                                                                               <mtd 
+columnalign="right" class="align-label"><mstyle 
+   id="x17-116004r24"  class="label" ></mstyle><!--endlabel--><mstyle 
+class="maketag"><mtext  >(3.24)</mtext></mstyle><mspace width="0.33em" class="nbsp" />
+</mtd></mtr></mtable></math>
+<!--l. 1895--><p class="noindent" >where ..
+                                                                                
+                                                                                
+
+<a 
+ id="subsubsection*.61"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x17-117000"></a>Kalman Filter Localisation</h5>
+<div class="figure" 
+>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+<a 
+ id="x17-117001r14"></a>
+<figcaption class="caption" ><span class="id"><span 
+class="ec-lmbx-7">Figure</span><span 
+class="ec-lmbx-7"> 3.14:</span><span 
+class="ec-lmbx-7"> </span></span><span  
+class="content"><span 
+class="ec-lmr-7">Schematic for Kalman filter mobile robot localization.</span><span 
+class="ec-lmr-7"> </span>                                 </span></figcaption><!--tex4ht:label?: x17-117001r14 -->
+<!--l. 1903--><p class="noindent" > <img 
+src="figures/Mobile-Robot-Localisation/figures-4.png" alt="PIC"  
+style="">
+                                                                                
+                                                                                
+</div>
+<!--l. 1906--><p class="noindent" >The Kalman filter is an optimal and efficient <span class="alert"><alert style="color: #821131;">sensor fusion</alert></span> technique.
+<div class="warning">
+<!--l. 1911--><p class="noindent" >Application of the Kalman filter to localisation requires posing the robot localisation problem as a
+sensor fusion problem.
+</div>
+<!--l. 1913--><p class="noindent" >Recall that the basic probabilistic update of robot belief state can be segmented into two
+(<span class="alert"><alert style="color: #821131;">2</alert></span>) phases:
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 1917--><p class="noindent" >perception update, and
+</li>     
+<li class="itemize">
+<!--l. 1918--><p class="noindent" >action update</li></ul>
+<!--l. 1921--><p class="noindent" >The fundamental difference between the Kalman filter approach and Markov localisation approach lies
+in the perception update process.
+<!--l. 1924--><p class="noindent" ><div class="quote"> In Markov localisation, the entire perception <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">i.e., the robot’s set of instantaneous sensor
+measurements.</span></span> is used to update each possible robot position in the belief state individually using
+Bayes formula.  </div><p>
+<div class="knowledge">
+<!--l. 1934--><p class="noindent" >In some cases, the perception is abstract, having been produced by a feature extraction
+mechanism. <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">as in Dervish.</span></span> In other cases, as with Rhino, the perception consists of raw sensor
+readings.
+</div>
+<!--l. 1936--><p class="noindent" >By contrast, perception update using a Kalman filter is a <span class="alert"><alert style="color: #821131;">multi-step</alert></span> process. The robot’s total
+sensory input is treated, not as a monolithic whole, but as a set of extracted features which each relate
+to objects in the environment. Given a set of possible features, the Kalman filter is used to fuse the
+distance estimate from each feature to a matching object in the map. Instead of carrying out this
+matching process for many possible robot locations individually as in the Markov approach, the
+Kalman filter accomplishes the same probabilistic update by treating the whole, unimodal and
+Gaussian belief state at once. <span id="bold" style="font-weight:bold;">Fig.</span> <span 
+class="ec-lmbx-10">??</span> depicts the particular schematic for Kalman filter
+localisation.
+The first step is action update or position prediction, the straightforward application of a
+Gaussian error motion model to the robot’s measured encoder travel. The robot then collects
+actual sensor data and extracts appropriate features <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">e.g. lines, doors, or even the value of a
+specific sensor</span></span> in the observation step. At the same time, based on its predicted position
+in the map, the robot generates a measurement prediction which identifies the features
+which the robot expects to find and the positions of those features. In matching the robot
+identifies the best pairings between the features actually extracted during observation and the
+expected features due to measurement prediction. Finally, the Kalman filter can fuse the
+information provided by all of these matches in order to update the robot belief state in
+estimation.
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><a 
+href="OtherExamplesofLocalisationMethods.html" ><span class="nav-next">NEXT</span></a><a 
+href="RepresentingMaps.html" ><span class="nav-prev">PREV</span></a><a 
+href="RepresentingMaps.html#tailRepresentingMaps.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="ProbabilisticMapBasedLocalisation.html" ><span class="nav-front">FRONT</span></a><a 
+href="MobileRobotLocalisation.html#ProbabilisticMapBasedLocalisation.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailProbabilisticMapBasedLocalisation.html"></a>   </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>

@@ -1,0 +1,2217 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>Writing a Broadcaster</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 602--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Transform Library</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+                                                                                
+                                                                                
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="CreatingCustommsgandsrvFiles.html#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="AddingaFrame.html#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <span class="nav-inactive"><span class="nav-next">NEXT</span></span> <a 
+href="AddingaFrame.html" ><span class="nav-prev">PREV</span></a><a 
+href="AddingaFrame.html#tailAddingaFrame.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailWritingaBroadcaster.html"><span class="nav-tail">TAIL</span></a><a 
+href="TransformLibrary.html#WritingaBroadcaster.html" ><span class="nav-up">UP</span></a></nav> 
+<div class="section-header"><h3><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#section.10.5"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">10.5</span> <span class="title"><a 
+ id="x59-38000010.5"></a>Writing a Broadcaster</span></h3></div>
+
+<a 
+ id="paragraph*.208"></a>
+<!--l. 604--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-381000"></a>Writing the Broadaster Node</span>
+Let’s first create the source files. Go to the <code class="verb">learning_tf2_py</code> package we created in the previous
+tutorial. Inside the <span class="code-directory"><code class="verb">[</code></span>/]src/learning_tf2_py/learning_tf2_py directory download the example
+broadcaster code by entering the following command:
+<!--l. 610--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb467"><a 
+ id="x59-381002r432"></a><span 
+class="ec-lmtt-10">wget https://raw.githubusercontent.com/ros/geometry_tutorials/humble/turtle_tf2_py/turtle_tf2_py/turtle_tf2_broadcaster.py</span></pre>
+</div><p>
+<!--l. 612--><p class="noindent" >Now open the file called <code class="verb">turtle_tf2_broadcaster.py</code> using your preferred text editor.
+<!--l. 614--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb468"><a 
+ id="x59-381004r437"></a><span id="textcolor2492"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2493"><span 
+class="ec-lmtt-10">math</span></span> 
+<a 
+ id="x59-381006r438"></a> 
+<a 
+ id="x59-381008r439"></a><span id="textcolor2494"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2495"><span 
+class="ec-lmtt-10">geometry_msgs</span></span><span id="textcolor2496"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2497"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor2498"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformStamped</span> 
+<a 
+ id="x59-381010r440"></a> 
+<a 
+ id="x59-381012r441"></a><span id="textcolor2499"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2500"><span 
+class="ec-lmtt-10">numpy</span></span> <span id="textcolor2501"><span 
+class="ec-lmtt-10">as</span></span> <span id="textcolor2502"><span 
+class="ec-lmtt-10">np</span></span> 
+<a 
+ id="x59-381014r442"></a> 
+<a 
+ id="x59-381016r443"></a><span id="textcolor2503"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2504"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x59-381018r444"></a><span id="textcolor2505"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2506"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor2507"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2508"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor2509"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x59-381020r445"></a> 
+<a 
+ id="x59-381022r446"></a><span id="textcolor2510"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2511"><span 
+class="ec-lmtt-10">tf2_ros</span></span> <span id="textcolor2512"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">TransformBroadcaster</span> 
+<a 
+ id="x59-381024r447"></a> 
+<a 
+ id="x59-381026r448"></a><span id="textcolor2513"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2514"><span 
+class="ec-lmtt-10">turtlesim</span></span><span id="textcolor2515"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2516"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor2517"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Pose</span> 
+<a 
+ id="x59-381028r449"></a> 
+<a 
+ id="x59-381030r450"></a> 
+<a 
+ id="x59-381032r451"></a><span id="textcolor2518"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2519"><span 
+class="ec-lmtt-10">quaternion_from_euler</span></span><span 
+class="ec-lmtt-10">(ai, aj, ak):</span> 
+<a 
+ id="x59-381034r452"></a>    <span 
+class="ec-lmtt-10">ai /= </span><span id="textcolor2520"><span 
+class="ec-lmtt-10">2.0</span></span> 
+<a 
+ id="x59-381036r453"></a>    <span 
+class="ec-lmtt-10">aj /= </span><span id="textcolor2521"><span 
+class="ec-lmtt-10">2.0</span></span> 
+<a 
+ id="x59-381038r454"></a>    <span 
+class="ec-lmtt-10">ak /= </span><span id="textcolor2522"><span 
+class="ec-lmtt-10">2.0</span></span> 
+<a 
+ id="x59-381040r455"></a>    <span 
+class="ec-lmtt-10">ci = math.cos(ai)</span> 
+<a 
+ id="x59-381042r456"></a>    <span 
+class="ec-lmtt-10">si = math.sin(ai)</span> 
+<a 
+ id="x59-381044r457"></a>    <span 
+class="ec-lmtt-10">cj = math.cos(aj)</span> 
+<a 
+ id="x59-381046r458"></a>    <span 
+class="ec-lmtt-10">sj = math.sin(aj)</span> 
+<a 
+ id="x59-381048r459"></a>    <span 
+class="ec-lmtt-10">ck = math.cos(ak)</span> 
+<a 
+ id="x59-381050r460"></a>    <span 
+class="ec-lmtt-10">sk = math.sin(ak)</span> 
+<a 
+ id="x59-381052r461"></a>    <span 
+class="ec-lmtt-10">cc = ci*ck</span> 
+<a 
+ id="x59-381054r462"></a>    <span 
+class="ec-lmtt-10">cs = ci*sk</span> 
+<a 
+ id="x59-381056r463"></a>    <span 
+class="ec-lmtt-10">sc = si*ck</span> 
+<a 
+ id="x59-381058r464"></a>    <span 
+class="ec-lmtt-10">ss = si*sk</span> 
+<a 
+ id="x59-381060r465"></a> 
+<a 
+ id="x59-381062r466"></a>    <span 
+class="ec-lmtt-10">q = np.empty((</span><span id="textcolor2523"><span 
+class="ec-lmtt-10">4</span></span><span 
+class="ec-lmtt-10">, ))</span> 
+<a 
+ id="x59-381064r467"></a>    <span 
+class="ec-lmtt-10">q[</span><span id="textcolor2524"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">] = cj*sc</span> <span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">sj*cs</span> 
+<a 
+ id="x59-381066r468"></a>    <span 
+class="ec-lmtt-10">q[</span><span id="textcolor2525"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">] = cj*ss + sj*cc</span> 
+<a 
+ id="x59-381068r469"></a>    <span 
+class="ec-lmtt-10">q[</span><span id="textcolor2526"><span 
+class="ec-lmtt-10">2</span></span><span 
+class="ec-lmtt-10">] = cj*cs</span> <span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">sj*sc</span> 
+<a 
+ id="x59-381070r470"></a>    <span 
+class="ec-lmtt-10">q[</span><span id="textcolor2527"><span 
+class="ec-lmtt-10">3</span></span><span 
+class="ec-lmtt-10">] = cj*cc + sj*ss</span> 
+<a 
+ id="x59-381072r471"></a> 
+<a 
+ id="x59-381074r472"></a>    <span id="textcolor2528"><span 
+class="ec-lmtt-10">return</span></span> <span 
+class="ec-lmtt-10">q</span> 
+<a 
+ id="x59-381076r473"></a> 
+<a 
+ id="x59-381078r474"></a> 
+<a 
+ id="x59-381080r475"></a><span id="textcolor2529"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor2530"><span 
+class="ec-lmtt-10">FramePublisher</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x59-381082r476"></a> 
+<a 
+ id="x59-381084r477"></a>    <span id="textcolor2531"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2532"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2533"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x59-381086r478"></a>        <span id="textcolor2534"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor2535"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2536"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2537"><span 
+class="ec-lmtt-10">turtle_tf2_frame_publisher</span></span><span id="textcolor2538"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x59-381088r479"></a> 
+<a 
+ id="x59-381090r480"></a>        <span id="textcolor2539"><italic># Declare and acquire `turtlename` parameter</italic></span> 
+<a 
+ id="x59-381092r481"></a>        <span id="textcolor2540"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename = </span><span id="textcolor2541"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.declare_parameter(</span> 
+<a 
+ id="x59-381094r482"></a>          <span id="textcolor2542"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2543"><span 
+class="ec-lmtt-10">turtlename</span></span><span id="textcolor2544"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2545"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2546"><span 
+class="ec-lmtt-10">turtle</span></span><span id="textcolor2547"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">).get_parameter_value().string_value</span> 
+<a 
+ id="x59-381096r483"></a> 
+<a 
+ id="x59-381098r484"></a>        <span id="textcolor2548"><italic># Initialize the transform broadcaster</italic></span> 
+<a 
+ id="x59-381100r485"></a>        <span id="textcolor2549"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster = TransformBroadcaster(</span><span id="textcolor2550"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x59-381102r486"></a> 
+<a 
+ id="x59-381104r487"></a>        <span id="textcolor2551"><italic># Subscribe to a turtle{1}{2}/pose topic and call handle_turtle_pose</italic></span> 
+<a 
+ id="x59-381106r488"></a>        <span id="textcolor2552"><italic># callback function on each message</italic></span> 
+<a 
+ id="x59-381108r489"></a>        <span id="textcolor2553"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.subscription = </span><span id="textcolor2554"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_subscription(</span> 
+<a 
+ id="x59-381110r490"></a>            <span 
+class="ec-lmtt-10">Pose,</span> 
+<a 
+ id="x59-381112r491"></a>            <span id="textcolor2555"><span 
+class="ec-lmtt-10">f</span></span><span id="textcolor2556"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2557"><span 
+class="ec-lmtt-10">/</span></span><span id="textcolor2558"><span 
+class="ec-lmtt-10">{</span></span><span id="textcolor2559"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename</span><span id="textcolor2560"><span 
+class="ec-lmtt-10">}</span></span><span id="textcolor2561"><span 
+class="ec-lmtt-10">/pose</span></span><span id="textcolor2562"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-381114r492"></a>            <span id="textcolor2563"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.handle_turtle_pose,</span> 
+<a 
+ id="x59-381116r493"></a>            <span id="textcolor2564"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x59-381118r494"></a>        <span id="textcolor2565"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.subscription  </span><span id="textcolor2566"><italic># prevent unused variable warning</italic></span> 
+<a 
+ id="x59-381120r495"></a> 
+<a 
+ id="x59-381122r496"></a>    <span id="textcolor2567"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2568"><span 
+class="ec-lmtt-10">handle_turtle_pose</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor2569"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">, msg):</span> 
+<a 
+ id="x59-381124r497"></a>        <span 
+class="ec-lmtt-10">t = TransformStamped()</span> 
+<a 
+ id="x59-381126r498"></a> 
+<a 
+ id="x59-381128r499"></a>        <span id="textcolor2570"><italic># Read message content and assign it to</italic></span> 
+<a 
+ id="x59-381130r500"></a>        <span id="textcolor2571"><italic># corresponding tf variables</italic></span> 
+<a 
+ id="x59-381132r501"></a>        <span 
+class="ec-lmtt-10">t.header.stamp = </span><span id="textcolor2572"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().to_msg()</span> 
+<a 
+ id="x59-381134r502"></a>        <span 
+class="ec-lmtt-10">t.header.frame_id = </span><span id="textcolor2573"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2574"><span 
+class="ec-lmtt-10">world</span></span><span id="textcolor2575"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x59-381136r503"></a>        <span 
+class="ec-lmtt-10">t.child_frame_id = </span><span id="textcolor2576"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename</span> 
+<a 
+ id="x59-381138r504"></a> 
+<a 
+ id="x59-381140r505"></a>        <span id="textcolor2577"><italic># Turtle only exists in 2D, thus we get x and y translation</italic></span> 
+<a 
+ id="x59-381142r506"></a>        <span id="textcolor2578"><italic># coordinates from the message and set the z coordinate to 0</italic></span> 
+<a 
+ id="x59-381144r507"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.x = msg.x</span> 
+<a 
+ id="x59-381146r508"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.y = msg.y</span> 
+<a 
+ id="x59-381148r509"></a>        <span 
+class="ec-lmtt-10">t.transform.translation.z = </span><span id="textcolor2579"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x59-381150r510"></a> 
+<a 
+ id="x59-381152r511"></a>        <span id="textcolor2580"><italic># For the same reason, turtle can only rotate around one axis</italic></span> 
+<a 
+ id="x59-381154r512"></a>        <span id="textcolor2581"><italic># and this why we set rotation in x and y to 0 and obtain</italic></span> 
+<a 
+ id="x59-381156r513"></a>        <span id="textcolor2582"><italic># rotation in z axis from the message</italic></span> 
+<a 
+ id="x59-381158r514"></a>        <span 
+class="ec-lmtt-10">q = quaternion_from_euler(</span><span id="textcolor2583"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2584"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">, msg.theta)</span> 
+<a 
+ id="x59-381160r515"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.x = q[</span><span id="textcolor2585"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-381162r516"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.y = q[</span><span id="textcolor2586"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-381164r517"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.z = q[</span><span id="textcolor2587"><span 
+class="ec-lmtt-10">2</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-381166r518"></a>        <span 
+class="ec-lmtt-10">t.transform.rotation.w = q[</span><span id="textcolor2588"><span 
+class="ec-lmtt-10">3</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-381168r519"></a> 
+<a 
+ id="x59-381170r520"></a>        <span id="textcolor2589"><italic># Send the transformation</italic></span> 
+<a 
+ id="x59-381172r521"></a>        <span id="textcolor2590"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster.sendTransform(t)</span> 
+<a 
+ id="x59-381174r522"></a> 
+<a 
+ id="x59-381176r523"></a> 
+<a 
+ id="x59-381178r524"></a><span id="textcolor2591"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2592"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x59-381180r525"></a>    <span 
+class="ec-lmtt-10">rclpy.init()</span> 
+<a 
+ id="x59-381182r526"></a>    <span 
+class="ec-lmtt-10">node = FramePublisher()</span> 
+<a 
+ id="x59-381184r527"></a>    <span id="textcolor2593"><span 
+class="ec-lmtt-10">try</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x59-381186r528"></a>        <span 
+class="ec-lmtt-10">rclpy.spin(node)</span> 
+<a 
+ id="x59-381188r529"></a>    <span id="textcolor2594"><span 
+class="ec-lmtt-10">except</span></span> <span id="textcolor2595"><span 
+class="ec-lmtt-10">KeyboardInterrupt</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x59-381190r530"></a>        <span id="textcolor2596"><span 
+class="ec-lmtt-10">pass</span></span> 
+<a 
+ id="x59-381192r531"></a> 
+<a 
+ id="x59-381194r532"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.209"></a>
+<!--l. 616--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-382000"></a>Examining the Code</span>
+Now, let’s take a look at the code that is relevant to publishing the turtle pose to tf2. Firstly, we define
+and acquire a single parameter <code class="verb">turtlename</code>, which specifies a turtle name, e.g. <code class="verb">turtle1</code> or
+<code class="verb">turtle2</code>.
+<!--l. 622--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
+<pre class="fancyvrb" id="fancyvrb469"><a 
+ id="x59-382002r539"></a><span id="textcolor2597"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename = </span><span id="textcolor2598"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.declare_parameter(</span> 
+<a 
+ id="x59-382004r540"></a>  <span id="textcolor2599"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2600"><span 
+class="ec-lmtt-10">turtlename</span></span><span id="textcolor2601"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2602"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2603"><span 
+class="ec-lmtt-10">turtle</span></span><span id="textcolor2604"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">).get_parameter_value().string_value</span></pre>
+</div><p>
+<!--l. 624--><p class="noindent" >Afterward, the node subscribes to topic <code class="verb">{self.turtlename}/pose</code> and runs function <code class="verb">handle_turtle_pose</code>
+on every incoming message.
+<!--l. 627--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb470"><a 
+ id="x59-382006r545"></a><span id="textcolor2605"><span 
+class="ec-lmtt-10">self</span></span> <span 
+class="ec-lmtt-10">.subscription = </span><span id="textcolor2606"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_subscription(</span> 
+<a 
+ id="x59-382008r546"></a>    <span 
+class="ec-lmtt-10">Pose,</span> 
+<a 
+ id="x59-382010r547"></a>    <span id="textcolor2607"><span 
+class="ec-lmtt-10">f</span></span><span id="textcolor2608"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2609"><span 
+class="ec-lmtt-10">/</span></span><span id="textcolor2610"><span 
+class="ec-lmtt-10">{</span></span><span id="textcolor2611"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename</span><span id="textcolor2612"><span 
+class="ec-lmtt-10">}</span></span><span id="textcolor2613"><span 
+class="ec-lmtt-10">/pose</span></span><span id="textcolor2614"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-382012r548"></a>    <span id="textcolor2615"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.handle_turtle_pose,</span> 
+<a 
+ id="x59-382014r549"></a>    <span id="textcolor2616"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">)</span></pre>
+</div><p>
+<!--l. 629--><p class="noindent" >Now, we create a TransformStamped object and give it the appropriate metadata.
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 632--><p class="noindent" >We need to give the transform being published a timestamp, and we’ll just stamp it with
+the current time by calling <code class="verb">self.get_clock().now()</code>. This will return the current time
+used by the Node.
+</li>     
+<li class="itemize">
+<!--l. 635--><p class="noindent" >Then we need to set the name of the parent frame of the link we’re creating, in this case
+world.
+</li>     
+<li class="itemize">
+<!--l. 637--><p class="noindent" >Finally, we need to set the name of the child node of the link we’re creating, in this case
+this is the name of the turtle itself.</li></ul>
+<!--l. 641--><p class="noindent" >The handler function for the turtle pose message broadcasts this turtle’s translation and rotation, and
+publishes it as a transform from frame world to frame <code class="verb">turtleX</code>.
+<!--l. 644--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb471"><a 
+ id="x59-382016r554"></a><span 
+class="ec-lmtt-10">t = TransformStamped()</span> 
+<a 
+ id="x59-382018r555"></a> 
+<a 
+ id="x59-382020r556"></a><span id="textcolor2620"><italic># Read message content and assign it to</italic></span> 
+<a 
+ id="x59-382022r557"></a><span id="textcolor2621"><italic># corresponding tf variables</italic></span> 
+<a 
+ id="x59-382024r558"></a><span 
+class="ec-lmtt-10">t.header.stamp = </span><span id="textcolor2622"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_clock().now().to_msg()</span> 
+<a 
+ id="x59-382026r559"></a><span 
+class="ec-lmtt-10">t.header.frame_id = </span><span id="textcolor2623"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2624"><span 
+class="ec-lmtt-10">world</span></span><span id="textcolor2625"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x59-382028r560"></a><span 
+class="ec-lmtt-10">t.child_frame_id = </span><span id="textcolor2626"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.turtlename</span></pre>
+</div><p>
+<!--l. 646--><p class="noindent" >Here we copy the information from the 3D turtle pose into the 3D transform.
+<!--l. 648--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb472"><a 
+ id="x59-382030r565"></a><span id="textcolor2627"><italic># Turtle only exists in 2D, thus we get x and y translation</italic></span> 
+<a 
+ id="x59-382032r566"></a><span id="textcolor2628"><italic># coordinates from the message and set the z coordinate to 0</italic></span> 
+<a 
+ id="x59-382034r567"></a><span 
+class="ec-lmtt-10">t.transform.translation.x = msg.x</span> 
+<a 
+ id="x59-382036r568"></a><span 
+class="ec-lmtt-10">t.transform.translation.y = msg.y</span> 
+<a 
+ id="x59-382038r569"></a><span 
+class="ec-lmtt-10">t.transform.translation.z = </span><span id="textcolor2629"><span 
+class="ec-lmtt-10">0.0</span></span> 
+<a 
+ id="x59-382040r570"></a> 
+<a 
+ id="x59-382042r571"></a><span id="textcolor2630"><italic># For the same reason, turtle can only rotate around one axis</italic></span> 
+<a 
+ id="x59-382044r572"></a><span id="textcolor2631"><italic># and this why we set rotation in x and y to 0 and obtain</italic></span> 
+<a 
+ id="x59-382046r573"></a><span id="textcolor2632"><italic># rotation in z axis from the message</italic></span> 
+<a 
+ id="x59-382048r574"></a><span 
+class="ec-lmtt-10">q = quaternion_from_euler(</span><span id="textcolor2633"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor2634"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">, msg.theta)</span> 
+<a 
+ id="x59-382050r575"></a><span 
+class="ec-lmtt-10">t.transform.rotation.x = q[</span><span id="textcolor2635"><span 
+class="ec-lmtt-10">0</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-382052r576"></a><span 
+class="ec-lmtt-10">t.transform.rotation.y = q[</span><span id="textcolor2636"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-382054r577"></a><span 
+class="ec-lmtt-10">t.transform.rotation.z = q[</span><span id="textcolor2637"><span 
+class="ec-lmtt-10">2</span></span><span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-382056r578"></a><span 
+class="ec-lmtt-10">t.transform.rotation.w = q[</span><span id="textcolor2638"><span 
+class="ec-lmtt-10">3</span></span><span 
+class="ec-lmtt-10">]</span></pre>
+</div><p>
+<!--l. 650--><p class="noindent" >Finally we take the transform that we constructed and pass it to the sendTransform method of the
+TransformBroadcaster that will take care of broadcasting.
+<!--l. 653--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb473"><a 
+ id="x59-382058r583"></a><span id="textcolor2639"><italic># Send the transformation</italic></span> 
+<a 
+ id="x59-382060r584"></a><span id="textcolor2640"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster.sendTransform(t)</span></pre>
+</div><p>
+
+                                                                                
+                                                                                
+<a 
+ id="paragraph*.210"></a>
+<!--l. 655--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-383000"></a>Adding an Entry Point</span>
+To allow the ros2 run command to run your node, you must add the entry point to setup.py
+<!--l. 660--><p class="noindent" >Add the following line between the <code class="verb">&#x0027;console_scripts&#x0027;:</code> brackets:
+<!--l. 662--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb474"><a 
+ id="x59-383002r591"></a><span id="textcolor2641"><italic># Send the transformation</italic></span> 
+<a 
+ id="x59-383004r592"></a><span id="textcolor2642"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.tf_broadcaster.sendTransform(t)</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.211"></a>
+<!--l. 664--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-384000"></a>Writing the Launch File</span>
+Now create a launch file for this demo. Create a launch folder in the <span class="code-directory"><code class="verb">src/learning\_tf2\_py</code></span>
+directory. With your text editor, create a new file called <span class="code-directory"><code class="verb">turtle\_tf2\_demo.launch.py</code></span> in the launch
+folder, and add the following lines:
+<!--l. 670--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb475"><a 
+ id="x59-384002r599"></a><span id="textcolor2643"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2644"><span 
+class="ec-lmtt-10">launch</span></span> <span id="textcolor2645"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">LaunchDescription</span> 
+<a 
+ id="x59-384004r600"></a><span id="textcolor2646"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2647"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2648"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2649"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2650"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x59-384006r601"></a> 
+<a 
+ id="x59-384008r602"></a> 
+<a 
+ id="x59-384010r603"></a><span id="textcolor2651"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor2652"><span 
+class="ec-lmtt-10">generate_launch_description</span></span><span 
+class="ec-lmtt-10">():</span> 
+<a 
+ id="x59-384012r604"></a>    <span id="textcolor2653"><span 
+class="ec-lmtt-10">return</span></span> <span 
+class="ec-lmtt-10">LaunchDescription([</span> 
+<a 
+ id="x59-384014r605"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x59-384016r606"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2654"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2655"><span 
+class="ec-lmtt-10">turtlesim</span></span><span id="textcolor2656"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-384018r607"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2657"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2658"><span 
+class="ec-lmtt-10">turtlesim_node</span></span><span id="textcolor2659"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-384020r608"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2660"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2661"><span 
+class="ec-lmtt-10">sim</span></span><span id="textcolor2662"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x59-384022r609"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x59-384024r610"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x59-384026r611"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2663"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2664"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2665"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-384028r612"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2666"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2667"><span 
+class="ec-lmtt-10">turtle_tf2_broadcaster</span></span><span id="textcolor2668"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-384030r613"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2669"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2670"><span 
+class="ec-lmtt-10">broadcaster1</span></span><span id="textcolor2671"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-384032r614"></a>            <span 
+class="ec-lmtt-10">parameters=[</span> 
+<a 
+ id="x59-384034r615"></a>                <span 
+class="ec-lmtt-10">{</span><span id="textcolor2672"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2673"><span 
+class="ec-lmtt-10">turtlename</span></span><span id="textcolor2674"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">: </span><span id="textcolor2675"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2676"><span 
+class="ec-lmtt-10">turtle1</span></span><span id="textcolor2677"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">}</span> 
+<a 
+ id="x59-384036r616"></a>            <span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-384038r617"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x59-384040r618"></a>    <span 
+class="ec-lmtt-10">])</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.212"></a>
+<!--l. 672--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-385000"></a>Examining the Code</span>
+First we import required modules from the launch and <code class="verb">launch_ros</code> packages. It should be noted that
+launch is a generic launching framework (not ROS 2 specific) and <code class="verb">launch_ros</code> has ROS 2 specific
+things, like nodes that we import here.
+<!--l. 678--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb476"><a 
+ id="x59-385002r625"></a><span id="textcolor2678"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2679"><span 
+class="ec-lmtt-10">launch</span></span> <span id="textcolor2680"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">LaunchDescription</span> 
+<a 
+ id="x59-385004r626"></a><span id="textcolor2681"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2682"><span 
+class="ec-lmtt-10">launch_ros</span></span><span id="textcolor2683"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor2684"><span 
+class="ec-lmtt-10">actions</span></span> <span id="textcolor2685"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span></pre>
+</div><p>
+<!--l. 680--><p class="noindent" >Now we run our nodes that start the turtlesim simulation and broadcast turtle1 state to the tf2 using
+our <code class="verb">turtle_tf2_broadcaster</code> node.
+<!--l. 683--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb477"><a 
+ id="x59-385006r631"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x59-385008r632"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2686"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2687"><span 
+class="ec-lmtt-10">turtlesim</span></span><span id="textcolor2688"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-385010r633"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2689"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2690"><span 
+class="ec-lmtt-10">turtlesim_node</span></span><span id="textcolor2691"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-385012r634"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2692"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2693"><span 
+class="ec-lmtt-10">sim</span></span><span id="textcolor2694"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> 
+<a 
+ id="x59-385014r635"></a>        <span 
+class="ec-lmtt-10">),</span> 
+<a 
+ id="x59-385016r636"></a>        <span 
+class="ec-lmtt-10">Node(</span> 
+<a 
+ id="x59-385018r637"></a>            <span 
+class="ec-lmtt-10">package=</span><span id="textcolor2695"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2696"><span 
+class="ec-lmtt-10">learning_tf2_py</span></span><span id="textcolor2697"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-385020r638"></a>            <span 
+class="ec-lmtt-10">executable=</span><span id="textcolor2698"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2699"><span 
+class="ec-lmtt-10">turtle_tf2_broadcaster</span></span><span id="textcolor2700"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-385022r639"></a>            <span 
+class="ec-lmtt-10">name=</span><span id="textcolor2701"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2702"><span 
+class="ec-lmtt-10">broadcaster1</span></span><span id="textcolor2703"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x59-385024r640"></a>            <span 
+class="ec-lmtt-10">parameters=[</span> 
+<a 
+ id="x59-385026r641"></a>                <span 
+class="ec-lmtt-10">{</span><span id="textcolor2704"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2705"><span 
+class="ec-lmtt-10">turtlename</span></span><span id="textcolor2706"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">: </span><span id="textcolor2707"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2708"><span 
+class="ec-lmtt-10">turtle1</span></span><span id="textcolor2709"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">}</span> 
+<a 
+ id="x59-385028r642"></a>            <span 
+class="ec-lmtt-10">]</span> 
+<a 
+ id="x59-385030r643"></a>        <span 
+class="ec-lmtt-10">),</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.213"></a>
+<!--l. 685--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-386000"></a>Adding Dependencies</span>
+Navigate one level back to the <code class="verb">learning_tf2_py</code> directory, where the setup.py, setup.cfg, and
+package.xml files are located.
+<!--l. 690--><p class="noindent" >Open package.xml with your text editor. Add the following dependencies corresponding to your launch
+file’s import statements:
+<!--l. 693--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
+<pre class="fancyvrb" id="fancyvrb478"><a 
+ id="x59-386002r650"></a><span id="textcolor2710"><span 
+class="ec-lmtt-10">&#x003C;exec_depend</span></span><span id="textcolor2711"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">launch</span><span id="textcolor2712"><span 
+class="ec-lmtt-10">&#x003C;/exec_depend&#x003E;</span></span> 
+<a 
+ id="x59-386004r651"></a><span id="textcolor2713"><span 
+class="ec-lmtt-10">&#x003C;exec_depend</span></span><span id="textcolor2714"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">launch_ros</span><span id="textcolor2715"><span 
+class="ec-lmtt-10">&#x003C;/exec_depend&#x003E;</span></span></pre>
+</div><p>
+<!--l. 695--><p class="noindent" >This declares the additional required launch and <code class="verb">launch_ros</code> dependencies when its code is
+executed.
+<!--l. 698--><p class="noindent" >Make sure to save the file.
+
+<a 
+ id="paragraph*.214"></a>
+<!--l. 700--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-387000"></a>Updating Setup File</span>
+Reopen setup.py and add the line so that the launch files from the <span class="code-directory"><code class="verb">launch/</code></span> folder will be installed. The
+<code class="verb">data_files</code> field should now look like this:
+<!--l. 705--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb479"><a 
+ id="x59-387002r658"></a><span 
+class="ec-lmtt-10">data_files=[</span> 
+<a 
+ id="x59-387004r659"></a>    <span 
+class="ec-lmtt-10">...</span> 
+<a 
+ id="x59-387006r660"></a>    <span 
+class="ec-lmtt-10">(os.path.join(</span><span id="textcolor2716"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2717"><span 
+class="ec-lmtt-10">share</span></span><span id="textcolor2718"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, package_name, </span><span id="textcolor2719"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2720"><span 
+class="ec-lmtt-10">launch</span></span><span id="textcolor2721"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">), glob(</span><span id="textcolor2722"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor2723"><span 
+class="ec-lmtt-10">launch/*</span></span><span id="textcolor2724"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)),</span> 
+<a 
+ id="x59-387008r661"></a><span 
+class="ec-lmtt-10">],</span></pre>
+</div><p>
+<!--l. 707--><p class="noindent" >Also add the appropriate imports at the top of the file:
+<!--l. 709--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb480"><a 
+ id="x59-387010r666"></a><span id="textcolor2725"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor2726"><span 
+class="ec-lmtt-10">os</span></span> 
+<a 
+ id="x59-387012r667"></a><span id="textcolor2727"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor2728"><span 
+class="ec-lmtt-10">glob</span></span> <span id="textcolor2729"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">glob</span></pre>
+</div><p>
+
+<a 
+ id="paragraph*.215"></a>
+<!--l. 711--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-388000"></a>Build</span>
+Run rosdep in the root of your workspace to check for missing dependencies.
+<!--l. 715--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb481"><a 
+ id="x59-388002r674"></a><span 
+class="ec-lmtt-10">rosdep install</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">i</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">from</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">path src</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">rosdistro humble</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">y</span></pre>
+</div><p>
+<!--l. 717--><p class="noindent" >Still in the root of your workspace, build your package:
+<!--l. 719--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb482"><a 
+ id="x59-388004r679"></a><span 
+class="ec-lmtt-10">colcon build</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">packages</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">select learning_tf2_py</span></pre>
+</div><p>
+<!--l. 721--><p class="noindent" >Open a new terminal, navigate to the root of your workspace, and source the setup files:
+<!--l. 723--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb483"><a 
+ id="x59-388006r684"></a><span 
+class="ec-lmtt-10">. install/setup.bash</span></pre>
+</div><p>
+
+                                                                                
+                                                                                
+<a 
+ id="paragraph*.216"></a>
+<!--l. 725--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x59-389000"></a>Run</span>
+Now run the launch file that will start the turtlesim simulation node and <code class="verb">turtle_tf2_broadcaster</code>
+node:
+<!--l. 730--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb484"><a 
+ id="x59-389002r691"></a><span 
+class="ec-lmtt-10">ros2 launch learning_tf2_py turtle_tf2_demo.launch.py</span></pre>
+</div><p>
+<!--l. 732--><p class="noindent" >In the second terminal window type the following command:
+<!--l. 734--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb485"><a 
+ id="x59-389004r696"></a><span 
+class="ec-lmtt-10">ros2 run turtlesim turtle_teleop_key</span></pre>
+</div><p>
+<!--l. 736--><p class="noindent" >You will now see that the turtlesim simulation has started with one turtle that you can control.
+Now, use the <code class="verb">tf2_echo</code> tool to check if the turtle pose is actually getting broadcast to
+tf2:
+<!--l. 739--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb486"><a 
+ id="x59-389006r701"></a><span 
+class="ec-lmtt-10">ros2 run tf2_ros tf2_echo world turtle1</span></pre>
+</div><p>
+<!--l. 741--><p class="noindent" >This should show you the pose of the first turtle. Drive around the turtle using the arrow keys (make
+sure your <code class="verb">turtle_teleop_key</code> terminal window is active, not your simulator window). In your console
+output you will see something similar to this:
+<!--l. 745--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb487"><a 
+ id="x59-389008r706"></a><span 
+class="ec-lmtt-10">At time 1714913843.708748879</span> 
+<a 
+ id="x59-389010r707"></a><span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">Translation: [4.541, 3.889, 0.000]</span> 
+<a 
+ id="x59-389012r708"></a><span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">Rotation: in Quaternion [0.000, 0.000, 0.999,</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.035]</span> 
+<a 
+ id="x59-389014r709"></a><span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">Rotation: in RPY (radian) [0.000,</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.000,</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">3.072]</span> 
+<a 
+ id="x59-389016r710"></a><span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">Rotation: in RPY (degree) [0.000,</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.000,</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">176.013]</span> 
+<a 
+ id="x59-389018r711"></a><span 
+class="ec-lmtt-10">-</span> <span 
+class="ec-lmtt-10">Matrix:</span> 
+<a 
+ id="x59-389020r712"></a> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.998  0.070  0.000  4.541</span> 
+<a 
+ id="x59-389022r713"></a> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.070</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">0.998  0.000  3.889</span> 
+<a 
+ id="x59-389024r714"></a>  <span 
+class="ec-lmtt-10">0.000  0.000  1.000  0.000</span> 
+<a 
+ id="x59-389026r715"></a>  <span 
+class="ec-lmtt-10">0.000  0.000  0.000  1.000</span></pre>
+</div><p>
+<!--l. 747--><p class="noindent" >If you run <code class="verb">tf2_echo</code> for the transform between the world and turtle2, you should not see a transform,
+because the second turtle is not there yet. However, as soon as we add the second turtle in the next
+                                                                                
+                                                                                
+tutorial, the pose of turtle2 will be broadcast to tf2.
+<div class="tcolorbox WideBox" id="tcolobox-6">     
+<div class="tcolorbox-content"><!--l. 752--><p class="noindent" ><span id="bold" style="font-weight:bold;"><span id="textcolor2730">References</span></span> 
+<dl class="thebibliography"><dt id="X0-bulliet2016wheel" class="thebibliography"> 
+<span 
+class="ec-lmr-9">1.</span>   
+</dt><dd 
+id="bib-476" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Bulliet, R.</span><span 
+class="ec-lmr-9"> W. The wheel: inventions and reinventions (Columbia University Press, 2016).</span> 
+</dd>
+<dt id="X0-siegwart2011introduction" class="thebibliography"> 
+<span 
+class="ec-lmr-9">2.</span>   
+</dt><dd 
+id="bib-477" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Siegwart, R., Nourbakhsh, I.</span><span 
+class="ec-lmr-9"> R. &#x0026; Scaramuzza, D. Introduction to autonomous mobile robots (MIT press,</span> 
+<span 
+class="ec-lmr-9">2011).</span> 
+</dd>
+<dt id="X0-labarbera1983wheels" class="thebibliography"> 
+<span 
+class="ec-lmr-9">3.</span>   
+</dt><dd 
+id="bib-478" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">LaBarbera, M. Why the wheels won’t go. The American Naturalist </span><span id="bold" style="font-weight:bold;">121</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">395–408 (1983).</span> 
+</dd>
+<dt id="X0-vincent2006biomimetics" class="thebibliography"> 
+<span 
+class="ec-lmr-9">4.</span>   
+</dt><dd 
+id="bib-479" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Vincent, J.</span><span 
+class="ec-lmr-9"> F., Bogatyreva, O.</span><span 
+class="ec-lmr-9"> A., Bogatyrev, N.</span><span 
+class="ec-lmr-9"> R., Bowyer, A. &#x0026; Pahl, A.</span><span 
+class="ec-lmr-9">-</span><span 
+class="ec-lmr-9">K. Biomimetics: its practice</span> 
+<span 
+class="ec-lmr-9">and theory. Journal of the Royal Society Interface </span><span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">471–482 (2006).</span> 
+</dd>
+<dt id="X0-druelle2023convergence" class="thebibliography"> 
+<span 
+class="ec-lmr-9">5.</span>   
+</dt><dd 
+id="bib-480" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Druelle, F., Abourachid, A., Vasilopoulou-Kampitsi, M. &#x0026; Aerts, P. Convergence of bipedal locomotion:</span> 
+<span 
+class="ec-lmr-9">why walk or run on only two legs in Convergent Evolution: Animal Form and Function 431–476 (Springer,</span> 
+<span 
+class="ec-lmr-9">2023).</span> 
+</dd>
+<dt id="X0-lyons2005rotational" class="thebibliography"> 
+<span 
+class="ec-lmr-9">6.</span>   
+</dt><dd 
+id="bib-481" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Lyons, D.</span><span 
+class="ec-lmr-9"> M. &#x0026; Pamnany, K. Rotational legged locomotion in ICAR’05. Proceedings., 12th International</span> 
+<span 
+class="ec-lmr-9">Conference on Advanced Robotics, 2005. (2005), 223–228.</span> 
+</dd>
+<dt id="X0-schweitzer1991robotrac" class="thebibliography"> 
+<span 
+class="ec-lmr-9">7.</span>   
+</dt><dd 
+id="bib-482" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Schweitzer, G. ROBOTRAC-a Mobile Manipulator Platform for Rough Terrain in Proc. of Int. Symp. on</span> 
+<span 
+class="ec-lmr-9">Advanced Robot Technology (1991), 411–416.</span> 
+</dd>
+<dt id="X0-thor2018dung" class="thebibliography"> 
+<span 
+class="ec-lmr-9">8.</span>   
+</dt><dd 
+id="bib-483" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Thor, M. et al. A dung beetle-inspired robotic model and its distributed sensor-driven control for walking</span> 
+<span 
+class="ec-lmr-9">and ball rolling. Artificial Life and Robotics </span><span id="bold" style="font-weight:bold;">23</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">435–443 (2018).</span> 
+</dd>
+<dt id="X0-Jones2018Dung" class="thebibliography"> 
+<span 
+class="ec-lmr-9">9.</span>   
+</dt><dd 
+id="bib-484" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">R. Jones, Z.</span><span 
+class="ec-lmr-9"> P.</span><span 
+class="ec-lmr-9"> S. All Praise The Humble Dung Beetle 2018.</span> 
+</dd>
+<dt id="X0-Sharp2018" class="thebibliography">
+<span 
+class="ec-lmr-9">10.</span>   
+</dt><dd 
+id="bib-485" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Photography,  S.  Common  ostrich  (Struthio  camelus  australis)  male  running  (composite  image),</span> 
+<span 
+class="ec-lmr-9">Damaraland, Namibia 2018.</span> 
+</dd>
+<dt id="X0-Porges2008" class="thebibliography">
+<span 
+class="ec-lmr-9">11.</span>   
+</dt><dd 
+id="bib-486" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Porges. Zebra in Wellington Zoo 2025.</span> 
+</dd>
+<dt id="X0-BrittanicaAnt2025" class="thebibliography">
+<span 
+class="ec-lmr-9">12.</span>   
+</dt><dd 
+id="bib-487" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Brittanica, E. Ant 2025.</span> 
+</dd>
+<dt id="X0-song2025impact" class="thebibliography">
+<span 
+class="ec-lmr-9">13.</span>   
+</dt><dd 
+id="bib-488" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Song, Z., Hou, B., Ji, Z. &#x0026; Jiang, G. The Impact of Exercise Play on the Biomechanical Characteristics of</span> 
+<span 
+class="ec-lmr-9">Single-Leg Jumping in 5-to 6-Year-Old Preschool Children. Sensors </span><span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">422 (2025).</span> 
+</dd>
+<dt id="X0-bottcher2006principles" class="thebibliography">
+<span 
+class="ec-lmr-9">14.</span>   
+</dt><dd 
+id="bib-489" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">B</span><span 
+class="ec-lmr-9">ö</span><span 
+class="ec-lmr-9">ttcher, S. Principles of robot locomotion in Proceedings of human robot interaction seminar (2006).</span> 
+</dd>
+<dt id="X0-krzywinski1984growth" class="thebibliography">
+<span 
+class="ec-lmr-9">15.</span>   
+</dt><dd 
+id="bib-490" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Krzywinski, A., Niedbalska, A. &#x0026; Twardowski, L. Growth and development of hand reared fallow deer</span> 
+<span 
+class="ec-lmr-9">fawns. Acta theriologica </span><span id="bold" style="font-weight:bold;">29</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">349–356 (1984).</span> 
+</dd>
+<dt id="X0-brackenbury1997caterpillar" class="thebibliography">
+<span 
+class="ec-lmr-9">16.</span>   
+</dt><dd 
+id="bib-491" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Brackenbury, J. Caterpillar kinematics. Nature </span><span id="bold" style="font-weight:bold;">390</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">453–453 (1997).</span> 
+</dd>
+<dt id="X0-winter1991biomechanics" class="thebibliography">
+<span 
+class="ec-lmr-9">17.</span>   
+</dt><dd 
+id="bib-492" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Winter, D.</span><span 
+class="ec-lmr-9"> A. Biomechanics and motor control of human gait: normal, elderly and pathological (1991).</span> 
+</dd>
+<dt id="X0-lacquaniti2012patterned" class="thebibliography">
+<span 
+class="ec-lmr-9">18.</span>   
+</dt><dd 
+id="bib-493" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Lacquaniti,  F.,  Ivanenko,  Y.</span><span 
+class="ec-lmr-9"> P.  &#x0026;  Zago,  M.  Patterned  control  of  human  locomotion.  The  Journal  of</span> 
+<span 
+class="ec-lmr-9">physiology </span><span id="bold" style="font-weight:bold;">590</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">2189–2199 (2012).</span> 
+</dd>
+<dt id="X0-pons2008wearable" class="thebibliography">
+<span 
+class="ec-lmr-9">19.</span>   
+</dt><dd 
+id="bib-494" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Pons, J.</span><span 
+class="ec-lmr-9"> L. Wearable robots: biomechatronic exoskeletons (John Wiley &#x0026; Sons, 2008).</span> 
+</dd>
+<dt id="X0-zyhowski2023adaptive" class="thebibliography">
+<span 
+class="ec-lmr-9">20.</span>   
+</dt><dd 
+id="bib-495" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Zyhowski, W.</span><span 
+class="ec-lmr-9"> P., Zill, S.</span><span 
+class="ec-lmr-9"> N. &#x0026; Szczecinski, N.</span><span 
+class="ec-lmr-9"> S. Adaptive load feedback robustly signals force dynamics</span> 
+<span 
+class="ec-lmr-9">in robotic model of Carausius morosus stepping. Frontiers in Neurorobotics </span><span id="bold" style="font-weight:bold;">17</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">1125171 (2023).</span> 
+</dd>
+<dt id="X0-lee2013investigation" class="thebibliography">
+<span 
+class="ec-lmr-9">21.</span>   
+</dt><dd 
+id="bib-496" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Lee,  H.  &#x0026;  Hogan,  N.  Investigation  of  human  ankle  mechanical  impedance  during  locomotion  using</span> 
+<span 
+class="ec-lmr-9">a  wearable  ankle  robot  in  2013  IEEE  International  Conference  on  Robotics  and  Automation  (2013),</span> 
+<span 
+class="ec-lmr-9">2651–2656.</span> 
+</dd>
+<dt id="X0-alexander1989optimization" class="thebibliography">
+<span 
+class="ec-lmr-9">22.</span>   
+</dt><dd 
+id="bib-497" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Alexander, R.</span><span 
+class="ec-lmr-9"> M. Optimization and gaits in the locomotion of vertebrates. Physiological reviews </span><span id="bold" style="font-weight:bold;">69</span><span id="bold" style="font-weight:bold;">,</span> 
+<span 
+class="ec-lmr-9">1199–1227 (1989).</span> 
+</dd>
+<dt id="X0-MITRaibert1984" class="thebibliography">
+<span 
+class="ec-lmr-9">23.</span>   
+</dt><dd 
+id="bib-498" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">MIT. The Raibert Hopper 1984.</span> 
+</dd>
+<dt id="X0-murthy19843d" class="thebibliography">
+<span 
+class="ec-lmr-9">24.</span>   
+</dt><dd 
+id="bib-499" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Murthy,  S.</span><span 
+class="ec-lmr-9"> S.  &#x0026;  Raibert,  M.</span><span 
+class="ec-lmr-9"> H.  3D  balance  in  legged  locomotion:  modeling  and  simulation  for  the</span> 
+<span 
+class="ec-lmr-9">one-legged case. ACM SIGGRAPH Computer Graphics </span><span id="bold" style="font-weight:bold;">18</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">27–27 (1984).</span> 
+</dd>
+<dt id="X0-raibert1984experiments" class="thebibliography">
+<span 
+class="ec-lmr-9">25.</span>   
+</dt><dd 
+id="bib-500" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Raibert, M.</span><span 
+class="ec-lmr-9"> H., Brown Jr, H.</span><span 
+class="ec-lmr-9"> B. &#x0026; Chepponis, M. Experiments in balance with a 3D one-legged hopping</span> 
+<span 
+class="ec-lmr-9">machine. The International Journal of Robotics Research </span><span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">75–92 (1984).</span> 
+</dd>
+<dt id="X0-Asimo2005" class="thebibliography">
+<span 
+class="ec-lmr-9">26.</span>   
+</dt><dd 
+id="bib-501" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Citizendium. Asimo 2005.</span> 
+</dd>
+<dt id="X0-brown1998bow" class="thebibliography">
+<span 
+class="ec-lmr-9">27.</span>   
+</dt><dd 
+id="bib-502" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Brown, B. &#x0026; Zeglin, G. The bow leg hopping robot in Proceedings. 1998 IEEE International Conference</span> 
+<span 
+class="ec-lmr-9">on Robotics and Automation (Cat. No. 98CH36146) </span><span id="bold" style="font-weight:bold;">1</span> <span 
+class="ec-lmr-9">(1998), 781–786.</span> 
+</dd>
+<dt id="X0-ringrose1997self" class="thebibliography">
+<span 
+class="ec-lmr-9">28.</span>   
+</dt><dd 
+id="bib-503" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Ringrose,  R.  Self-stabilizing  running  in  Proceedings  of  International  Conference  on  Robotics  and</span> 
+<span 
+class="ec-lmr-9">Automation </span><span id="bold" style="font-weight:bold;">1</span> <span 
+class="ec-lmr-9">(1997), 487–493.</span> 
+</dd>
+<dt id="X0-Flamingo2000" class="thebibliography">
+<span 
+class="ec-lmr-9">29.</span>   
+</dt><dd 
+id="bib-504" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Flamingo. Spring Flamingo 2000.</span> 
+</dd>
+<dt id="X0-erland1974rad" class="thebibliography">
+<span 
+class="ec-lmr-9">30.</span>   
+</dt><dd 
+id="bib-505" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Erland, I.</span><span 
+class="ec-lmr-9"> B. Rad fuer ein laufstabiles, selbstfahrendes fahrzeug. German Patent No. DE2354404A1 (1974).</span> 
+</dd>
+<dt id="X0-dowling1990navlab" class="thebibliography">
+<span 
+class="ec-lmr-9">31.</span>   
+</dt><dd 
+id="bib-506" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Dowling, K. et al. NAVLAB An Autonomous Navigation Testbed in Vision and Navigation: The Carnegie</span> 
+<span 
+class="ec-lmr-9">Mellon Navlab 259–282 (Springer, 1990).</span> 
+</dd>
+<dt id="X0-ackerman2025" class="thebibliography">
+<span 
+class="ec-lmr-9">32.</span>   
+</dt><dd 
+id="bib-507" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">ackerman. Ackerman Steering Mechanism 2025.</span> 
+</dd>
+<dt id="X0-Farnell2025" class="thebibliography">
+<span 
+class="ec-lmr-9">33.</span>   
+</dt><dd 
+id="bib-508" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Farnell. Rotary Encoder, Module, Optical, Incremental, 500 PPR, 0 Detents, Vertical, Without Push</span> 
+<span 
+class="ec-lmr-9">Switch 2025.</span> 
+</dd>
+<dt id="X0-flyrobo2025" class="thebibliography">
+<span 
+class="ec-lmr-9">34.</span>   
+</dt><dd 
+id="bib-509" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Flyrobo. GY-26 Digital Electronic Compass Sensor Module 2025.</span> 
+</dd>
+<dt id="X0-findlight2025" class="thebibliography">
+<span 
+class="ec-lmr-9">35.</span>   
+</dt><dd 
+id="bib-510" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">FindLight. Optical Gyroscopes: Measuring Rotational Changes With Sagnac Effect 2025.</span> 
+</dd>
+<dt id="X0-speakes1983statement" class="thebibliography">
+<span 
+class="ec-lmr-9">36.</span>   
+</dt><dd 
+id="bib-511" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Speakes, L.</span><span 
+class="ec-lmr-9"> M. Statement by Deputy Press Secretary Speakes on the Soviet Attack on a Korean Civilian</span> 
+<span 
+class="ec-lmr-9">Airliner. Ronald Reagan Presidential Library, September </span><span id="bold" style="font-weight:bold;">16</span> <span 
+class="ec-lmr-9">(1983).</span> 
+</dd>
+<dt id="X0-PiHut2025" class="thebibliography">
+<span 
+class="ec-lmr-9">37.</span>   
+</dt><dd 
+id="bib-512" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">PiHut. HC-SR04 Ultrasonic Range Sensor on the Raspberry Pi 2025.</span> 
+</dd>
+<dt id="X0-Reinhold2014" class="thebibliography">
+<span 
+class="ec-lmr-9">38.</span>   
+</dt><dd 
+id="bib-513" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Reinhold. Structured light sources on display at the 2014 Machine Vision Show in Boston. 2014.</span> 
+</dd>
+<dt id="X0-CCDchip2014" class="thebibliography">
+<span 
+class="ec-lmr-9">39.</span>   
+</dt><dd 
+id="bib-514" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Andrzej. CCD image sensor SONY ICX493AQA 10,14 (Gross 10,75) M pixels APS-C 1.8&#x0022; 28.328mm (23.4</span> 
+<span 
+class="ec-lmr-9">x 15.6 mm) from module IS-026 from digital camera SONY DSLR-A200 or DSLR-A300 sensor side 2014.</span> 
+</dd>
+<dt id="X0-TeledyneCCD2020" class="thebibliography">
+<span 
+class="ec-lmr-9">40.</span>   
+</dt><dd 
+id="bib-515" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">TeledyneCCD. How a Charge Coupled Device (CCD) Image Sensor Works 2020.</span> 
+</dd>
+<dt id="X0-1530559" class="thebibliography">
+<span 
+class="ec-lmr-9">41.</span>   
+</dt><dd 
+id="bib-516" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Hirakawa,  K.  &#x0026;  Parks,  T.  Chromatic  adaptation  and  white-balance  problem  in  IEEE  International</span> 
+<span 
+class="ec-lmr-9">Conference on Image Processing 2005 </span><span id="bold" style="font-weight:bold;">3</span> <span 
+class="ec-lmr-9">(2005), III–984.</span> 
+</dd>
+<dt id="X0-Fstoppers2022" class="thebibliography">
+<span 
+class="ec-lmr-9">42.</span>   
+</dt><dd 
+id="bib-517" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Fstoppers. Is There a Difference Between Color Temperature and White Balance? 2022.</span> 
+</dd>
+<dt id="X0-ilie2005ensuring" class="thebibliography">
+<span 
+class="ec-lmr-9">43.</span>   
+</dt><dd 
+id="bib-518" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Ilie, A. &#x0026; Welch, G. Ensuring color consistency across multiple cameras in Tenth IEEE International</span> 
+<span 
+class="ec-lmr-9">Conference on Computer Vision (ICCV’05) Volume 1 </span><span id="bold" style="font-weight:bold;">2</span> <span 
+class="ec-lmr-9">(2005), 1268–1275.</span> 
+</dd>
+<dt id="X0-TeledyneSat2025" class="thebibliography">
+<span 
+class="ec-lmr-9">44.</span>   
+</dt><dd 
+id="bib-519" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Teledyne. Saturation and Blooming 2025.</span> 
+</dd>
+<dt id="X0-zhang2013analysis" class="thebibliography">
+<span 
+class="ec-lmr-9">45.</span>   
+</dt><dd 
+id="bib-520" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Zhang,  Z.  et  al.  Analysis  and  simulation  to  excessive  saturation  effect  of  CCD  in  2nd  International</span> 
+<span 
+class="ec-lmr-9">Symposium on Laser Interaction with Matter (LIMIS 2012) </span><span id="bold" style="font-weight:bold;">8796</span> <span 
+class="ec-lmr-9">(2013), 96–102.</span> 
+</dd>
+<dt id="X0-Baumer2025" class="thebibliography">
+<span 
+class="ec-lmr-9">46.</span>   
+</dt><dd 
+id="bib-521" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Baumer. Operating principle and features of CMOS sensors 2025.</span> 
+</dd>
+<dt id="X0-Econ2025" class="thebibliography">
+<span 
+class="ec-lmr-9">47.</span>   
+</dt><dd 
+id="bib-522" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Econ Systems. CMOS camera module 2025.</span> 
+</dd>
+<dt id="X0-holst2007cmos" class="thebibliography">
+<span 
+class="ec-lmr-9">48.</span>   
+</dt><dd 
+id="bib-523" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Holst, T. &#x0026; Lomheim, G. CMOS/CCD Sensors (JCD publishing, 2007).</span> 
+</dd>
+<dt id="X0-Mdf2010" class="thebibliography">
+<span 
+class="ec-lmr-9">49.</span>   
+</dt><dd 
+id="bib-524" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Mdf. A photon noise simulation 2010.</span> 
+</dd>
+<dt id="X0-Mark-j2018" class="thebibliography">
+<span 
+class="ec-lmr-9">50.</span>   
+</dt><dd 
+id="bib-525" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Mark-j. Open Camera Blog 2018.</span> 
+</dd>
+<dt id="X0-nourbakhsh1997mobile" class="thebibliography">
+<span 
+class="ec-lmr-9">51.</span>   
+</dt><dd 
+id="bib-526" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Nourbakhsh, I.</span><span 
+class="ec-lmr-9"> R., Andre, D., Tomasi, C. &#x0026; Genesereth, M.</span><span 
+class="ec-lmr-9"> R. Mobile robot obstacle avoidance via depth</span> 
+<span 
+class="ec-lmr-9">from focus. Robotics and Autonomous Systems </span><span id="bold" style="font-weight:bold;">22</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">151–158 (1997).</span> 
+</dd>
+<dt id="X0-deselaers2008features" class="thebibliography">
+<span 
+class="ec-lmr-9">52.</span>   
+</dt><dd 
+id="bib-527" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Deselaers, T., Keysers, D. &#x0026; Ney, H. Features for image retrieval: an experimental comparison. Information</span> 
+<span 
+class="ec-lmr-9">retrieval </span><span id="bold" style="font-weight:bold;">11</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">77–107 (2008).</span> 
+</dd>
+<dt id="X0-boros2012targeting" class="thebibliography">
+<span 
+class="ec-lmr-9">53.</span>   
+</dt><dd 
+id="bib-528" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Boros, E. Targeting a Practical Approach for Robot Vision with Ensembles of Visual Features in 2012</span> 
+<span 
+class="ec-lmr-9">Imperial College Computing Student Workshop (2012), 22–28.</span> 
+</dd>
+<dt id="X0-UoW2023" class="thebibliography">
+<span 
+class="ec-lmr-9">54.</span>   
+</dt><dd 
+id="bib-529" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">UoW. How Mars rovers use artificial intelligence 2023.</span> 
+</dd>
+<dt id="X0-bailey2002mobile" class="thebibliography">
+<span 
+class="ec-lmr-9">55.</span>   
+</dt><dd 
+id="bib-530" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Bailey, T. Mobile robot localisation and mapping in extensive outdoor environments PhD thesis (Citeseer,</span> 
+<span 
+class="ec-lmr-9">2002).</span> 
+</dd>
+<dt id="X0-campbell2020localization" class="thebibliography">
+<span 
+class="ec-lmr-9">56.</span>   
+</dt><dd 
+id="bib-531" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Campbell, S. et al. Where am I? Localization techniques for mobile robots a review in 2020 6th International</span> 
+<span 
+class="ec-lmr-9">Conference on Mechatronics and Robotics Engineering (ICMRE) (2020), 43–47.</span> 
+</dd>
+<dt id="X0-hodge2023sensors" class="thebibliography">
+<span 
+class="ec-lmr-9">57.</span>   
+</dt><dd 
+id="bib-532" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Hodge, V.</span><span 
+class="ec-lmr-9"> J. Sensors and data in mobile robotics for localisation. Encyclopedia of Data Science and</span> 
+<span 
+class="ec-lmr-9">Machine Learning, 2223–2238 (2023).</span> 
+</dd>
+<dt id="X0-jaradat2017challenges" class="thebibliography">
+<span 
+class="ec-lmr-9">58.</span>   
+</dt><dd 
+id="bib-533" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Jaradat, O., Sljivo, I., Habli, I. &#x0026; Hawkins, R. Challenges of safety assurance for industry 4.0 in 2017 13th</span> 
+<span 
+class="ec-lmr-9">European Dependable Computing Conference (EDCC) (2017), 103–106.</span> 
+</dd>
+<dt id="X0-filliat2003map" class="thebibliography">
+<span 
+class="ec-lmr-9">59.</span>   
+</dt><dd 
+id="bib-534" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Filliat, D. &#x0026; Meyer, J.</span><span 
+class="ec-lmr-9">-</span><span 
+class="ec-lmr-9">A. Map-based navigation in mobile robots:: I. a review of localization strategies.</span> 
+<span 
+class="ec-lmr-9">Cognitive systems research </span><span id="bold" style="font-weight:bold;">4</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">243–282 (2003).</span> 
+</dd>
+<dt id="X0-leonard2012directed" class="thebibliography">
+<span 
+class="ec-lmr-9">60.</span>   
+</dt><dd 
+id="bib-535" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Leonard, J.</span><span 
+class="ec-lmr-9"> J. &#x0026; Durrant-Whyte, H.</span><span 
+class="ec-lmr-9"> F. Directed sonar sensing for mobile robot navigation (Springer</span> 
+<span 
+class="ec-lmr-9">Science &#x0026; Business Media, 2012).</span> 
+</dd>
+<dt id="X0-wing2005consumer" class="thebibliography">
+<span 
+class="ec-lmr-9">61.</span>   
+</dt><dd 
+id="bib-536" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Wing, M.</span><span 
+class="ec-lmr-9"> G., Eklund, A. &#x0026; Kellogg, L.</span><span 
+class="ec-lmr-9"> D. Consumer-grade global positioning system (GPS) accuracy</span> 
+<span 
+class="ec-lmr-9">and reliability. Journal of forestry </span><span id="bold" style="font-weight:bold;">103</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">169–173 (2005).</span> 
+</dd>
+<dt id="X0-bellotto2007people" class="thebibliography">
+<span 
+class="ec-lmr-9">62.</span>   
+</dt><dd 
+id="bib-537" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Bellotto,  N.  &#x0026;  Hu,  H.  People  tracking  and  identification  with  a  mobile  robot  in  2007  International</span> 
+<span 
+class="ec-lmr-9">Conference on Mechatronics and Automation (2007), 3565–3570.</span> 
+</dd>
+<dt id="X0-sridharan2009color" class="thebibliography">
+<span 
+class="ec-lmr-9">63.</span>   
+</dt><dd 
+id="bib-538" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Sridharan, M. &#x0026; Stone, P. Color learning and illumination invariance on mobile robots: A survey. Robotics</span> 
+<span 
+class="ec-lmr-9">and Autonomous Systems </span><span id="bold" style="font-weight:bold;">57</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">629–644 (2009).</span> 
+</dd>
+<dt id="X0-GALAR20171" class="thebibliography">
+<span 
+class="ec-lmr-9">64.</span>   
+</dt><dd 
+id="bib-539" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Galar, D. &#x0026; Kumar, U. Chapter 1 - Sensors and Data Acquisition in eMaintenance (eds Galar, D. &#x0026;</span> 
+<span 
+class="ec-lmr-9">Kumar, U.) 1–72 (Academic Press, 2017).</span> 
+</dd>
+<dt id="X0-williams1985aliasing" class="thebibliography">
+<span 
+class="ec-lmr-9">65.</span>   
+</dt><dd 
+id="bib-540" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Williams, D.</span><span 
+class="ec-lmr-9"> R. Aliasing in human foveal vision. Vision research </span><span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">195–205 (1985).</span> 
+</dd>
+<dt id="X0-maksim2006" class="thebibliography">
+<span 
+class="ec-lmr-9">66.</span>   
+</dt><dd 
+id="bib-541" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">maksim. An example of a poorly sampled brick pattern 2006.</span> 
+</dd>
+<dt id="X0-blumrosen2014noncontact" class="thebibliography">
+<span 
+class="ec-lmr-9">67.</span>   
+</dt><dd 
+id="bib-542" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Blumrosen, G., Fishman, B. &#x0026; Yovel, Y. Noncontact wideband sonar for human activity detection and</span> 
+<span 
+class="ec-lmr-9">classification. IEEE Sensors Journal </span><span id="bold" style="font-weight:bold;">14</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">4043–4054 (2014).</span> 
+</dd>
+<dt id="X0-sabatini1998method" class="thebibliography">
+<span 
+class="ec-lmr-9">68.</span>   
+</dt><dd 
+id="bib-543" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Sabatini,  A.</span><span 
+class="ec-lmr-9"> M.  &#x0026;  Colla,  V.  A  method  for  sonar  based  recognition  of  walking  people.  Robotics  and</span> 
+<span 
+class="ec-lmr-9">Autonomous Systems </span><span id="bold" style="font-weight:bold;">25</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">117–126 (1998).</span> 
+</dd>
+<dt id="X0-batavia2000path" class="thebibliography">
+<span 
+class="ec-lmr-9">69.</span>   
+</dt><dd 
+id="bib-544" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Batavia, P.</span><span 
+class="ec-lmr-9"> H. &#x0026; Nourbakhsh, I. Path planning for the Cye personal robot in Proceedings. 2000 IEEE/RSJ</span> 
+<span 
+class="ec-lmr-9">International Conference on Intelligent Robots and Systems (IROS 2000)(Cat. No. 00CH37113) </span><span id="bold" style="font-weight:bold;">1</span> <span 
+class="ec-lmr-9">(2000),</span> 
+<span 
+class="ec-lmr-9">15–20.</span> 
+</dd>
+<dt id="X0-xkcd2025" class="thebibliography">
+<span 
+class="ec-lmr-9">70.</span>   
+</dt><dd 
+id="bib-545" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">xkcd. xkcd-Spirit 2025.</span> 
+</dd>
+<dt id="X0-reuter1999scan" class="thebibliography">
+<span 
+class="ec-lmr-9">71.</span>   
+</dt><dd 
+id="bib-546" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Reuter, J. Scan-and featurebased multiple hypothesis tracking for mobile robot localization: a data fusion</span> 
+<span 
+class="ec-lmr-9">approach in IEEE SMC’99 Conference Proceedings. 1999 IEEE International Conference on Systems, Man,</span> 
+<span 
+class="ec-lmr-9">and Cybernetics (Cat. No. 99CH37028) </span><span id="bold" style="font-weight:bold;">4</span> <span 
+class="ec-lmr-9">(1999), 714–719.</span> 
+</dd>
+<dt id="X0-fankhauser2018probabilistic" class="thebibliography">
+<span 
+class="ec-lmr-9">72.</span>   
+</dt><dd 
+id="bib-547" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Fankhauser, P., Bloesch, M. &#x0026; Hutter, M. Probabilistic terrain mapping for mobile robots with uncertain</span> 
+<span 
+class="ec-lmr-9">localization. IEEE Robotics and Automation Letters </span><span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">3019–3026 (2018).</span> 
+</dd>
+<dt id="X0-yonhap2018" class="thebibliography">
+<span 
+class="ec-lmr-9">73.</span>   
+</dt><dd 
+id="bib-548" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Agency., Y.</span><span 
+class="ec-lmr-9"> N. Museum guide robot 2018.</span> 
+</dd>
+<dt id="X0-brock1999high" class="thebibliography">
+<span 
+class="ec-lmr-9">74.</span>   
+</dt><dd 
+id="bib-549" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Brock, O. &#x0026; Khatib, O. High-speed navigation using the global dynamic window approach in Proceedings</span> 
+<span 
+class="ec-lmr-9">1999 ieee international conference on robotics and automation (Cat. No. 99CH36288C) </span><span id="bold" style="font-weight:bold;">1</span> <span 
+class="ec-lmr-9">(1999), 341–346.</span> 
+</dd>
+<dt id="X0-borensteinfast" class="thebibliography">
+<span 
+class="ec-lmr-9">75.</span>   
+</dt><dd 
+id="bib-550" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Borenstein, J &#x0026; Koren, Y. Fast obstacle avoidance for mobile robots. IEEE Trans Rob Autom. v7, 278–287.</span> 
+</dd>
+<dt id="X0-brooks1986robust" class="thebibliography">
+<span 
+class="ec-lmr-9">76.</span>   
+</dt><dd 
+id="bib-551" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Brooks, R. A robust layered control system for a mobile robot. IEEE journal on robotics and automation</span> 
+<span id="bold" style="font-weight:bold;">2</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">14–23 (1986).</span> 
+</dd>
+<dt id="X0-nourbakhsh1995dervish" class="thebibliography">
+<span 
+class="ec-lmr-9">77.</span>   
+</dt><dd 
+id="bib-552" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Nourbakhsh, I., Powers, R. &#x0026; Birchfield, S. DERVISH an office-navigating robot. AI magazine </span><span id="bold" style="font-weight:bold;">16</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">53–53</span> 
+<span 
+class="ec-lmr-9">(1995).</span> 
+</dd>
+<dt id="X0-wang2022object" class="thebibliography">
+<span 
+class="ec-lmr-9">78.</span>   
+</dt><dd 
+id="bib-553" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Wang, F. et al. Object-based reliable visual navigation for mobile robot. Sensors </span><span id="bold" style="font-weight:bold;">22</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">2387 (2022).</span> 
+</dd>
+<dt id="X0-AaaravG2018" class="thebibliography">
+<span 
+class="ec-lmr-9">79.</span>   
+</dt><dd 
+id="bib-554" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">AaaravG. How to Make Line Follower Robot Using Arduino 2018.</span> 
+</dd>
+<dt id="X0-mcnamara1989subjective" class="thebibliography">
+<span 
+class="ec-lmr-9">80.</span>   
+</dt><dd 
+id="bib-555" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">McNamara, T.</span><span 
+class="ec-lmr-9"> P., Hardy, J.</span><span 
+class="ec-lmr-9"> K. &#x0026; Hirtle, S.</span><span 
+class="ec-lmr-9"> C. Subjective hierarchies in spatial memory. Journal of</span> 
+<span 
+class="ec-lmr-9">Experimental Psychology: Learning, Memory, and Cognition </span><span id="bold" style="font-weight:bold;">15</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">211 (1989).</span> 
+</dd>
+<dt id="X0-chun1998contextual" class="thebibliography">
+<span 
+class="ec-lmr-9">81.</span>   
+</dt><dd 
+id="bib-556" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Chun, M.</span><span 
+class="ec-lmr-9"> M. &#x0026; Jiang, Y. Contextual cueing: Implicit learning and memory of visual context guides spatial</span> 
+<span 
+class="ec-lmr-9">attention. Cognitive psychology </span><span id="bold" style="font-weight:bold;">36</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">28–71 (1998).</span> 
+</dd>
+<dt id="X0-huang2023visual" class="thebibliography">
+<span 
+class="ec-lmr-9">82.</span>   
+</dt><dd 
+id="bib-557" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Huang, C., Mees, O., Zeng, A. &#x0026; Burgard, W. Visual language maps for robot navigation in 2023 IEEE</span> 
+<span 
+class="ec-lmr-9">International Conference on Robotics and Automation (ICRA) (2023), 10608–10615.</span> 
+</dd>
+<dt id="X0-meyer2011using" class="thebibliography">
+<span 
+class="ec-lmr-9">83.</span>   
+</dt><dd 
+id="bib-558" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Meyer-Delius, D., Beinhofer, M., Kleiner, A. &#x0026; Burgard, W. Using artificial landmarks to reduce the</span> 
+<span 
+class="ec-lmr-9">ambiguity in the environment of a mobile robot in 2011 IEEE International Conference on Robotics and</span> 
+<span 
+class="ec-lmr-9">Automation (2011), 5173–5178.</span> 
+</dd>
+<dt id="X0-hazik2022fleet" class="thebibliography">
+<span 
+class="ec-lmr-9">84.</span>   
+</dt><dd 
+id="bib-559" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Hazik, J., Dekan, M., Beno, P. &#x0026; Duchon, F. Fleet management system for an industry environment.</span> 
+<span 
+class="ec-lmr-9">Journal of Robotics and Control (JRC) </span><span id="bold" style="font-weight:bold;">3</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">779–789 (2022).</span> 
+</dd>
+<dt id="X0-xidias2022intelligent" class="thebibliography">
+<span 
+class="ec-lmr-9">85.</span>   
+</dt><dd 
+id="bib-560" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Xidias, E., Zacharia, P. &#x0026; Nearchou, A. Intelligent fleet management of autonomous vehicles for city</span> 
+<span 
+class="ec-lmr-9">logistics. Applied Intelligence </span><span id="bold" style="font-weight:bold;">52</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">18030–18048 (2022).</span> 
+</dd>
+<dt id="X0-Kivaan2007" class="thebibliography">
+<span 
+class="ec-lmr-9">86.</span>   
+</dt><dd 
+id="bib-561" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Kivaan. An official DARPA photograph of Stanley at the 2005 DARPA Grand Challenge. 2007.</span> 
+</dd>
+<dt id="X0-hashimoto2002humanoid" class="thebibliography">
+<span 
+class="ec-lmr-9">87.</span>   
+</dt><dd 
+id="bib-562" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Hashimoto, S. et al. Humanoid robots in waseda university–hadaly-2 and wabian. Autonomous Robots </span><span id="bold" style="font-weight:bold;">12</span><span id="bold" style="font-weight:bold;">,</span> 
+<span 
+class="ec-lmr-9">25–38 (2002).</span> 
+</dd>
+<dt id="X0-carroll2017transformation" class="thebibliography">
+<span 
+class="ec-lmr-9">88.</span>   
+</dt><dd 
+id="bib-563" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Carroll, R.</span><span 
+class="ec-lmr-9"> J. &#x0026; Ruppert, D. Transformation and weighting in regression (Chapman and Hall/CRC, 2017).</span> 
+</dd>
+<dt id="X0-bruce2000fast" class="thebibliography">
+<span 
+class="ec-lmr-9">89.</span>   
+</dt><dd 
+id="bib-564" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Bruce, J., Balch, T. &#x0026; Veloso, M. Fast and inexpensive color image segmentation for interactive robots</span> 
+<span 
+class="ec-lmr-9">in  Proceedings.  2000  IEEE/RSJ  International  Conference  on  Intelligent  Robots  and  Systems  (IROS</span> 
+<span 
+class="ec-lmr-9">2000)(Cat. No. 00CH37113) </span><span id="bold" style="font-weight:bold;">3</span> <span 
+class="ec-lmr-9">(2000), 2061–2066.</span> 
+</dd>
+<dt id="X0-Manske2009" class="thebibliography">
+<span 
+class="ec-lmr-9">90.</span>   
+</dt><dd 
+id="bib-565" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Manske. Hughes Letter-Printing Telegraph Set built by Siemens and Halske in Saint Petersburg, Russia,</span> 
+<span 
+class="ec-lmr-9">ca.1900 2009.</span> 
+</dd>
+<dt id="X0-koren2006study" class="thebibliography">
+<span 
+class="ec-lmr-9">91.</span>   
+</dt><dd 
+id="bib-566" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Koren, O. A study of the Linux kernel evolution. ACM SIGOPS Operating Systems Review </span><span id="bold" style="font-weight:bold;">40</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">110–112</span> 
+<span 
+class="ec-lmr-9">(2006).</span> 
+</dd>
+<dt id="X0-bach1986design" class="thebibliography">
+<span 
+class="ec-lmr-9">92.</span>   
+</dt><dd 
+id="bib-567" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Bach, M.</span><span 
+class="ec-lmr-9"> J. The Design of the UNIX. RTM. Operating system Prentice Hall, 312–329 (1986).</span> 
+</dd>
+<dt id="X0-johnson1978unix" class="thebibliography">
+<span 
+class="ec-lmr-9">93.</span>   
+</dt><dd 
+id="bib-568" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Johnson, S.</span><span 
+class="ec-lmr-9"> C. &#x0026; Ritchie, D.</span><span 
+class="ec-lmr-9"> M. UNIX time-sharing system: Portability of C programs and the UNIX</span> 
+<span 
+class="ec-lmr-9">system. The Bell System Technical Journal </span><span id="bold" style="font-weight:bold;">57</span><span id="bold" style="font-weight:bold;">,</span> <span 
+class="ec-lmr-9">2021–2048 (1978).</span> 
+</dd>
+<dt id="X0-Debianpackageros2025" class="thebibliography">
+<span 
+class="ec-lmr-9">94.</span>   
+</dt><dd 
+id="bib-569" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Debian. python3-colcon-ros 2025.</span> 
+</dd>
+<dt id="X0-ros2iron2025" class="thebibliography">
+<span 
+class="ec-lmr-9">95.</span>   
+</dt><dd 
+id="bib-570" class="thebibliography">
+<!--l. 752--><p class="noindent" ><span 
+class="ec-lmr-9">Robotics., O. ROS 2 Iron Documentation 2025.</span></dd></dl>
+ 
+</div> 
+</div>                                                                             
+                                                                                
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><span class="nav-inactive"><span class="nav-next">NEXT</span></span> <a 
+href="AddingaFrame.html" ><span class="nav-prev">PREV</span></a><a 
+href="AddingaFrame.html#tailAddingaFrame.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="WritingaBroadcaster.html" ><span class="nav-front">FRONT</span></a><a 
+href="TransformLibrary.html#WritingaBroadcaster.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailWritingaBroadcaster.html"></a>  </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>

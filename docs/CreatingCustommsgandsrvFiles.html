@@ -1,0 +1,1373 @@
+<!DOCTYPE html> 
+<html lang = "en">  
+<head><title>Creating Custom msg and srv Files</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="FHSMobileRoboticsLectureBook.css" /> 
+<meta name="src" content="FHSMobileRoboticsLectureBook.tex"> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+ <link rel="stylesheet" type="text/css" href="flatweb.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" /> 
+ <script src="https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script> 
+ <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
+<script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
+<!--l. 863--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
+<span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
+<span class="header-chapter">Client Libraries</span></div></div> </header> 
+</head><body 
+>
+<page> 
+<nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
+href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
+WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
+href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
+href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-50001.2">Legged
+Mobile Robots</a></span></span><span class="subsectionToc"><span class="number">1.2.1</span><span class="title"><a 
+href="LeggedMobileRobots.html#x5-70001.2.1">Examples of Legged Robot Locomotion</a></span></span><span class="sectionToc"><span class="number">1.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-120001.3">Wheeled Mobile
+Robots</a></span></span><span class="subsectionToc"><span class="number">1.3.1</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-130001.3.1">Design</a></span></span><span class="subsectionToc"><span class="number">1.3.2</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-160001.3.2">Stability</a></span></span><span class="subsectionToc"><span class="number">1.3.3</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-170001.3.3">Manoeuvrability</a></span></span><span class="subsectionToc"><span class="number">1.3.4</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-180001.3.4">Controllability</a></span></span><span class="subsectionToc"><span class="number">1.3.5</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-190001.3.5">Case
+Studies for Wheeled Motion</a></span></span><span class="subsectionToc"><span class="number">1.3.6</span><span class="title"><a 
+href="WheeledMobileRobots.html#x6-260001.3.6">Walking Wheels</a></span></span><span class="chapterToc"><span class="number">2</span><span class="title"><a 
+href="Perception.html#x7-270002">Perception</a></span></span><span class="sectionToc"><span class="number">2.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-280002.1">Sensors for Mobile
+Robotics</a></span></span><span class="subsectionToc"><span class="number">2.1.1</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-290002.1.1">Sensor Classification</a></span></span><span class="subsectionToc"><span class="number">2.1.2</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-300002.1.2">Characterisation of Sensor Performance</a></span></span><span class="subsectionToc"><span class="number">2.1.3</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-360002.1.3">Wheel
+and Motor Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.4</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-380002.1.4">Heading Sensors</a></span></span><span class="subsectionToc"><span class="number">2.1.5</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-450002.1.5">Ground Based Beacons</a></span></span><span class="subsectionToc"><span class="number">2.1.6</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-470002.1.6">Active
+Ranging</a></span></span><span class="subsectionToc"><span class="number">2.1.7</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-490002.1.7">The Ultrasonic Sensor</a></span></span><span class="subsectionToc"><span class="number">2.1.8</span><span class="title"><a 
+href="SensorsforMobileRobotics.html#x8-560002.1.8">Motion and Speed Sensors</a></span></span><span class="sectionToc"><span class="number">2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-580002.2">Vision Based
+Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.1</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-590002.2.1">CCD Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.2</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-610002.2.2">CMOS Technology</a></span></span><span class="subsectionToc"><span class="number">2.2.3</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-620002.2.3">Visual Ranging Sensors</a></span></span><span class="subsectionToc"><span class="number">2.2.4</span><span class="title"><a 
+href="VisionBasedSensors.html#x9-630002.2.4">Depth
+from Focus</a></span></span><span class="sectionToc"><span class="number">2.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-710002.3">Representing Uncertainty</a></span></span><span class="subsectionToc"><span class="number">2.3.1</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-720002.3.1">Statistical Representation</a></span></span><span class="subsectionToc"><span class="number">2.3.2</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-730002.3.2">Independence
+of random variables</a></span></span><span class="subsectionToc"><span class="number">2.3.3</span><span class="title"><a 
+href="RepresentingUncertainty.html#x10-750002.3.3">Propagation of Error</a></span></span><span class="sectionToc"><span class="number">2.4</span><span class="title"><a 
+href="FeatureExtraction.html#x11-760002.4">Feature Extraction</a></span></span><span class="subsectionToc"><span class="number">2.4.1</span><span class="title"><a 
+href="FeatureExtraction.html#x11-770002.4.1">Defining
+Feature</a></span></span><span class="subsectionToc"><span class="number">2.4.2</span><span class="title"><a 
+href="FeatureExtraction.html#x11-780002.4.2">Using Range Data</a></span></span><span class="chapterToc"><span class="number">3</span><span class="title"><a 
+href="MobileRobotLocalisation.html#x12-930003">Mobile Robot Localisation</a></span></span><span class="sectionToc"><span class="number">3.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-940003.1">The Problems of Noise and
+Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.1</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-950003.1.1">Sensor Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.2</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-960003.1.2">Sensor Aliasing</a></span></span><span class="subsectionToc"><span class="number">3.1.3</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-970003.1.3">Effector Noise</a></span></span><span class="subsectionToc"><span class="number">3.1.4</span><span class="title"><a 
+href="TheProblemsofNoiseandAliasing.html#x13-980003.1.4">An Error Model for
+Odometric Position Estimation</a></span></span><span class="sectionToc"><span class="number">3.2</span><span class="title"><a 
+href="LocalisationvHardCodedNavigation.html#x14-990003.2">Localisation v. Hard-Coded Navigation</a></span></span><span class="sectionToc"><span class="number">3.3</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1000003.3">Representing
+Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.1</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1010003.3.1">Single Hypothesis Belief</a></span></span><span class="subsectionToc"><span class="number">3.3.2</span><span class="title"><a 
+href="RepresentingBelief.html#x15-1020003.3.2">Multiple Hypothesis Belief</a></span></span><span class="sectionToc"><span class="number">3.4</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1030003.4">Representing
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.4.1</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1040003.4.1">Continuous Representation</a></span></span><span class="subsectionToc"><span class="number">3.4.2</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1050003.4.2">Decomposition Methods</a></span></span><span class="subsectionToc"><span class="number">3.4.3</span><span class="title"><a 
+href="RepresentingMaps.html#x16-1060003.4.3">Current
+Challenges</a></span></span><span class="sectionToc"><span class="number">3.5</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1070003.5">Probabilistic Map-Based Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.1</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1080003.5.1">Markov Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.2</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1120003.5.2">Kalman
+Filter Localisation</a></span></span><span class="subsectionToc"><span class="number">3.5.3</span><span class="title"><a 
+href="ProbabilisticMapBasedLocalisation.html#x17-1130003.5.3">An Implementation of Kalman Filter</a></span></span><span class="sectionToc"><span class="number">3.6</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1180003.6">Other Examples
+of Localisation Methods</a></span></span><span class="subsectionToc"><span class="number">3.6.1</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1190003.6.1">Landmark-based Navigation</a></span></span><span class="subsectionToc"><span class="number">3.6.2</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1200003.6.2">Globally Unique
+Localisation</a></span></span><span class="subsectionToc"><span class="number">3.6.3</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1210003.6.3">Positioning Beacon systems</a></span></span><span class="subsectionToc"><span class="number">3.6.4</span><span class="title"><a 
+href="OtherExamplesofLocalisationMethods.html#x18-1220003.6.4">Route-Based Localisation</a></span></span><span class="sectionToc"><span class="number">3.7</span><span class="title"><a 
+href="BuildingMaps.html#x19-1230003.7">Building
+Maps</a></span></span><span class="subsectionToc"><span class="number">3.7.1</span><span class="title"><a 
+href="BuildingMaps.html#x19-1240003.7.1">Stochastic Map Technique</a></span></span><span class="subsectionToc"><span class="number">3.7.2</span><span class="title"><a 
+href="BuildingMaps.html#x19-1250003.7.2">Other Mapping Techniques</a></span></span><span class="chapterToc"><span class="number">4</span><span class="title"><a 
+href="WelcometoLinux.html#x20-1280004">Welcome to
+Linux</a></span></span><span class="sectionToc"><span class="number">4.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1290004.1">Learning the Linux Command Line</a></span></span><span class="subsectionToc"><span class="number">4.1.1</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1300004.1.1">A History of UNIX/Linux</a></span></span><span class="subsectionToc"><span class="number">4.1.2</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1320004.1.2">A
+Short History on Computer Interfaces</a></span></span><span class="subsectionToc"><span class="number">4.1.3</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1340004.1.3">Linux is a Nutshell</a></span></span><span class="subsectionToc"><span class="number">4.1.4</span><span class="title"><a 
+href="LearningtheLinuxCommandLine.html#x21-1370004.1.4">Linux
+Distributions</a></span></span><span class="sectionToc"><span class="number">4.2</span><span class="title"><a 
+href="Installation.html#x22-1380004.2">Installation</a></span></span><span class="sectionToc"><span class="number">4.3</span><span class="title"><a 
+href="Docker.html#x23-1390004.3">Docker</a></span></span><span class="subsectionToc"><span class="number">4.3.1</span><span class="title"><a 
+href="Docker.html#x23-1400004.3.1">Dockerfile</a></span></span><span class="subsectionToc"><span class="number">4.3.2</span><span class="title"><a 
+href="Docker.html#x23-1410004.3.2">Running the Container</a></span></span><span class="chapterToc"><span class="number">5</span><span class="title"><a 
+href="CommandLineFundamentals.html#x24-1420005">Command
+Line Fundamentals</a></span></span><span class="sectionToc"><span class="number">5.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1430005.1">To Command a Computer</a></span></span><span class="subsectionToc"><span class="number">5.1.1</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1440005.1.1">The Command Line Interface</a></span></span><span class="subsectionToc"><span class="number">5.1.2</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1450005.1.2">The
+Structure of Commands</a></span></span><span class="subsectionToc"><span class="number">5.1.3</span><span class="title"><a 
+href="ToCommandaComputer.html#x25-1460005.1.3">Some Rules Regarding the Syntax</a></span></span><span class="sectionToc"><span class="number">5.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1470005.2">When We Need Help
+with Commands</a></span></span><span class="subsectionToc"><span class="number">5.2.1</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1480005.2.1">Use Tab completion on the Shell</a></span></span><span class="subsectionToc"><span class="number">5.2.2</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1490005.2.2">The info command</a></span></span><span class="subsectionToc"><span class="number">5.2.3</span><span class="title"><a 
+href="WhenWeNeedHelpwithCommands.html#x26-1500005.2.3">The
+whatis command</a></span></span><span class="chapterToc"><span class="number">6</span><span class="title"><a 
+href="WorkingwithFilesandFolders.html#x27-1520006">Working with Files and Folders</a></span></span><span class="sectionToc"><span class="number">6.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1530006.1">Files and Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.1</span><span class="title"><a 
+href="FilesandFolders.html#x28-1540006.1.1">A Detailed Look
+in ls Command</a></span></span><span class="subsectionToc"><span class="number">6.1.2</span><span class="title"><a 
+href="FilesandFolders.html#x28-1550006.1.2">Creating and Removing Folders</a></span></span><span class="subsectionToc"><span class="number">6.1.3</span><span class="title"><a 
+href="FilesandFolders.html#x28-1560006.1.3">Move, Copy and Delete Files and
+Folders</a></span></span><span class="sectionToc"><span class="number">6.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1630006.2">Permissions and Links</a></span></span><span class="subsectionToc"><span class="number">6.2.1</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1640006.2.1">Role to Users and sudo</a></span></span><span class="subsectionToc"><span class="number">6.2.2</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1650006.2.2">File Permissions</a></span></span><span class="subsectionToc"><span class="number">6.2.3</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1680006.2.3">Hard
+and Symbolic Links</a></span></span><span class="subsectionToc"><span class="number">6.2.4</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1690006.2.4">Soft (Symbolic) Links</a></span></span><span class="subsectionToc"><span class="number">6.2.5</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1710006.2.5">The Linux File System</a></span></span><span class="subsectionToc"><span class="number">6.2.6</span><span class="title"><a 
+href="PermissionsandLinks.html#x29-1720006.2.6">The
+UNIX Philosophy</a></span></span><span class="sectionToc"><span class="number">6.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1730006.3">Common Command-Line Tools and Tasks</a></span></span><span class="subsectionToc"><span class="number">6.3.1</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1740006.3.1">Connecting
+Commands with Pipes</a></span></span><span class="subsectionToc"><span class="number">6.3.2</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1750006.3.2">Viewing Text Files with cat, head, tail, and less</a></span></span><span class="subsectionToc"><span class="number">6.3.3</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1760006.3.3">Finding
+Linux Distribution and Kernel Information</a></span></span><span class="subsectionToc"><span class="number">6.3.4</span><span class="title"><a 
+href="CommonCommandLineToolsandTasks.html#x30-1780006.3.4">Find System Hardware and Disk
+Information</a></span></span><span class="chapterToc"><span class="number">7</span><span class="title"><a 
+href="ROSConcepts.html#x31-1800007">ROS Concepts</a></span></span><span class="sectionToc"><span class="number">7.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1810007.1">Publisher and Subscriber Architecture</a></span></span><span class="subsectionToc"><span class="number">7.1.1</span><span class="title"><a 
+href="PublisherandSubscriberArchitecture.html#x32-1820007.1.1">ROS 2
+Architecture</a></span></span><span class="sectionToc"><span class="number">7.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1840007.2">Building Blocks</a></span></span><span class="subsectionToc"><span class="number">7.2.1</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1850007.2.1">Nodes</a></span></span><span class="subsectionToc"><span class="number">7.2.2</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1860007.2.2">The Discovery Process</a></span></span><span class="subsectionToc"><span class="number">7.2.3</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1870007.2.3">Communication
+Interface</a></span></span><span class="subsectionToc"><span class="number">7.2.4</span><span class="title"><a 
+href="BuildingBlocks.html#x33-1960007.2.4">Topics</a></span></span><span class="subsectionToc"><span class="number">7.2.5</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2000007.2.5">Services</a></span></span><span class="subsectionToc"><span class="number">7.2.6</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2030007.2.6">Actions</a></span></span><span class="subsectionToc"><span class="number">7.2.7</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2060007.2.7">Parameters</a></span></span><span class="subsectionToc"><span class="number">7.2.8</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2150007.2.8">Working with
+Command Line</a></span></span><span class="subsectionToc"><span class="number">7.2.9</span><span class="title"><a 
+href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
+href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
+                                                                                
+                                                                                
+ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
+href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
+href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
+href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
+href="ADeeperLookintoNodes.html#x38-2350008.3">A
+Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
+href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
+href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
+href="WorkingwithParameters.html#x41-2530008.6">Working
+with Parameters</a></span></span><span class="sectionToc"><span class="number">8.7</span><span class="title"><a 
+href="APracticalLookintoActions.html#x42-2600008.7">A Practical Look into Actions</a></span></span><span class="sectionToc"><span class="number">8.8</span><span class="title"><a 
+href="LaunchingNodes.html#x43-2670008.8">Launching Nodes</a></span></span><span class="chapterToc"><span class="number">9</span><span class="title"><a 
+href="ClientLibraries.html#x44-2690009">Client
+Libraries</a></span></span><span class="sectionToc"><span class="number">9.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2700009.1">Getting Started with Colcon</a></span></span><span class="subsectionToc"><span class="number">9.1.1</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2710009.1.1">The Structure of a Package</a></span></span><span class="subsectionToc"><span class="number">9.1.2</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2720009.1.2">Sourcing
+an Underlay</a></span></span><span class="subsectionToc"><span class="number">9.1.3</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2730009.1.3">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.4</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2740009.1.4">Sourcing the New Package</a></span></span><span class="subsectionToc"><span class="number">9.1.5</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2750009.1.5">Creating a
+Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.6</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
+Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2810009.1.11">Sourcing
+our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.12</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
+href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
+Node</a></span></span><span class="subsectionToc"><span class="number">9.2.3</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2930009.2.3">Writing the Subscriber Node</a></span></span><span class="subsectionToc"><span class="number">9.2.4</span><span class="title"><a 
+href="WritingaSimplePublisherandSubscriber.html#x46-2960009.2.4">Building and Running</a></span></span><span class="sectionToc"><span class="number">9.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2970009.3">Writing a
+Simple Service and Client</a></span></span><span class="subsectionToc"><span class="number">9.3.1</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-2980009.3.1">Creating a New Package</a></span></span><span class="subsectionToc"><span class="number">9.3.2</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3010009.3.2">Writing the Service
+Node</a></span></span><span class="subsectionToc"><span class="number">9.3.3</span><span class="title"><a 
+href="WritingaSimpleServiceandClient.html#x47-3040009.3.3">Writing the Client Node</a></span></span><span class="sectionToc"><span class="number">9.4</span><span class="title"><a 
+href="#x48-3070009.4">Creating Custom msg and srv Files</a></span></span><span class="subsectionToc"><span class="number">9.4.1</span><span class="title"><a 
+href="#x48-3080009.4.1">Creating
+a New Package</a></span></span><span class="subsectionToc"><span class="number">9.4.2</span><span class="title"><a 
+href="#x48-3090009.4.2">Creating Custom Definitions</a></span></span><span class="subsectionToc"><span class="number">9.4.3</span><span class="title"><a 
+href="#x48-3160009.4.3">Testing the Newly Built
+Interfaces</a></span></span><span class="sectionToc"><span class="number">9.5</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3180009.5">Using Parameters in a Class</a></span></span><span class="subsectionToc"><span class="number">9.5.1</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3190009.5.1">Creating a Package</a></span></span><span class="subsectionToc"><span class="number">9.5.2</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3210009.5.2">Writing our
+Python Code</a></span></span><span class="subsectionToc"><span class="number">9.5.3</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3260009.5.3">Changing Output using the Console</a></span></span><span class="subsectionToc"><span class="number">9.5.4</span><span class="title"><a 
+href="UsingParametersinaClass.html#x49-3270009.5.4">Changing using the Launch
+File</a></span></span><span class="sectionToc"><span class="number">9.6</span><span class="title"><a 
+href="ManagingDependencies.html#x50-3280009.6">Managing Dependencies</a></span></span><span class="sectionToc"><span class="number">9.7</span><span class="title"><a 
+href="CreatinganAction.html#x51-3300009.7">Creating an Action</a></span></span><span class="sectionToc"><span class="number">9.8</span><span class="title"><a 
+href="WritinganActionServerandClient.html#x52-3330009.8">Writing an Action Server and
+Client</a></span></span><span class="sectionToc"><span class="number">9.9</span><span class="title"><a 
+href="WritingaLaunchFile.html#x53-3350009.9">Writing a Launch File</a></span></span><span class="chapterToc"><span class="number">10</span><span class="title"><a 
+href="TransformLibrary.html#x54-34100010">Transform Library</a></span></span><span class="sectionToc"><span class="number">10.1</span><span class="title"><a 
+href="AGentleIntroduction.html#x55-34200010.1">A Gentle Introduction</a></span></span><span class="sectionToc"><span class="number">10.2</span><span class="title"><a 
+href="WritingaStaticBroadcaster.html#x56-35000010.2">Writing
+a Static Broadcaster</a></span></span><span class="sectionToc"><span class="number">10.3</span><span class="title"><a 
+href="WritingaListener.html#x57-35900010.3">Writing a Listener</a></span></span><span class="sectionToc"><span class="number">10.4</span><span class="title"><a 
+href="AddingaFrame.html#x58-36600010.4">Adding a Frame</a></span></span><span class="sectionToc"><span class="number">10.5</span><span class="title"><a 
+href="WritingaBroadcaster.html#x59-38000010.5">Writing a Broadcaster</a></span></span>
+ 
+
+</div></div></nav> 
+
+<article class="chapter"> 
+<nav class="crosslinks-top"> <a 
+href="UsingParametersinaClass.html" ><span class="nav-next">NEXT</span></a><a 
+href="WritingaSimpleServiceandClient.html" ><span class="nav-prev">PREV</span></a><a 
+href="WritingaSimpleServiceandClient.html#tailWritingaSimpleServiceandClient.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="#tailCreatingCustommsgandsrvFiles.html"><span class="nav-tail">TAIL</span></a><a 
+href="ClientLibraries.html#CreatingCustommsgandsrvFiles.html" ><span class="nav-up">UP</span></a></nav> 
+<div class="section-header"><h3><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#section.9.4"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">9.4</span> <span class="title"><a 
+ id="x48-3070009.4"></a>Creating Custom msg and srv Files</span></h3></div>
+<!--l. 865--><p class="noindent" >Previously, we utilised message and service interfaces to learn about:
+<ul class="itemize1">     
+<li class="itemize">
+<!--l. 868--><p class="noindent" >topics,
+</li>     
+<li class="itemize">
+<!--l. 869--><p class="noindent" >services,
+</li>     
+<li class="itemize">
+<!--l. 870--><p class="noindent" >simple publisher/subscriber, and
+</li>     
+<li class="itemize">
+<!--l. 871--><p class="noindent" >service/client nodes.</li></ul>
+<div class="warning">
+<!--l. 876--><p class="noindent" >It is worth noting, the interfaces we used previously were predefined in those cases.
+</div>
+<!--l. 878--><p class="noindent" >While it’s good practice to use predefined interface definitions, time will eventually come, where we will
+need to define our own messages and services sometimes as well. Here, we will have a look at the
+simplest method of creating custom interface definitions.
+
+                                                                                
+                                                                                
+<!--l. 882--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.9.4.1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">9.4.1</span> <span class="title"><a 
+ id="x48-3080009.4.1"></a>Creating a New Package</span></h4></div>
+<!--l. 884--><p class="noindent" >Here, we will be creating our custom <code class="verb">.msg</code> and <code class="verb">.srv</code> files in their own package, and then utilising them
+in a separate package.
+<div class="warning">
+<!--l. 889--><p class="noindent" >It is worth stressing, that both packages should be in the same workspace.
+</div>
+<!--l. 891--><p class="noindent" >As we have seen in the pub/sub and service/client packages which we created previously, make sure we
+are in the same workspace as those packages (<code class="verb">ros2_ws/src</code>), and then run the following command to
+create a new package:
+<!--l. 895--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb335"><a 
+ id="x48-308002r440"></a><span 
+class="ec-lmtt-10">ros2 pkg create</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">build</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">type ament_cmake</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">license Apache</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">2.0 tutorial_interfaces</span></pre>
+</div><p>
+<code class="verb">tutorial_interfaces</code> is the <span class="alert"><alert style="color: #821131;">name of the new package</alert></span>. Note that it is, and can only be, an
+<code class="verb">ament_cmake</code> package, <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">It is basically a build system for CMake based packages in <span class="acronym"><span class="acronym-short"><a 
+href="#glo:ros" class="glossary" >ROS</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:ros" class="glossary" >Robot Operating
+System 2</a></span><span class="acronym-desc"><a 
+href="#glo:ros" class="glossary" >Robot Operating System 2</a></span></span></span>. It is a set of scripts enhancing CMake and adding
+convenience functionality for package authors.</span></span> but this doesn’t restrict in which type of
+packages we can use our messages and services. We can create our own custom interfaces in an
+<code class="verb">ament_cmake</code> package, and then use it in a C++ or Python node, which will be covered
+later.
+The <code class="verb">.msg</code> and <code class="verb">.srv</code> files are required to be placed in directories called <span class="code-directory"><code class="verb">msg</code></span> and <span class="code-directory"><code class="verb">srv</code></span> respectively.
+<!--l. 908--><p class="noindent" >We can create the directories in <span class="code-directory"><code class="verb">[</code></span>/]ros2_ws/src/tutorial_interfaces using:
+<!--l. 910--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb336"><a 
+ id="x48-308004r445"></a><span 
+class="ec-lmtt-10">mkdir msg srv</span></pre>
+</div><p>
+
+<!--l. 912--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.9.4.2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">9.4.2</span> <span class="title"><a 
+ id="x48-3090009.4.2"></a>Creating Custom Definitions</span></h4></div>
+
+<a 
+ id="subsubsection*.157"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-310000"></a>msg Definition</h5>
+<!--l. 916--><p class="noindent" >In the <span class="code-directory"><code class="verb">[</code></span>/]tutorial_interfaces/msg directory we just created, make a new file called <span class="code-directory"><code class="verb">Num.msg</code></span> with one
+line of code declaring its data structure:
+<!--l. 919--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb337"><a 
+ id="x48-310002r450"></a><span 
+class="ec-lmtt-10">int64 num</span></pre>
+</div><p>
+<!--l. 921--><p class="noindent" >This is a <span id="bold" style="font-weight:bold;">custom message</span> which transfers a single 64-bit integer called <code class="verb">num</code>.
+<!--l. 923--><p class="noindent" >In addition, in the <span class="code-directory"><code class="verb">tutorial\_interfaces/msg</code></span> directory we’ve just created, make a new file called
+<span class="code-directory"><code class="verb">Sphere.msg</code></span> with the following content:
+<!--l. 926--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
+<pre class="fancyvrb" id="fancyvrb338"><a 
+ id="x48-310004r455"></a><span 
+class="ec-lmtt-10">geometry_msgs/Point center</span> 
+<a 
+ id="x48-310006r456"></a><span 
+class="ec-lmtt-10">float64 radius</span></pre>
+</div><p>
+<!--l. 928--><p class="noindent" >This custom message uses a message from another message package. As we can see from the first line in
+the message, it is <code class="verb">geometry_msgs/Point</code>.
+
+<a 
+ id="subsubsection*.158"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-311000"></a>srv Definition</h5>
+<!--l. 933--><p class="noindent" >Let’s go back in the <code class="verb">tutorial_interfaces/srv</code> directory we’ve just created a few moment ago
+and make a new file called <code class="verb">AddThreeInts.srv</code> with the following request and response
+structure:
+<!--l. 937--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb339"><a 
+ id="x48-311002r462"></a><span 
+class="ec-lmtt-10">int64 a</span> 
+<a 
+ id="x48-311004r463"></a><span 
+class="ec-lmtt-10">int64 b</span> 
+<a 
+ id="x48-311006r464"></a><span 
+class="ec-lmtt-10">int64 c</span> 
+<a 
+ id="x48-311008r465"></a><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span> 
+<a 
+ id="x48-311010r466"></a><span 
+class="ec-lmtt-10">int64 sum</span></pre>
+</div><p>
+<!--l. 939--><p class="noindent" >This is our custom service which requests three (<span class="alert"><alert style="color: #821131;">3</alert></span>) integers aptly named <code class="verb">a</code>, <code class="verb">b</code>, and <code class="verb">c</code>, and responds
+with an integer called <code class="verb">sum</code>.
+
+<a 
+ id="subsubsection*.159"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-312000"></a>CMakeLists</h5>
+<!--l. 944--><p class="noindent" >To convert the interfaces we defined into language-specific code <span class="margin-comment"><span class="ellipsis">(...)</span> 
+<span class="sidenote">This can be either C++ or
+Python.</span></span> so that they can be used in those languages, let’s add the following lines to our
+<code class="verb">CMakeLists.txt</code>:
+<!--l. 948--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb340"><a 
+ id="x48-312002r471"></a><span id="textcolor1105"><span 
+class="ec-lmtt-10">find_package</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1106"><span 
+class="ec-lmtt-10">geometry_msgs</span></span> <span id="textcolor1107"><span 
+class="ec-lmtt-10">REQUIRED</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-312004r472"></a><span id="textcolor1108"><span 
+class="ec-lmtt-10">find_package</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1109"><span 
+class="ec-lmtt-10">rosidl_default_generators</span></span> <span id="textcolor1110"><span 
+class="ec-lmtt-10">REQUIRED</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-312006r473"></a> 
+<a 
+ id="x48-312008r474"></a><span id="textcolor1111"><span 
+class="ec-lmtt-10">rosidl_generate_interfaces</span></span><span 
+class="ec-lmtt-10">(${</span><span id="textcolor1112"><span 
+class="ec-lmtt-10">PROJECT_NAME</span></span><span 
+class="ec-lmtt-10">}</span> 
+<a 
+ id="x48-312010r475"></a>  <span id="textcolor1113"><span 
+class="ec-lmtt-10">&#x0022;msg/Num.msg&#x0022;</span></span> 
+<a 
+ id="x48-312012r476"></a>  <span id="textcolor1114"><span 
+class="ec-lmtt-10">&#x0022;msg/Sphere.msg&#x0022;</span></span> 
+<a 
+ id="x48-312014r477"></a>  <span id="textcolor1115"><span 
+class="ec-lmtt-10">&#x0022;srv/AddThreeInts.srv&#x0022;</span></span> 
+<a 
+ id="x48-312016r478"></a>  <span id="textcolor1116"><span 
+class="ec-lmtt-10">DEPENDENCIES</span></span> <span id="textcolor1117"><span 
+class="ec-lmtt-10">geometry_msgs</span></span> <span id="textcolor1118"><italic># Add packages that above messages</italic></span> 
+<a 
+ id="x48-312018r479"></a>  <span id="textcolor1119"><italic>#depend on, in this case geometry_msgs for Sphere.msg</italic></span> 
+<a 
+ id="x48-312020r480"></a><span 
+class="ec-lmtt-10">)</span></pre>
+</div><p>
+<div class="warning">
+<!--l. 954--><p class="noindent" >The first argument (library name) in the <code class="verb">rosidl_generate_interfaces</code> must start with the name of
+the package, e.g., simply <code class="verb">${PROJECT_NAME}</code> or <code class="verb">${PROJECT_NAME}_suffix</code>.
+</div>
+
+<a 
+ id="subsubsection*.160"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-313000"></a>Package.xml</h5>
+<!--l. 958--><p class="noindent" >Because the interfaces rely on <code class="verb">rosidl_default_generators</code> for generating language-specific code, we
+need to declare a build tool dependency on it. <code class="verb">rosidl_default_runtime</code> is a runtime or
+execution-stage dependency, needed to be able to use the interfaces later.
+<!--l. 963--><p class="noindent" >The <code class="verb">rosidl_interface_packages</code> is the name of the dependency group which our package,
+<code class="verb">tutorial_interfaces</code>, should be associated with, declared using the <code class="verb">&#x003C;member_of_group&#x003E;</code>
+tag.
+<!--l. 967--><p class="noindent" >Add the following lines within the <code class="verb">&#x003C;package&#x003E;</code> element of <code class="verb">package.xml</code>:
+<!--l. 969--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
+<pre class="fancyvrb" id="fancyvrb341"><a 
+ id="x48-313002r485"></a><span id="textcolor1120"><span 
+class="ec-lmtt-10">&#x003C;depend</span></span><span id="textcolor1121"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">geometry_msgs</span><span id="textcolor1122"><span 
+class="ec-lmtt-10">&#x003C;/depend&#x003E;</span></span> 
+<a 
+ id="x48-313004r486"></a><span id="textcolor1123"><span 
+class="ec-lmtt-10">&#x003C;buildtool_depend</span></span><span id="textcolor1124"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">rosidl_default_generators</span><span id="textcolor1125"><span 
+class="ec-lmtt-10">&#x003C;/buildtool_depend&#x003E;</span></span> 
+<a 
+ id="x48-313006r487"></a><span id="textcolor1126"><span 
+class="ec-lmtt-10">&#x003C;exec_depend</span></span><span id="textcolor1127"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">rosidl_default_runtime</span><span id="textcolor1128"><span 
+class="ec-lmtt-10">&#x003C;/exec_depend&#x003E;</span></span> 
+<a 
+ id="x48-313008r488"></a><span id="textcolor1129"><span 
+class="ec-lmtt-10">&#x003C;member_of_group</span></span><span id="textcolor1130"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">rosidl_interface_packages</span><span id="textcolor1131"><span 
+class="ec-lmtt-10">&#x003C;/member_of_group&#x003E;</span></span></pre>
+</div><p>
+<!--l. 971--><p class="noindent" >Please pay attention to the last line where we have added the new tag.
+
+<a 
+ id="subsubsection*.161"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-314000"></a>Building the Package</h5>
+<!--l. 975--><p class="noindent" >Now that all the parts of our custom interfaces package are in place, we can finally build the package.
+In the root of our workspace (<code class="verb">~/ros2_ws</code>), please run the following command:
+<!--l. 978--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb342"><a 
+ id="x48-314002r493"></a><span 
+class="ec-lmtt-10">colcon build</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">packages</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">select tutorial_interfaces</span></pre>
+</div><p>
+<!--l. 980--><p class="noindent" >Now the interfaces will be discoverable by other <span class="acronym"><span class="acronym-short"><a 
+href="#glo:ros" class="glossary" >ROS</a></span><span class="acronym-detail"><span class="acronym-long"><a 
+href="#glo:ros" class="glossary" >Robot Operating System 2</a></span><span class="acronym-desc"><a 
+href="#glo:ros" class="glossary" >Robot Operating
+System 2</a></span></span></span> packages.
+
+<a 
+ id="subsubsection*.162"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-315000"></a>Confirming the Creation</h5>
+<!--l. 984--><p class="noindent" >In a new terminal, let’s run the following command from within our workspace (<span class="code-directory"><code class="verb">ros2\_ws</code></span>) to source it
+if it is required:
+<!--l. 987--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb343"><a 
+ id="x48-315002r498"></a><span id="textcolor1132"><span 
+class="ec-lmtt-10">source</span></span> <span 
+class="ec-lmtt-10">install/setup.bash</span></pre>
+</div><p>
+<!--l. 989--><p class="noindent" >Now we can confirm our interface creation has worked by using the <code class="verb">ros2 interface show</code> command.
+The output we see in our terminal should look similar to the following:
+ <div class="code">
+<pre class="fancyvrb" id="fancyvrb344"><a 
+ id="x48-315004r503"></a><span 
+class="ec-lmtt-10">ros2 interface show tutorial_interfaces/msg/Num</span></pre>
+</div><p> <div class="code">
+<pre class="fancyvrb" id="fancyvrb345"><a 
+ id="x48-315006r508"></a><span 
+class="ec-lmtt-10">int64 num</span></pre>
+</div><p> 
+ <div class="code">
+<pre class="fancyvrb" id="fancyvrb346"><a 
+ id="x48-315008r513"></a><span 
+class="ec-lmtt-10">ros2 interface show tutorial_interfaces/msg/Sphere</span></pre>
+</div><p> <div class="code">
+<pre class="fancyvrb" id="fancyvrb347"><a 
+ id="x48-315010r518"></a><span 
+class="ec-lmtt-10">geometry_msgs/Point center</span> 
+<a 
+ id="x48-315012r519"></a>        <span 
+class="ec-lmtt-10">float64 x</span> 
+<a 
+ id="x48-315014r520"></a>        <span 
+class="ec-lmtt-10">float64 y</span> 
+<a 
+ id="x48-315016r521"></a>        <span 
+class="ec-lmtt-10">float64 z</span> 
+<a 
+ id="x48-315018r522"></a><span 
+class="ec-lmtt-10">float64 radius</span></pre>
+</div><p> 
+ <div class="code">
+<pre class="fancyvrb" id="fancyvrb348"><a 
+ id="x48-315020r527"></a><span 
+class="ec-lmtt-10">ros2 interface show tutorial_interfaces/srv/AddThreeInts</span></pre>
+                                                                                
+                                                                                
+</div><p> <div class="code">
+<pre class="fancyvrb" id="fancyvrb349"><a 
+ id="x48-315022r532"></a><span 
+class="ec-lmtt-10">int64 a</span> 
+<a 
+ id="x48-315024r533"></a><span 
+class="ec-lmtt-10">int64 b</span> 
+<a 
+ id="x48-315026r534"></a><span 
+class="ec-lmtt-10">int64 c</span> 
+<a 
+ id="x48-315028r535"></a><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span> 
+<a 
+ id="x48-315030r536"></a><span 
+class="ec-lmtt-10">int64 sum</span></pre>
+</div><p> 
+
+<!--l. 1007--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.9.4.3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">9.4.3</span> <span class="title"><a 
+ id="x48-3160009.4.3"></a>Testing the Newly Built Interfaces</span></h4></div>
+<!--l. 1009--><p class="noindent" >Time to see our new interface in action. A few simple modifications to the nodes, <code class="verb">CMakeLists.txt</code> and
+<code class="verb">package.xml</code> files will allow we to use our new interfaces.
+<!--l. 1012--><p class="noindent" >With a few modifications to the publisher/subscriber package we’ve created in a previous tutorial, we
+can see <code class="verb">Num.msg</code> in action. Since we’ll be changing the standard string <code class="verb">msg</code> to a numerical one, the
+output will be slightly different.
+<!--l. 1016--><p class="noindent" >The following will be our publisher code with modifications shown.
+<!--l. 1018--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb350"><a 
+ id="x48-316002r545"></a><span id="textcolor1133"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor1134"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x48-316004r546"></a><span id="textcolor1135"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1136"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor1137"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1138"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor1139"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x48-316006r547"></a> 
+<a 
+ id="x48-316008r548"></a><span id="textcolor1140"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1141"><span 
+class="ec-lmtt-10">tutorial_interfaces</span></span><span id="textcolor1142"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1143"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor1144"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Num                            </span><span id="textcolor1145"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316010r549"></a> 
+<a 
+ id="x48-316012r550"></a> 
+<a 
+ id="x48-316014r551"></a><span id="textcolor1146"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor1147"><span 
+class="ec-lmtt-10">MinimalPublisher</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x48-316016r552"></a> 
+<a 
+ id="x48-316018r553"></a>    <span id="textcolor1148"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1149"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1150"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-316020r554"></a>        <span id="textcolor1151"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor1152"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1153"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1154"><span 
+class="ec-lmtt-10">minimal_publisher</span></span><span id="textcolor1155"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-316022r555"></a>        <span id="textcolor1156"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.publisher_ = </span><span id="textcolor1157"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_publisher(Num, </span><span id="textcolor1158"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1159"><span 
+class="ec-lmtt-10">topic</span></span><span id="textcolor1160"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">, </span><span id="textcolor1161"><span 
+class="ec-lmtt-10">10</span></span><span 
+class="ec-lmtt-10">)  </span><span id="textcolor1162"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316024r556"></a>        <span 
+class="ec-lmtt-10">timer_period = </span><span id="textcolor1163"><span 
+class="ec-lmtt-10">0.5</span></span> 
+<a 
+ id="x48-316026r557"></a>        <span id="textcolor1164"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.timer = </span><span id="textcolor1165"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_timer(timer_period, </span><span id="textcolor1166"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.timer_callback)</span> 
+<a 
+ id="x48-316028r558"></a>        <span id="textcolor1167"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.i = </span><span id="textcolor1168"><span 
+class="ec-lmtt-10">0</span></span> 
+<a 
+ id="x48-316030r559"></a> 
+<a 
+ id="x48-316032r560"></a>    <span id="textcolor1169"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1170"><span 
+class="ec-lmtt-10">timer_callback</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1171"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-316034r561"></a>        <span 
+class="ec-lmtt-10">msg = Num()                                                </span><span id="textcolor1172"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316036r562"></a>        <span 
+class="ec-lmtt-10">msg.num = </span><span id="textcolor1173"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.i                                           </span><span id="textcolor1174"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316038r563"></a>        <span id="textcolor1175"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.publisher_.publish(msg)</span> 
+<a 
+ id="x48-316040r564"></a>        <span id="textcolor1176"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_logger().info(</span><span id="textcolor1177"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1178"><span 
+class="ec-lmtt-10">Publishing: </span></span><span id="textcolor1179"><span 
+class="ec-lmtt-10">&#x0022;</span></span><span id="textcolor1180"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1181"><span 
+class="ec-lmtt-10">&#x0022;</span></span><span id="textcolor1182"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> <span 
+class="ec-lmtt-10">% msg.num)       </span><span id="textcolor1183"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316042r565"></a>        <span id="textcolor1184"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.i += </span><span id="textcolor1185"><span 
+class="ec-lmtt-10">1</span></span> 
+<a 
+ id="x48-316044r566"></a> 
+<a 
+ id="x48-316046r567"></a> 
+<a 
+ id="x48-316048r568"></a><span id="textcolor1186"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1187"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">(args=</span><span id="textcolor1188"><span 
+class="ec-lmtt-10">None</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-316050r569"></a>    <span 
+class="ec-lmtt-10">rclpy.init(args=args)</span> 
+<a 
+ id="x48-316052r570"></a> 
+<a 
+ id="x48-316054r571"></a>    <span 
+class="ec-lmtt-10">minimal_publisher = MinimalPublisher()</span> 
+<a 
+ id="x48-316056r572"></a> 
+<a 
+ id="x48-316058r573"></a>    <span 
+class="ec-lmtt-10">rclpy.spin(minimal_publisher)</span> 
+<a 
+ id="x48-316060r574"></a> 
+<a 
+ id="x48-316062r575"></a>    <span 
+class="ec-lmtt-10">minimal_publisher.destroy_node()</span> 
+<a 
+ id="x48-316064r576"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span> 
+<a 
+ id="x48-316066r577"></a> 
+<a 
+ id="x48-316068r578"></a> 
+<a 
+ id="x48-316070r579"></a><span id="textcolor1189"><span 
+class="ec-lmtt-10">if</span></span> <span id="textcolor1190"><span 
+class="ec-lmtt-10">__name__</span></span> <span 
+class="ec-lmtt-10">== </span><span id="textcolor1191"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1192"><span 
+class="ec-lmtt-10">__main__</span></span><span id="textcolor1193"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-316072r580"></a>    <span 
+class="ec-lmtt-10">main()</span></pre>
+</div><p>
+<!--l. 1020--><p class="noindent" >Next is our subscriber code with modifications shown.
+<!--l. 1022--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb351"><a 
+ id="x48-316074r585"></a><span id="textcolor1194"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor1195"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x48-316076r586"></a><span id="textcolor1196"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1197"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor1198"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1199"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor1200"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x48-316078r587"></a> 
+<a 
+ id="x48-316080r588"></a><span id="textcolor1201"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1202"><span 
+class="ec-lmtt-10">tutorial_interfaces</span></span><span id="textcolor1203"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1204"><span 
+class="ec-lmtt-10">msg</span></span> <span id="textcolor1205"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Num                        </span><span id="textcolor1206"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316082r589"></a> 
+<a 
+ id="x48-316084r590"></a> 
+<a 
+ id="x48-316086r591"></a><span id="textcolor1207"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor1208"><span 
+class="ec-lmtt-10">MinimalSubscriber</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x48-316088r592"></a> 
+<a 
+ id="x48-316090r593"></a>    <span id="textcolor1209"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1210"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1211"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-316092r594"></a>        <span id="textcolor1212"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor1213"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1214"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1215"><span 
+class="ec-lmtt-10">minimal_subscriber</span></span><span id="textcolor1216"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-316094r595"></a>        <span id="textcolor1217"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.subscription = </span><span id="textcolor1218"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_subscription(</span> 
+<a 
+ id="x48-316096r596"></a>            <span 
+class="ec-lmtt-10">Num,                                               </span><span id="textcolor1219"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316098r597"></a>            <span id="textcolor1220"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1221"><span 
+class="ec-lmtt-10">topic</span></span><span id="textcolor1222"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x48-316100r598"></a>            <span id="textcolor1223"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.listener_callback,</span> 
+<a 
+ id="x48-316102r599"></a>            <span id="textcolor1224"><span 
+class="ec-lmtt-10">10</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-316104r600"></a>        <span id="textcolor1225"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.subscription</span> 
+<a 
+ id="x48-316106r601"></a> 
+<a 
+ id="x48-316108r602"></a>    <span id="textcolor1226"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1227"><span 
+class="ec-lmtt-10">listener_callback</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1228"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">, msg):</span> 
+<a 
+ id="x48-316110r603"></a>        <span id="textcolor1229"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_logger().info(</span><span id="textcolor1230"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1231"><span 
+class="ec-lmtt-10">I heard: </span></span><span id="textcolor1232"><span 
+class="ec-lmtt-10">&#x0022;</span></span><span id="textcolor1233"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1234"><span 
+class="ec-lmtt-10">&#x0022;</span></span><span id="textcolor1235"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> <span 
+class="ec-lmtt-10">% msg.num)  </span><span id="textcolor1236"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-316112r604"></a> 
+<a 
+ id="x48-316114r605"></a> 
+<a 
+ id="x48-316116r606"></a><span id="textcolor1237"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1238"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">(args=</span><span id="textcolor1239"><span 
+class="ec-lmtt-10">None</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-316118r607"></a>    <span 
+class="ec-lmtt-10">rclpy.init(args=args)</span> 
+<a 
+ id="x48-316120r608"></a> 
+<a 
+ id="x48-316122r609"></a>    <span 
+class="ec-lmtt-10">minimal_subscriber = MinimalSubscriber()</span> 
+<a 
+ id="x48-316124r610"></a> 
+<a 
+ id="x48-316126r611"></a>    <span 
+class="ec-lmtt-10">rclpy.spin(minimal_subscriber)</span> 
+<a 
+ id="x48-316128r612"></a> 
+<a 
+ id="x48-316130r613"></a>    <span 
+class="ec-lmtt-10">minimal_subscriber.destroy_node()</span> 
+<a 
+ id="x48-316132r614"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span> 
+<a 
+ id="x48-316134r615"></a> 
+<a 
+ id="x48-316136r616"></a> 
+<a 
+ id="x48-316138r617"></a><span id="textcolor1240"><span 
+class="ec-lmtt-10">if</span></span> <span id="textcolor1241"><span 
+class="ec-lmtt-10">__name__</span></span> <span 
+class="ec-lmtt-10">== </span><span id="textcolor1242"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1243"><span 
+class="ec-lmtt-10">__main__</span></span><span id="textcolor1244"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-316140r618"></a>    <span 
+class="ec-lmtt-10">main()</span></pre>
+</div><p>
+<!--l. 1024--><p class="noindent" >We also need to edit our <span class="code-directory"><code class="verb">package.xml</code></span> file to make all the previous python code to work.
+<!--l. 1027--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb352"><a 
+ id="x48-316142r623"></a><span id="textcolor1245"><span 
+class="ec-lmtt-10">&#x003C;exec_depend</span></span><span id="textcolor1246"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">tutorial_interfaces</span><span id="textcolor1247"><span 
+class="ec-lmtt-10">&#x003C;/exec_depend&#x003E;</span></span></pre>
+</div><p>
+<!--l. 1029--><p class="noindent" >Once we have done the necessary changes let’s build our package and execute it.
+<!--l. 1031--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb353"><a 
+ id="x48-316144r628"></a><span 
+class="ec-lmtt-10">colcon build</span> <span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">packages</span><span 
+class="ec-lmtt-10">-</span><span 
+class="ec-lmtt-10">select py_pubsub</span></pre>
+</div><p>
+<!--l. 1033--><p class="noindent" >Then open two (<span class="alert"><alert style="color: #821131;">2</alert></span>) new terminals, source <span class="code-directory"><code class="verb">ros2\_ws</code></span> in each, and run:
+<div class="code">
+<pre class="fancyvrb" id="fancyvrb354"><a 
+ id="x48-316146r633"></a><span 
+class="ec-lmtt-10">ros2 run py_pubsub talker</span></pre>
+</div><p> <div class="code">
+<pre class="fancyvrb" id="fancyvrb355"><a 
+ id="x48-316148r633"></a><span 
+class="ec-lmtt-10">ros2 run py_pubsub talker</span></pre>
+</div><p>
+<!--l. 1038--><p class="noindent" >Since <span class="code-directory"><code class="verb">Num.msg</code></span> relays only an integer, the talker should only be publishing integer values, as opposed to
+the string it published previously:
+<!--l. 1041--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb356"><a 
+ id="x48-316150r643"></a><span 
+class="ec-lmtt-10">[INFO] [minimal_publisher]: Publishing: </span><span 
+class="ts1-lmtt10-">&#x0027;</span><span 
+class="ec-lmtt-10">0</span><span 
+class="ts1-lmtt10-">&#x0027;</span> 
+<a 
+ id="x48-316152r644"></a><span 
+class="ec-lmtt-10">[INFO] [minimal_publisher]: Publishing: </span><span 
+class="ts1-lmtt10-">&#x0027;</span><span 
+class="ec-lmtt-10">1</span><span 
+class="ts1-lmtt10-">&#x0027;</span> 
+<a 
+ id="x48-316154r645"></a><span 
+class="ec-lmtt-10">[INFO] [minimal_publisher]: Publishing: </span><span 
+class="ts1-lmtt10-">&#x0027;</span><span 
+class="ec-lmtt-10">2</span><span 
+class="ts1-lmtt10-">&#x0027;</span></pre>
+</div><p>
+
+                                                                                
+                                                                                
+<a 
+ id="subsubsection*.163"></a>
+<h5 class="subsubsectionHead"><a 
+ id="x48-317000"></a>Testing the New Service Interface</h5>
+<!--l. 1045--><p class="noindent" >With a few modifications to the service/client package created previously, we can see <code class="verb">AddThreeInts.srv</code> in
+action. Since we’ll be changing the original two (<span class="alert"><alert style="color: #821131;">2</alert></span>) integer request srv to a three (<span class="alert"><alert style="color: #821131;">3</alert></span>) integer request
+srv, the output will be slightly different.
+Below is our service python code with changes shown.
+<!--l. 1051--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb357"><a 
+ id="x48-317002r652"></a><span id="textcolor1248"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1249"><span 
+class="ec-lmtt-10">tutorial_interfaces</span></span><span id="textcolor1250"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1251"><span 
+class="ec-lmtt-10">srv</span></span> <span id="textcolor1252"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">AddThreeInts  </span><span id="textcolor1253"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317004r653"></a> 
+<a 
+ id="x48-317006r654"></a><span id="textcolor1254"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor1255"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x48-317008r655"></a><span id="textcolor1256"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1257"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor1258"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1259"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor1260"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x48-317010r656"></a> 
+<a 
+ id="x48-317012r657"></a> 
+<a 
+ id="x48-317014r658"></a><span id="textcolor1261"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor1262"><span 
+class="ec-lmtt-10">MinimalService</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x48-317016r659"></a> 
+<a 
+ id="x48-317018r660"></a>    <span id="textcolor1263"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1264"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1265"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317020r661"></a>        <span id="textcolor1266"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor1267"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1268"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1269"><span 
+class="ec-lmtt-10">minimal_service</span></span><span id="textcolor1270"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-317022r662"></a>        <span id="textcolor1271"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.srv = </span><span id="textcolor1272"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_service(AddThreeInts,</span> 
+<a 
+ id="x48-317024r663"></a>                                       <span id="textcolor1273"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1274"><span 
+class="ec-lmtt-10">add_three_ints</span></span><span id="textcolor1275"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">,</span> 
+<a 
+ id="x48-317026r664"></a>                                       <span id="textcolor1276"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.add_three_ints_callback)  </span><span id="textcolor1277"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317028r665"></a> 
+<a 
+ id="x48-317030r666"></a>    <span id="textcolor1278"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1279"><span 
+class="ec-lmtt-10">add_three_ints_callback</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1280"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">, request, response):</span> 
+<a 
+ id="x48-317032r667"></a>        <span 
+class="ec-lmtt-10">response.sum = request.a + request.b + request.c  </span><span id="textcolor1281"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317034r668"></a>        <span id="textcolor1282"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_logger()\</span> 
+<a 
+ id="x48-317036r669"></a>            <span 
+class="ec-lmtt-10">.info(</span><span id="textcolor1283"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1284"><span 
+class="ec-lmtt-10">Incoming request</span></span><span id="textcolor1285"><span 
+class="ec-lmtt-10">\n</span></span><span id="textcolor1286"><span 
+class="ec-lmtt-10">a: </span></span><span id="textcolor1287"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1288"> <span 
+class="ec-lmtt-10">b: </span></span><span id="textcolor1289"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1290"> <span 
+class="ec-lmtt-10">c: </span></span><span id="textcolor1291"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1292"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> <span 
+class="ec-lmtt-10">% (request.a, request.b, request.c))  </span><span id="textcolor1293"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317038r670"></a> 
+<a 
+ id="x48-317040r671"></a>        <span id="textcolor1294"><span 
+class="ec-lmtt-10">return</span></span> <span 
+class="ec-lmtt-10">response</span> 
+<a 
+ id="x48-317042r672"></a> 
+<a 
+ id="x48-317044r673"></a><span id="textcolor1295"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1296"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">(args=</span><span id="textcolor1297"><span 
+class="ec-lmtt-10">None</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317046r674"></a>    <span 
+class="ec-lmtt-10">rclpy.init(args=args)</span> 
+<a 
+ id="x48-317048r675"></a> 
+<a 
+ id="x48-317050r676"></a>    <span 
+class="ec-lmtt-10">minimal_service = MinimalService()</span> 
+<a 
+ id="x48-317052r677"></a> 
+<a 
+ id="x48-317054r678"></a>    <span 
+class="ec-lmtt-10">rclpy.spin(minimal_service)</span> 
+<a 
+ id="x48-317056r679"></a> 
+<a 
+ id="x48-317058r680"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span> 
+<a 
+ id="x48-317060r681"></a> 
+<a 
+ id="x48-317062r682"></a><span id="textcolor1298"><span 
+class="ec-lmtt-10">if</span></span> <span id="textcolor1299"><span 
+class="ec-lmtt-10">__name__</span></span> <span 
+class="ec-lmtt-10">== </span><span id="textcolor1300"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1301"><span 
+class="ec-lmtt-10">__main__</span></span><span id="textcolor1302"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-317064r683"></a>    <span 
+class="ec-lmtt-10">main()</span></pre>
+</div><p>
+<!--l. 1053--><p class="noindent" >Here is our client with changes highlighted.
+<!--l. 1055--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb358"><a 
+ id="x48-317066r688"></a><span id="textcolor1303"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1304"><span 
+class="ec-lmtt-10">tutorial_interfaces</span></span><span id="textcolor1305"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1306"><span 
+class="ec-lmtt-10">srv</span></span> <span id="textcolor1307"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">AddThreeInts                            </span><span id="textcolor1308"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317068r689"></a><span id="textcolor1309"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor1310"><span 
+class="ec-lmtt-10">sys</span></span> 
+<a 
+ id="x48-317070r690"></a><span id="textcolor1311"><span 
+class="ec-lmtt-10">import</span></span> <span id="textcolor1312"><span 
+class="ec-lmtt-10">rclpy</span></span> 
+<a 
+ id="x48-317072r691"></a><span id="textcolor1313"><span 
+class="ec-lmtt-10">from</span></span> <span id="textcolor1314"><span 
+class="ec-lmtt-10">rclpy</span></span><span id="textcolor1315"><span 
+class="ec-lmtt-10">.</span></span><span id="textcolor1316"><span 
+class="ec-lmtt-10">node</span></span> <span id="textcolor1317"><span 
+class="ec-lmtt-10">import</span></span> <span 
+class="ec-lmtt-10">Node</span> 
+<a 
+ id="x48-317074r692"></a> 
+<a 
+ id="x48-317076r693"></a> 
+<a 
+ id="x48-317078r694"></a><span id="textcolor1318"><span 
+class="ec-lmtt-10">class</span></span> <span id="textcolor1319"><span 
+class="ec-lmtt-10">MinimalClientAsync</span></span><span 
+class="ec-lmtt-10">(Node):</span> 
+<a 
+ id="x48-317080r695"></a> 
+<a 
+ id="x48-317082r696"></a>    <span id="textcolor1320"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1321"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1322"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317084r697"></a>        <span id="textcolor1323"><span 
+class="ec-lmtt-10">super</span></span><span 
+class="ec-lmtt-10">().</span><span id="textcolor1324"><span 
+class="ec-lmtt-10">__init__</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1325"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1326"><span 
+class="ec-lmtt-10">minimal_client_async</span></span><span id="textcolor1327"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-317086r698"></a>        <span id="textcolor1328"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.cli = </span><span id="textcolor1329"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.create_client(AddThreeInts, </span><span id="textcolor1330"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1331"><span 
+class="ec-lmtt-10">add_three_ints</span></span><span id="textcolor1332"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)       </span><span id="textcolor1333"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317088r699"></a>        <span id="textcolor1334"><span 
+class="ec-lmtt-10">while</span></span> <span id="textcolor1335"><span 
+class="ec-lmtt-10">not</span></span> <span id="textcolor1336"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.cli.wait_for_service(timeout_sec=</span><span id="textcolor1337"><span 
+class="ec-lmtt-10">1.0</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317090r700"></a>            <span id="textcolor1338"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.get_logger().info(</span><span id="textcolor1339"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1340"><span 
+class="ec-lmtt-10">service not available, waiting again...</span></span><span id="textcolor1341"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">)</span> 
+<a 
+ id="x48-317092r701"></a>        <span id="textcolor1342"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.req = AddThreeInts.Request()                                   </span><span id="textcolor1343"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317094r702"></a> 
+<a 
+ id="x48-317096r703"></a>    <span id="textcolor1344"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1345"><span 
+class="ec-lmtt-10">send_request</span></span><span 
+class="ec-lmtt-10">(</span><span id="textcolor1346"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317098r704"></a>        <span id="textcolor1347"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.req.a = </span><span id="textcolor1348"><span 
+class="ec-lmtt-10">int</span></span><span 
+class="ec-lmtt-10">(sys.argv[</span><span id="textcolor1349"><span 
+class="ec-lmtt-10">1</span></span><span 
+class="ec-lmtt-10">])</span> 
+<a 
+ id="x48-317100r705"></a>        <span id="textcolor1350"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.req.b = </span><span id="textcolor1351"><span 
+class="ec-lmtt-10">int</span></span><span 
+class="ec-lmtt-10">(sys.argv[</span><span id="textcolor1352"><span 
+class="ec-lmtt-10">2</span></span><span 
+class="ec-lmtt-10">])</span> 
+<a 
+ id="x48-317102r706"></a>        <span id="textcolor1353"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.req.c = </span><span id="textcolor1354"><span 
+class="ec-lmtt-10">int</span></span><span 
+class="ec-lmtt-10">(sys.argv[</span><span id="textcolor1355"><span 
+class="ec-lmtt-10">3</span></span><span 
+class="ec-lmtt-10">])                                       </span><span id="textcolor1356"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317104r707"></a>        <span id="textcolor1357"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.future = </span><span id="textcolor1358"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.cli.call_async(</span><span id="textcolor1359"><span 
+class="ec-lmtt-10">self</span></span><span 
+class="ec-lmtt-10">.req)</span> 
+<a 
+ id="x48-317106r708"></a> 
+<a 
+ id="x48-317108r709"></a> 
+<a 
+ id="x48-317110r710"></a><span id="textcolor1360"><span 
+class="ec-lmtt-10">def</span></span> <span id="textcolor1361"><span 
+class="ec-lmtt-10">main</span></span><span 
+class="ec-lmtt-10">(args=</span><span id="textcolor1362"><span 
+class="ec-lmtt-10">None</span></span><span 
+class="ec-lmtt-10">):</span> 
+<a 
+ id="x48-317112r711"></a>    <span 
+class="ec-lmtt-10">rclpy.init(args=args)</span> 
+<a 
+ id="x48-317114r712"></a> 
+<a 
+ id="x48-317116r713"></a>    <span 
+class="ec-lmtt-10">minimal_client = MinimalClientAsync()</span> 
+<a 
+ id="x48-317118r714"></a>    <span 
+class="ec-lmtt-10">minimal_client.send_request()</span> 
+<a 
+ id="x48-317120r715"></a> 
+<a 
+ id="x48-317122r716"></a>    <span id="textcolor1363"><span 
+class="ec-lmtt-10">while</span></span> <span 
+class="ec-lmtt-10">rclpy.ok():</span> 
+<a 
+ id="x48-317124r717"></a>        <span 
+class="ec-lmtt-10">rclpy.spin_once(minimal_client)</span> 
+<a 
+ id="x48-317126r718"></a>        <span id="textcolor1364"><span 
+class="ec-lmtt-10">if</span></span> <span 
+class="ec-lmtt-10">minimal_client.future.done():</span> 
+<a 
+ id="x48-317128r719"></a>            <span id="textcolor1365"><span 
+class="ec-lmtt-10">try</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-317130r720"></a>                <span 
+class="ec-lmtt-10">response = minimal_client.future.result()</span> 
+<a 
+ id="x48-317132r721"></a>            <span id="textcolor1366"><span 
+class="ec-lmtt-10">except</span></span> <span id="textcolor1367"><span 
+class="ec-lmtt-10">Exception</span></span> <span id="textcolor1368"><span 
+class="ec-lmtt-10">as</span></span> <span 
+class="ec-lmtt-10">e:</span> 
+<a 
+ id="x48-317134r722"></a>                <span 
+class="ec-lmtt-10">minimal_client.get_logger().info(</span> 
+<a 
+ id="x48-317136r723"></a>                    <span id="textcolor1369"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1370"><span 
+class="ec-lmtt-10">Service call failed </span></span><span id="textcolor1371"><span 
+class="ec-lmtt-10">%r</span></span><span id="textcolor1372"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> <span 
+class="ec-lmtt-10">% (e,))</span> 
+<a 
+ id="x48-317138r724"></a>            <span id="textcolor1373"><span 
+class="ec-lmtt-10">else</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-317140r725"></a>                <span 
+class="ec-lmtt-10">minimal_client.get_logger().info(</span> 
+<a 
+ id="x48-317142r726"></a>                    <span id="textcolor1374"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1375"><span 
+class="ec-lmtt-10">Result of add_three_ints: for </span></span><span id="textcolor1376"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1377"> <span 
+class="ec-lmtt-10">+ </span></span><span id="textcolor1378"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1379"> <span 
+class="ec-lmtt-10">+ </span></span><span id="textcolor1380"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1381"> <span 
+class="ec-lmtt-10">= </span></span><span id="textcolor1382"><span 
+class="ec-lmtt-10">%d</span></span><span id="textcolor1383"><span 
+class="ts1-lmtt10-">&#x0027;</span></span> <span 
+class="ec-lmtt-10">%                                </span><span id="textcolor1384"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317144r727"></a>                    <span 
+class="ec-lmtt-10">(minimal_client.req.a, minimal_client.req.b, minimal_client.req.c, response.sum))  </span><span id="textcolor1385"><italic># CHANGE</italic></span> 
+<a 
+ id="x48-317146r728"></a>            <span id="textcolor1386"><span 
+class="ec-lmtt-10">break</span></span> 
+<a 
+ id="x48-317148r729"></a> 
+<a 
+ id="x48-317150r730"></a>    <span 
+class="ec-lmtt-10">minimal_client.destroy_node()</span> 
+<a 
+ id="x48-317152r731"></a>    <span 
+class="ec-lmtt-10">rclpy.shutdown()</span> 
+<a 
+ id="x48-317154r732"></a> 
+<a 
+ id="x48-317156r733"></a> 
+<a 
+ id="x48-317158r734"></a><span id="textcolor1387"><span 
+class="ec-lmtt-10">if</span></span> <span id="textcolor1388"><span 
+class="ec-lmtt-10">__name__</span></span> <span 
+class="ec-lmtt-10">== </span><span id="textcolor1389"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span id="textcolor1390"><span 
+class="ec-lmtt-10">__main__</span></span><span id="textcolor1391"><span 
+class="ts1-lmtt10-">&#x0027;</span></span><span 
+class="ec-lmtt-10">:</span> 
+<a 
+ id="x48-317160r735"></a>    <span 
+class="ec-lmtt-10">main()</span></pre>
+</div><p>
+<!--l. 1057--><p class="noindent" >To add these features to our package we need to let <code class="verb">package.xml</code> know, which for that we need to
+write:
+<!--l. 1060--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb359"><a 
+ id="x48-317162r741"></a><span id="textcolor1392"><span 
+class="ec-lmtt-10">&#x003C;exec_depend</span></span><span id="textcolor1393"><span 
+class="ec-lmtt-10">&#x003E;</span></span><span 
+class="ec-lmtt-10">tutorial_interfaces</span><span id="textcolor1394"><span 
+class="ec-lmtt-10">&#x003C;/exec_depend&#x003E;</span></span></pre>
+</div><p>
+<!--l. 1062--><p class="noindent" >After making the above edits and saving all the changes, build the package: Then open two new
+terminals, source <span class="code-directory"><code class="verb">ros2\_ws</code></span> in each, and run:
+<!--l. 1065--><p class="noindent" ><div class="code">
+<pre class="fancyvrb" id="fancyvrb360"><a 
+ id="x48-317164r751"></a><span 
+class="ec-lmtt-10">ros2 run py_srvcli service</span></pre>
+</div><p> <div class="code">
+<pre class="fancyvrb" id="fancyvrb361"><a 
+ id="x48-317166r756"></a><span 
+class="ec-lmtt-10">ros2 run py_srvcli client </span><span id="textcolor1395"><span 
+class="ec-lmtt-10">2</span></span> <span id="textcolor1396"><span 
+class="ec-lmtt-10">3</span></span> <span id="textcolor1397"><span 
+class="ec-lmtt-10">1</span></span></pre>
+</div><p>
+                                                                                
+                                                                                
+<div class="crosslinks-bottom"><a 
+href="UsingParametersinaClass.html" ><span class="nav-next">NEXT</span></a><a 
+href="WritingaSimpleServiceandClient.html" ><span class="nav-prev">PREV</span></a><a 
+href="WritingaSimpleServiceandClient.html#tailWritingaSimpleServiceandClient.html" ><span class="nav-prev-tail">PREV-TAIL</span></a><a 
+href="CreatingCustommsgandsrvFiles.html" ><span class="nav-front">FRONT</span></a><a 
+href="ClientLibraries.html#CreatingCustommsgandsrvFiles.html" ><span class="nav-up">UP</span></a></nav><a 
+ id="tailCreatingCustommsgandsrvFiles.html"></a>   </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
+formatting. When in doubt, please consult the LectureBook. </span></div>  
+</body> 
+</html>
