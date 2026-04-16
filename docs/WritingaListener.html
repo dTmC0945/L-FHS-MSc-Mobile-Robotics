@@ -22,8 +22,7 @@
 >
 <page> 
 <nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
-href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
-WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="index.html#x2-10000">index</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
 href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
 href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
 href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
@@ -171,13 +170,13 @@ Command Line</a></span></span><span class="subsectionToc"><span class="number">7
 href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
 href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
 href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
-                                                                                
-                                                                                
 ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
 href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
 href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
 href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
 href="ADeeperLookintoNodes.html#x38-2350008.3">A
+                                                                                
+                                                                                
 Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
 href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
 href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
@@ -743,8 +742,6 @@ Now, let’s take a look at the code that is relevant to get access to frame tra
 package provides an implementation of a TransformListener to help make the task of receiving
 transforms easier.
 <!--l. 360--><p class="noindent" ><div class="code">
-                                                                                
-                                                                                
 <pre class="fancyvrb" id="fancyvrb437"><a 
  id="x57-361002r843"></a><span id="textcolor2148"><span 
 class="ec-lmtt-10">from</span></span> <span id="textcolor2149"><span 
@@ -753,6 +750,8 @@ class="ec-lmtt-10">.</span></span><span id="textcolor2151"><span
 class="ec-lmtt-10">transform_listener</span></span> <span id="textcolor2152"><span 
 class="ec-lmtt-10">import</span></span> <span 
 class="ec-lmtt-10">TransformListener</span></pre>
+                                                                                
+                                                                                
 </div><p>
 <!--l. 362--><p class="noindent" >Here, we create a TransformListener object. Once the listener is created, it starts receiving tf2
 transformations over the wire, and buffers them for up to 10 seconds.
@@ -804,8 +803,6 @@ Open the launch file called <code class="verb">turtle_tf2_demo.launch.py</code> 
 directory with your text editor, add two new nodes to the launch description, add a launch argument,
 and add the imports. The resulting file should look like:
 <!--l. 395--><p class="noindent" ><div class="code">
-                                                                                
-                                                                                
 <pre class="fancyvrb" id="fancyvrb440"><a 
  id="x57-363002r870"></a><span id="textcolor2162"><span 
 class="ec-lmtt-10">from</span></span> <span id="textcolor2163"><span 
@@ -1034,6 +1031,8 @@ class="ec-lmtt-10">),</span>
 <a 
  id="x57-363086r912"></a>    <span 
 class="ec-lmtt-10">])</span></pre>
+                                                                                
+                                                                                
 </div><p>
 <!--l. 397--><p class="noindent" >This will declare a <code class="verb">target_frame</code> launch argument, start a broadcaster for second turtle that we will
 spawn and listener that will subscribe to those transformations.
@@ -1107,7 +1106,7 @@ href="WritingaStaticBroadcaster.html#tailWritingaStaticBroadcaster.html" ><span 
 href="WritingaListener.html" ><span class="nav-front">FRONT</span></a><a 
 href="TransformLibrary.html#WritingaListener.html" ><span class="nav-up">UP</span></a></nav><a 
  id="tailWritingaListener.html"></a>  </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
-<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 15:16.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
 viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
 formatting. When in doubt, please consult the LectureBook. </span></div>  
 </body> 

@@ -15,17 +15,16 @@
  <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"> </script>  
 <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>  
 <script src="flatjs.js"> </script>  <script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/webBook/sidenote.js"> </script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/matlab.min.js"> </script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dockerfile.min.js"> </script>
-                                                                                
-                                                                                
 <!--l. 19--><p class="noindent" ><header> <div class="header"> <div class="header-left"><span class="header-lecture">M.Sc Mobile Robotics</span> 
 <span class="header-webBook">WebBook</span> </div> <div class="header-right"><span class="header-version">SS 2026</span> 
 <span class="header-chapter">Working with Files and Folders</span></div></div> </header> 
 </head><body 
 >
+                                                                                
+                                                                                
 <page> 
 <nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
-href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
-WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="index.html#x2-10000">index</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
 href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
 href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
 href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
@@ -198,8 +197,6 @@ Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.
 href="GettingStartedwithColcon.html#x45-2760009.1.6">Sourcing the Environment</a></span></span><span class="subsectionToc"><span class="number">9.1.7</span><span class="title"><a 
 href="GettingStartedwithColcon.html#x45-2770009.1.7">Creating a New Directory</a></span></span><span class="subsectionToc"><span class="number">9.1.8</span><span class="title"><a 
 href="GettingStartedwithColcon.html#x45-2780009.1.8">Cloning a
-                                                                                
-                                                                                
 Sample Repo</a></span></span><span class="subsectionToc"><span class="number">9.1.9</span><span class="title"><a 
 href="GettingStartedwithColcon.html#x45-2790009.1.9">Resolving Dependencies</a></span></span><span class="subsectionToc"><span class="number">9.1.10</span><span class="title"><a 
 href="GettingStartedwithColcon.html#x45-2800009.1.10">Building the Workspace</a></span></span><span class="subsectionToc"><span class="number">9.1.11</span><span class="title"><a 
@@ -208,6 +205,8 @@ our Overlay</a></span></span><span class="subsectionToc"><span class="number">9.
 href="GettingStartedwithColcon.html#x45-2820009.1.12">Modifying the Overlay</a></span></span><span class="subsectionToc"><span class="number">9.1.13</span><span class="title"><a 
 href="GettingStartedwithColcon.html#x45-2830009.1.13">Creating a Package</a></span></span><span class="sectionToc"><span class="number">9.2</span><span class="title"><a 
 href="WritingaSimplePublisherandSubscriber.html#x46-2860009.2">Writing a Simple
+                                                                                
+                                                                                
 Publisher and Subscriber</a></span></span><span class="subsectionToc"><span class="number">9.2.1</span><span class="title"><a 
 href="WritingaSimplePublisherandSubscriber.html#x46-2870009.2.1">Creating a ROS Packages</a></span></span><span class="subsectionToc"><span class="number">9.2.2</span><span class="title"><a 
 href="WritingaSimplePublisherandSubscriber.html#x46-2880009.2.2">Writing the Publisher
@@ -309,11 +308,11 @@ American Standard Code for Information Interchange, is a character encoding stan
 for representing a particular set of 95 (English language focused) printable and 33 control
 characters - a total of 128 code points. The set of available punctuation had significant
 impact on the syntax of computer languages and text markup. ASCII hugely influenced the
-                                                                                
-                                                                                
 design of character sets used by modern computers; for example, the first 128 code points of
 Unicode are the same as ASCII.</span></span> To get more information about the file we invoke the <code class="verb">stat</code>
 command:
+                                                                                
+                                                                                
  <div class="code">
 <pre class="fancyvrb" id="fancyvrb40"><a 
  id="x28-153014r67"></a><span 
@@ -427,14 +426,14 @@ documents residing inside of <span class="code-directory"><code class="verb">/ho
 for print working directory.
  <div class="doc-block">  <div class="command-header"><span class="command-type"><span id="bold" style="font-weight:bold;">command</span></span><span class="command-name"><code class="verb">pwd</code></span><span class="command-args"><code class="verb">-options</code></span><span class="command-doc"><span class="active-manual"> <a 
 href="https://man7.org/linux/man-pages/man1/pwd.1.html" >Manual</a></span></span></div><div class="body"><p> Prints the current working directory </p></div>  </div><p class="noindent"> 
-                                                                                
-                                                                                
 <!--l. 113--><p class="noindent" >The <code class="verb">pwd</code> shows the full path, <span class="margin-comment"><span class="ellipsis">(...)</span> 
 <span class="sidenote">This is also known as the <span id="bold" style="font-weight:bold;">absolute</span> path.</span></span> of a folder where you are
 currently working. An absolute path starts from the root of the file system, the highest level
 of the structure where files are stored. Inside of the root, the home folders for users are
 stored in the <code class="verb">/home</code> folder, and then my user’s home folder is represented by your user
 name.
+                                                                                
+                                                                                
 <!--l. 119--><p class="noindent" >Inside this folder are documents but we need to go one folder deeper to get inside the <code class="verb">Linux Tutorials</code>
 folder. Write <code class="verb">cd Linux Tutorials</code> and press <kbd>Return</kbd>, but we get an error. You can see here that Bash
 thinks that we’re trying to get into the folder called just Linux.
@@ -684,8 +683,6 @@ class="ec-lmtt-10">Books/Science/Chemistry:</span>
 <a 
  id="x28-153160r201"></a><span 
 class="ec-lmtt-10">Books/Science/Physics:</span></pre>
-                                                                                
-                                                                                
 </div><p> 
 <!--l. 163--><p class="noindent" >Now we can see what’s inside all of the folders inside <code class="verb">/Books</code>. The recursive option means
 when <code class="verb">ls</code> comes across a folder, it steps inside and looks around, listing anything inside the
@@ -693,6 +690,8 @@ folder. If it comes across another folder inside that folder, it does the same t
 inside, looks around and reports back. This is a helpful way of exploring a whole structure of
 folders.
 
+                                                                                
+                                                                                
 <!--l. 169--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.6.1.1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">6.1.1</span> <span class="title"><a 
  id="x28-1540006.1.1"></a>A Detailed Look in ls Command</span></h4></div>
 <!--l. 171--><p class="noindent" >As the <code class="verb">ls</code> command is one of the more useful commands, it is worth looking into it in a bit more detail.
@@ -774,15 +773,14 @@ column on the left shows whether an item is:
 <ul class="itemize1">     
 <li class="itemize">
 <!--l. 213--><p class="noindent" >A folder or a directory which will be shown with a <code class="verb">d</code>,
-                                                                                
-                                                                                
-     
-</li>
-<li class="itemize">     
+</li>     
+<li class="itemize">
 <!--l. 214--><p class="noindent" >A link which will be shown with a <code class="verb">l</code>,
 </li>     
 <li class="itemize">
 <!--l. 215--><p class="noindent" >A file, which is a dash (<code class="verb">-</code>). This means that the attribute is missing or offset.</li></ul>
+                                                                                
+                                                                                
 <!--l. 218--><p class="noindent" >If the output shows colours, folders will generally be blue text. Links will generally be light blue text
 and files will generally be grey or they’ll be black or white depending on the background colour of your
 terminal.
@@ -860,8 +858,6 @@ class="ec-lmtt-10">mkdir Folder</span></pre>
 <!--l. 258--><p class="noindent" >If we observe the file content, we can see the folder has appeared. We can also see the content of this
 directory with the command <code class="verb">ls -l</code>. There is the <span class="code-directory"><code class="verb">Folder</code></span> we have just created.
  <div class="code">
-                                                                                
-                                                                                
 <pre class="fancyvrb" id="fancyvrb57"><a 
  id="x28-155004r258"></a><span 
 class="ec-lmtt-10">ls</span> <span 
@@ -903,6 +899,8 @@ class="ec-lmtt-10">r</span><span
 class="ec-lmtt-10">-</span><span 
 class="ec-lmtt-10">-</span> <span 
 class="ec-lmtt-10">1 ubuntu ubuntu  592 Nov 18  2020 Poem.txt</span></pre>
+                                                                                
+                                                                                
 </div><p> 
 <!--l. 267--><p class="noindent" >If we put a name after <code class="verb">mkdir</code>, it assumes we want to create a folder inside of the current working
 directory. In this case, this would be <span class="code-directory"><code class="verb">Linux Tutorials</code></span>. We can also specify a path outside the current
@@ -963,12 +961,12 @@ might take more time with mouse movements. <span class="margin-comment"><span cl
 <span class="sidenote">Which the author of this LectureBook also
 agrees.</span></span>
 
-                                                                                
-                                                                                
 <a 
  id="subsubsection*.67"></a>
 <h5 class="subsubsectionHead"><a 
  id="x28-157000"></a>Copying Files</h5>
+                                                                                
+                                                                                
 <!--l. 312--><p class="noindent" >In light of this, the first command for you to learn using in <span class="acronym"><span class="acronym-short"><a 
 href="#glo:cli" class="glossary" >CLI</a></span><span class="acronym-detail"><span class="acronym-long"><a 
 href="#glo:cli" class="glossary" >Command-Line Interface</a></span><span class="acronym-desc"><a 
@@ -1711,7 +1709,7 @@ href="PermissionsandLinks.html" ><span class="nav-next">NEXT</span></a><span cla
 href="FilesandFolders.html" ><span class="nav-front">FRONT</span></a><a 
 href="WorkingwithFilesandFolders.html#FilesandFolders.html" ><span class="nav-up">UP</span></a></nav><a 
  id="tailFilesandFolders.html"></a>    </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
-<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 15:16.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The
 website you are viewing is auto-generated using ParSnip and therefore subject to slight
 errors in typography and formatting. When in doubt, please consult the LectureBook. </span></div>
  

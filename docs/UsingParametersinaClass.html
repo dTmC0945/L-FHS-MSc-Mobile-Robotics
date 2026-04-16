@@ -22,8 +22,7 @@
 >
 <page> 
 <nav class="wide"><div class="toc"><span class="chapterToc"><span class="number">0</span><span class="title"><a 
-href="WelcometoWebBook.html#x2-10000">Welcome                                                                                  to
-WebBook</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
+href="index.html#x2-10000">index</a></span></span><span class="chapterToc"><span class="number">1</span><span class="title"><a 
 href="Locomotion.html#x3-20001">Locomotion</a></span></span><span class="sectionToc"><span class="number">1.1</span><span class="title"><a 
 href="Introduction.html#x4-30001.1">Introduction</a></span></span><span class="subsectionToc"><span class="number">1.1.1</span><span class="title"><a 
 href="Introduction.html#x4-40001.1.1">Key Issues for Locomotion</a></span></span><span class="sectionToc"><span class="number">1.2</span><span class="title"><a 
@@ -171,13 +170,13 @@ Command Line</a></span></span><span class="subsectionToc"><span class="number">7
 href="BuildingBlocks.html#x33-2170007.2.9">Launch Files</a></span></span><span class="sectionToc"><span class="number">7.3</span><span class="title"><a 
 href="AdvancedConcepts.html#x34-2180007.3">Advanced Concepts</a></span></span><span class="subsectionToc"><span class="number">7.3.1</span><span class="title"><a 
 href="AdvancedConcepts.html#x34-2190007.3.1">ROS DOMAIN
-                                                                                
-                                                                                
 ID</a></span></span><span class="chapterToc"><span class="number">8</span><span class="title"><a 
 href="CommandLineTools.html#x35-2210008">Command Line Tools</a></span></span><span class="sectionToc"><span class="number">8.1</span><span class="title"><a 
 href="SettingtheEnvironment.html#x36-2220008.1">Setting the Environment</a></span></span><span class="sectionToc"><span class="number">8.2</span><span class="title"><a 
 href="TurtlesandGraphs.html#x37-2270008.2">Turtles and Graphs</a></span></span><span class="sectionToc"><span class="number">8.3</span><span class="title"><a 
 href="ADeeperLookintoNodes.html#x38-2350008.3">A
+                                                                                
+                                                                                
 Deeper Look into Nodes</a></span></span><span class="sectionToc"><span class="number">8.4</span><span class="title"><a 
 href="WorkingwithTopics.html#x39-2400008.4">Working with Topics</a></span></span><span class="sectionToc"><span class="number">8.5</span><span class="title"><a 
 href="WorkingwithServices.html#x40-2460008.5">Working with Services</a></span></span><span class="sectionToc"><span class="number">8.6</span><span class="title"><a 
@@ -302,10 +301,10 @@ dependency lines to <code class="verb">package.xml</code>.
  id="subsubsection*.164"></a>
 <h5 class="subsubsectionHead"><a 
  id="x49-320000"></a>Updating the Package Manifesto</h5>
-                                                                                
-                                                                                
 <!--l. 1090--><p class="noindent" >Because we used the <code class="verb">--dependencies</code> option during package creation, we don’t have to manually add
 dependencies to <code class="verb">package.xml</code>. As always, though, make sure to add the description, maintainer email
+                                                                                
+                                                                                
 and name, and license information to <code class="verb">package.xml</code>.
 <!--l. 1094--><p class="noindent" ><div class="code">
 <pre class="fancyvrb" id="fancyvrb363"><a 
@@ -617,8 +616,6 @@ href="#glo:ros" class="glossary" >Robot Operating
 System 2</a></span></span></span> is initialized, an instance of the MinimalParam class is constructed, and rclpy.spin starts
 processing data from the node.
 <!--l. 1130--><p class="noindent" ><div class="code">
-                                                                                
-                                                                                
 <pre class="fancyvrb" id="fancyvrb367"><a 
  id="x49-322040r1100"></a><span id="textcolor1506"><span 
 class="ec-lmtt-10">def</span></span> <span id="textcolor1507"><span 
@@ -649,6 +646,8 @@ class="ec-lmtt-10">:</span>
 class="ec-lmtt-10">main()</span></pre>
 </div><p>
 
+                                                                                
+                                                                                
 <a 
  id="subsubsection*.166"></a>
 <h5 class="subsubsectionHead"><a 
@@ -824,8 +823,6 @@ class="ec-lmtt-10">-</span><span
 class="ec-lmtt-10">packages</span><span 
 class="ec-lmtt-10">-</span><span 
 class="ec-lmtt-10">select python_parameters</span></pre>
-                                                                                
-                                                                                
 </div><p>
 <!--l. 1166--><p class="noindent" >Open a new terminal, navigate to <span class="code-directory"><code class="verb">ros2\_ws</code></span>, and source the setup files:
 <!--l. 1168--><p class="noindent" ><div class="code">
@@ -833,6 +830,8 @@ class="ec-lmtt-10">select python_parameters</span></pre>
  id="x49-325006r1164"></a><span id="textcolor1561"><span 
 class="ec-lmtt-10">source</span></span> <span 
 class="ec-lmtt-10">install/setup.bash</span></pre>
+                                                                                
+                                                                                
 </div><p>
 <!--l. 1170--><p class="noindent" >Now run the node. The terminal should return Hello world! every second:
  <div class="code">
@@ -876,14 +875,14 @@ should see the output change to <code class="verb">[INFO] [minimal_param_node]: 
 <!--l. 1199--><p class="noindent" >Since the node afterwards set the parameter back to world, further outputs show: <div class="quote">
 <code class="verb">[INFO] [minimal_param_node]: Hello world!</code> </div><p>
 
-                                                                                
-                                                                                
 <!--l. 1205--><p class="noindent" ><div class="subsection-header"><h4><a class="pdf-icon" href="FHSMobileRoboticsLectureBook.pdf#subsection.9.5.4"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"></path><path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"></path></svg></a><span class="number">9.5.4</span> <span class="title"><a 
  id="x49-3270009.5.4"></a>Changing using the Launch File</span></h4></div>
 <!--l. 1207--><p class="noindent" >We can also set parameters in a launch file, but first we will need to add a launch directory. Inside the
 <code class="verb">ros2_ws/src/python_parameters/</code> directory, create a new directory called launch. In there, create a
 new file called <code class="verb">python_parameters_launch.py</code>
 <!--l. 1211--><p class="noindent" ><div class="code">
+                                                                                
+                                                                                
 <pre class="fancyvrb" id="fancyvrb379"><a 
  id="x49-327002r1199"></a><span id="textcolor1563"><span 
 class="ec-lmtt-10">from</span></span> <span id="textcolor1564"><span 
@@ -1071,7 +1070,7 @@ href="CreatingCustommsgandsrvFiles.html#tailCreatingCustommsgandsrvFiles.html" >
 href="UsingParametersinaClass.html" ><span class="nav-front">FRONT</span></a><a 
 href="ClientLibraries.html#UsingParametersinaClass.html" ><span class="nav-up">UP</span></a></nav><a 
  id="tailUsingParametersinaClass.html"></a>  </div> <div class="footer"> <div class="footer-left"><span class="footer-lecture">D. T. McGuiness, PhD</span> 
-<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 14:59.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
+<span class="footer-webBook"><span id="bold" style="font-weight:bold;">Last Updated:</span> 16.4.2026, at 15:16.</span> </div> </div> </div> <div class="author-notes"><span class="note">Authors Note </span><span class="text">The website you are
 viewing is auto-generated using ParSnip and therefore subject to slight errors in typography and
 formatting. When in doubt, please consult the LectureBook. </span></div>  
 </body> 
